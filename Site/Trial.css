@@ -1,0 +1,44 @@
+*
+{
+	
+}
+
+head
+{
+
+}
+
+.searchbox
+{
+position:absolute;
+left:25%;
+top:20%;
+align-content: center;
+width: 50%;
+
+}
+
+.searchbutton
+{
+text-align:center;
+width:15%;
+}
+
+.infobox1
+{
+	position:absolute;
+	top:50%;
+	left:22.5%;
+}
+.infobox2
+{
+	position:absolute;
+	top:50%;
+	left:42.5%;
+}
+.infobox3
+{
+	position:absolute;
+	top:50%;
+	left:62.5%;
+}
