@@ -10,6 +10,7 @@ if(!$conn){
 	}
 if($conn){
 echo "connected";
+phpinfo();
 }
 ?>
 <html>
