@@ -1,0 +1,15 @@
+//SQL COMMANDS 
+
+//query procedcode table to find relevant codes based on description, $description is the php syntax
+//for the variable
+select * from 2019indteam2db.procedcode
+where description like '%($description)%';
+
+//sort list by price_info
+select * from 2019indteam2db.financial_info_2017
+where code = $code
+order by averageTotalPayments asc;
+
+//price range
+select * from 2019indteam2db.financial_info_2017
+where code = $code && averageTotalPayments between $value1 and $value2;
