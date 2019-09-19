@@ -10,7 +10,7 @@ if(!$conn){
 	}
 if($conn){
 echo "connected <br>";
-$description = "OTHER";
+$description = "heart";
 $sql = ("SELECT * FROM 2019indteam2db.procedcode WHERE description LIKE '%".$description."%';");
 echo $sql;
 $result = mysqli_query($conn,$sql);
