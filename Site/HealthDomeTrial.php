@@ -1,26 +1,35 @@
 <?php
+//set up connection to DB
 $servername = "silva.computing.dundee.ac.uk";
 $username = "2019indteam2";
 $password = "9364.ind2.4639";
 
 $conn = mysqli_connect($servername, $username, $password);
-
+//outputs if you are connected or not, not massively important
 if(!$conn){
 	die("Connection failed: " . mysqli_connect_error());
 	}
 if($conn){
-echo "connected";
-$description = "heart"
- $sql = "select * from 2019indteam2db.procedcode where like '%($description)%';"
- $result = mysqli_query($conn,$sql);
- if(mysql_num_rows($result)>0){
-	 while($row = mysqli_fetch_assoc($result)){
+echo "connected <br>";
+
+//query stuff
+//hardcoded input, this will need to change so user inoput is taken
+$description = "heart";
+//var storing the query
+$sql = ("SELECT * FROM 2019indteam2db.procedcode WHERE description LIKE '%".$description."%';");
+//$result stores the result of the query, you can convert this to use in javascript, see david for this
+$result = mysqli_query($conn,$sql);
+//this if basically checks if theres a result and prints them, purely for testing purposses
+ if(mysqli_num_rows($result)>0){
+	 while($row = mysqli_fetch_assoc($result))
+	 {
 		 echo "Code" .$row["code"]." - Description: " . $row["description"]."<br>";
 	 }
-	 else{
-		 echo "0 Results"
-	 }
- }
+ }else
+ {
+	echo "0 Results";
+}
+//closes connection to the database
  mysqli_close($conn);
 }
 ?>
