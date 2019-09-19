@@ -11,7 +11,8 @@ if(!$conn){
 if($conn){
 echo "connected <br>";
 $description = "OTHER";
-$sql = ("SELECT * FROM 2019indteam2db.procedcode WHERE description LIKE '%(".$description.")%';");
+$sql = ("SELECT * FROM 2019indteam2db.procedcode WHERE description LIKE '%".$description."%';");
+echo $sql;
 $result = mysqli_query($conn,$sql);
  if(mysqli_num_rows($result)>0){
 	 while($row = mysqli_fetch_assoc($result))
