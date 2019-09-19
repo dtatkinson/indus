@@ -11,14 +11,14 @@ if(!$conn){
 if($conn){
 echo "connected";
 $description = "heart"
-$sql = "select * from 2019indteam2db.procedcode where like '%($description)%';";
+$sql = "select * from 2019indteam2db.procedcode where like '%(".$description.")%';";
 $result = mysqli_query($conn,$sql);
  if(mysql_num_rows($result)>0){
 	 while($row = mysqli_fetch_assoc($result)){
 		 echo "Code" .$row["code"]." - Description: " . $row["description"]."<br>";
 	 }
 	 else{
-		 echo "0 Results"
+		 echo "0 Results";
 	 }
  }
  mysqli_close($conn);
