@@ -9,18 +9,19 @@ if(!$conn){
 	die("Connection failed: " . mysqli_connect_error());
 	}
 if($conn){
-echo "connected";
-$description = "heart"
-$sql = "select * from 2019indteam2db.procedcode where like '%(".$description.")%';";
+echo "connected <br>";
+$description = "OTHER";
+$sql = ("SELECT * FROM 2019indteam2db.procedcode WHERE description LIKE '%(".$description.")%';");
 $result = mysqli_query($conn,$sql);
- if(mysql_num_rows($result)>0){
-	 while($row = mysqli_fetch_assoc($result)){
+ if(mysqli_num_rows($result)>0){
+	 while($row = mysqli_fetch_assoc($result))
+	 {
 		 echo "Code" .$row["code"]." - Description: " . $row["description"]."<br>";
 	 }
-	 else{
-		 echo "0 Results";
-	 }
- }
+ }else
+ {
+	echo "0 Results";
+}
  mysqli_close($conn);
 }
 ?>
