@@ -18,7 +18,7 @@ $result = mysqli_query($conn,$sql);
 		 echo "Code" .$row["code"]." - Description: " . $row["description"]."<br>";
 	 }
 	 else{
-		 echo "0 Results"
+		 echo "0 Results";
 	 }
  }
  mysqli_close($conn);
