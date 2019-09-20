@@ -1,3 +1,39 @@
+
+<?php
+//set up connection to DB
+$servername = "silva.computing.dundee.ac.uk";
+$username = "2019indteam2";
+$password = "9364.ind2.4639";
+
+$conn = mysqli_connect($servername, $username, $password);
+//outputs if you are connected or not, not massively important
+if(!$conn){
+	die("Connection failed: " . mysqli_connect_error());
+	}
+if($conn){
+echo "connected <br>";
+
+//query stuff
+//hardcoded input, this will need to change so user inoput is taken
+$description = "other";
+//var storing the query
+$sql = ("SELECT * FROM 2019indteam2db.codes_info WHERE description LIKE '%".$description."%';");
+//$result stores the result of the query, you can convert this to use in javascript, see david for this
+$result = mysqli_query($conn,$sql);
+$results = [];
+while($row = mysqli_fetch_array($result))
+{
+ //   echo $row["code"];
+    $results[] = $row;
+   
+}
+echo $results[0][0];
+echo $results[0][1];
+//echo "<script type='text\javascript'> var locations = ".$jsarray."; <script>";
+//closes connection to the database
+ //mysqli_close($conn);
+}
+?>
 <html>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 <link href="Trial.css" rel="stylesheet" type="text/css"> 
@@ -6,13 +42,8 @@
           
             <script type="text/javascript"> 
             var i;
-            var locations = [
-            ['Bondi Beach', -33.890542, 151.274856, 4,'Price = 100','bondibeach'],
-            ['Coogee Beach', -33.923036, 151.259052, 5,'Price = 10220','coogeebeach'],
-            ['Cronulla Beach', -34.028249, 151.157507, 3,'Price = 1500','cronullabeach'],
-            ['Manly Beach', -33.80010128657071, 151.28747820854187, 2,'Price = 1600','manlybeach'],
-            ['Maroubra Beach', -33.950198, 151.259302, 1,'Price = 16300','maroubrabeach']
-            ];
+            var locations = <?php echo(json_encode($results));?>
+            
             </script>
 <body>
 
@@ -57,8 +88,8 @@
         {
             document.write("<div class='card'>");
                     document.write("<div class='card-body'>");
-                        document.write( "<h1>" + locations[i][0] + "</h1>");                    
-                        document.write(locations[i][4] + "<br>");
+                        document.write( "<h1>" + locations[i]["code"] + "</h1>");                    
+                        document.write(locations[i]["description"] + "<br>");
                         document.write("<br>");
                       
                     document.write("</div>");
