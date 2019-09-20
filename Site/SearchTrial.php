@@ -33,7 +33,7 @@ FROM 2019indteam2db.financial_info_2017 x
 inner join 2019indteam2db.hospital_info y
 ON x.providerId = y.providerId
 and x.code = ".mysqli_fetch_array($result_code)["code"]."
-and averageTotalPayments <10000
+and averageTotalPayments <".$price."
 order by averageTotalPayments asc
 LIMIT 10";
 

@@ -57,14 +57,8 @@
 
 
 							<div class="col-auto my-1">
-							<label for="inlineFormCustomSelect">Price Range</label>
-							<select class="custom-select mr-sm-2" name="price_input" id="inlineFormCustomSelect">
-									<option selected>Price Range</option>
-									<option value="1">>$9000</option>
-									<option value="2">>$15000</option>
-									<option value="3">>$30000</option>
-									<option value="4">$30000+</option>
-								</select>
+							<label for="inlineFormCustomSelect">Max Price</label>
+							<input class="custom-select mr-sm-2" type="number" name="price_input" id="inlineFormCustomSelect">
 							</div>
 							<div class="col-auto my-1">
 							<div class="form-check">
