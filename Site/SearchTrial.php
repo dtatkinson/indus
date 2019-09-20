@@ -13,11 +13,18 @@ if(!$conn){
 if($conn){
 echo "connected <br>";
 
+$injury = $_POST["injury_input"];
+$location = $_POST["location_input"];
+$range = $_POST["range_input"];
+$price = $_POST["price_input"];
+$medicare = $_POST["medicare_input"];
+
 //query stuff
 //hardcoded input, this will need to change so user inoput is taken
 $description = "other";
 //var storing the query
-$sql = ("SELECT * FROM 2019indteam2db.codes_info WHERE description LIKE '%".$description."%';");
+$sql = ("SELECT * FROM 2019indteam2db.codes_info WHERE description LIKE '%".$injury."%';");
+
 //$result stores the result of the query, you can convert this to use in javascript, see david for this
 $result = mysqli_query($conn,$sql);
 $results = [];
@@ -25,7 +32,7 @@ while($row = mysqli_fetch_array($result))
 {
  //   echo $row["code"];
     $results[] = $row;
-   
+
 }
 echo $results[0][0];
 echo $results[0][1];
@@ -36,18 +43,18 @@ echo $results[0][1];
 ?>
 <html>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-<link href="Trial.css" rel="stylesheet" type="text/css"> 
+<link href="Trial.css" rel="stylesheet" type="text/css">
 <script src="https://maps.googleapis.com/maps/api/js?key="
             type="text/javascript"></script>
-          
-            <script type="text/javascript"> 
+
+            <script type="text/javascript">
             var i;
             var locations = <?php echo(json_encode($results));?>
-            
+
             </script>
 <body>
 
-<head>			 
+<head>
   <nav class="navbar navbar-expand navbar-light bg-light">
 	<a class="navbar-brand" href="#">
 		<img src="Images/healthdomeman.jpg" width="30" height="30" class="d-inline-block align-top" alt="">
@@ -75,7 +82,7 @@ echo $results[0][1];
   		</div>
 		</a>
 	</nav>
-	
+
 </head>
 
 <body>
@@ -83,27 +90,27 @@ echo $results[0][1];
 
     <div class = "searchresult">
         <script type="text/javascript">
-       
+
  for(i = 0;i<locations.length;i++)
         {
             document.write("<div class='card'>");
                     document.write("<div class='card-body'>");
-                        document.write( "<h1>" + locations[i]["code"] + "</h1>");                    
+                        document.write( "<h1>" + locations[i]["code"] + "</h1>");
                         document.write(locations[i]["description"] + "<br>");
                         document.write("<br>");
-                      
+
                     document.write("</div>");
             document.write("</div>");
         }
         </script>
     </div>
-        
 
-  <div id="map"> 
+
+  <div id="map">
 
 <script type="text/javascript">
 
-        var map = new google.maps.Map(document.getElementById('map'), 
+        var map = new google.maps.Map(document.getElementById('map'),
         {
             zoom: 10,
             center: new google.maps.LatLng(-33.92, 151.25),
@@ -114,7 +121,7 @@ echo $results[0][1];
 
         var marker, i;
 
-        for (i = 0; i < locations.length; i++) 
+        for (i = 0; i < locations.length; i++)
         {
             marker = new google.maps.Marker({
                 position: new google.maps.LatLng(locations[i][1], locations[i][2]),
