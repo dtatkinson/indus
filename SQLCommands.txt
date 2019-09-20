@@ -14,4 +14,13 @@ order by averageTotalPayments asc;
 select * from 2019indteam2db.financial_info_2017
 where code = $code && averageTotalPayments between $value1 and $value2;
 
+//big query boi
+SELECT x.code,x.providerId,x.averageTotalPayments,latitude,longitude
+FROM 2019indteam2db.financial_info_2017 x
+inner join 2019indteam2db.hospital_info y
+ON x.providerId = y.providerId
+and x.code = 165
+and averageTotalPayments <12000
+order by averageTotalPayments asc
+
 
