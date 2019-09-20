@@ -23,30 +23,25 @@ $medicare = $_POST["medicare_input"];
 //hardcoded input, this will need to change so user inoput is taken
 $description = "other";
 //var storing the query
-/*$sql = "SELECT * FROM 2019indteam2db.codes_info WHERE description LIKE '%".$injury."%';";
+$sql_code = "SELECT * FROM 2019indteam2db.codes_info WHERE description LIKE '%".$injury."%';";
 
 //$result stores the result of the query, you can convert this to use in javascript, see david for this
-$result = mysqli_query($conn,$sql);
-$results = [];
-while($row = mysqli_fetch_array($result))
-{
-		$results[] = $row;
-}*/
+$result_code = mysqli_query($conn,$sql_code);
 
 $sql_coord = "SELECT x.code,x.providerId,x.averageTotalPayments,providerName,latitude,longitude
 FROM 2019indteam2db.financial_info_2017 x
 inner join 2019indteam2db.hospital_info y
 ON x.providerId = y.providerId
-and x.code = 165
-and averageTotalPayments <12000
+and x.code = ".mysqli_fetch_array($result_code)["code"]."
+and averageTotalPayments <10000
 order by averageTotalPayments asc
-";
+LIMIT 10";
 
-$result = mysqli_query($conn,$sql_coord);
-$results = [];
-while($row = mysqli_fetch_array($result))
+$result_coord = mysqli_query($conn,$sql_coord);
+$results_coord = [];
+while($row = mysqli_fetch_array($result_coord))
 {
-		$results[] = $row;
+		$results_coord[] = $row;
 }
 //echo "<script type='text\javascript'> var locations = ".$jsarray."; <script>";
 //closes connection to the database
@@ -61,7 +56,7 @@ while($row = mysqli_fetch_array($result))
 
             <script type="text/javascript">
             var i;
-            var locations = <?php echo(json_encode($results));?>
+            var locations = <?php echo(json_encode($results_coord));?>
 
             </script>
 <body>
