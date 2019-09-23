@@ -4,6 +4,9 @@ $servername = "silva.computing.dundee.ac.uk";
 $username = "2019indteam2";
 $password = "9364.ind2.4639";
 
+$DEFAULT_RANGE = 600000;
+$DEFAUT_PRICE = 9999999;
+
 $conn = mysqli_connect($servername, $username, $password);
 //outputs if you are connected or not, not massively important
 if(!$conn){
@@ -16,9 +19,24 @@ if($conn){
 //re-add range and medicare after client meeting
 $injury = $_POST["injury_input"];
 $location = $_POST["location_input"];
-$range = $_POST["range_input"];
-$price = $_POST["price_input"];
-//$medicare = $_POST["medicare_input"];
+
+$lat = $_POST["lat_input"];
+$long = $_POST["long_input"];
+
+$lat = 36.1278915;
+$long = -86.6997864;
+
+if($_POST["range_input"]!=null)
+	$range = $_POST["range_input"];
+else
+	$range = $DEFAULT_RANGE;
+
+if($_POST["price_input"]!=null)
+	$price = $_POST["price_input"];
+else
+	$price = $DEFAUT_PRICE;
+
+$medicare = $_POST["medicare_input"];
 
 //query stuff
 //hardcoded input, this will need to change so user inoput is taken
@@ -36,7 +54,8 @@ ON x.providerId = y.providerId
 and x.code = ".mysqli_fetch_array($result_code)["code"]."
 and averageTotalPayments <".$price."
 order by averageTotalPayments asc
-LIMIT 10";
+limit 10;
+";
 
 $result_coord = mysqli_query($conn,$sql_coord);
 $results_coord = [];
@@ -52,7 +71,7 @@ while($row = mysqli_fetch_array($result_coord))
 <html>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 <link href="Trial.css" rel="stylesheet" type="text/css">
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAWOLJZDit5LJs6RhOe2fjY3hJUKnqJjvs"
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAWOLJZDit5LJs6RhOe2fjY3hJUKnqJjvs&libraries=geometry"
             type="text/javascript"></script>
 
             <script type="text/javascript">
@@ -62,7 +81,6 @@ while($row = mysqli_fetch_array($result_coord))
             var locations = <?php echo(json_encode($results_coord));?>
 
             </script>
-<body>
 
 <head>
   <nav class="navbar navbar-expand navbar-light bg-light">
@@ -100,20 +118,18 @@ while($row = mysqli_fetch_array($result_coord))
 
     <div class = "searchresult">
         <script type="text/javascript">
-var test = {0:0,1:1}
- for(let i = 0;i<locations.length;i++)
-        {
-x=i;
-            document.write("<div class='card'>");
-                    document.write("<div class='card-body'>");
-                        document.write( "<h1>" + locations[i]["providerName"] + "</h1>");
-                        document.write("$" + locations[i]["averageTotalPayments"] + "<br>");
-                        document.write("<br>");
-			document.write("<a href='#' value='i.value' onclick='show("+i+")'>View</a>");
-                    document.write("</div>");
-            document.write("</div>");
-		
-        }
+					for(let i = 0;i<locations.length;i++)
+					{
+						x=i;
+						document.write("<div class='card'>");
+						document.write("<div class='card-body'>");
+						document.write( "<h1>" + locations[i]["providerName"] + "</h1>");
+						document.write("$" + locations[i]["averageTotalPayments"] + "<br>");
+						document.write("<br>");
+						document.write("<a href='#' value='i.value' onclick='show("+i+")'>View</a>");
+						document.write("</div>");
+						document.write("</div>");
+					}
         </script>
 
     </div>
@@ -130,24 +146,38 @@ x=i;
             mapTypeId: google.maps.MapTypeId.ROADMAP
         });
 
+				var cityCircle = new google.maps.Circle({
+							 strokeColor: '#FF0000',
+							 strokeOpacity: 0.8,
+							 strokeWeight: 1,
+							 fillColor: '#FF0000',
+							 fillOpacity: 0.005,
+							 map: map,
+							 center: {lat:<?php echo($lat);?>,lng:<?php echo($long);?>},
+							 radius: <?php echo($range);?>
+					 });
+
         var infowindow = new google.maps.InfoWindow();
 
         for (var i = 0; i < locations.length; i++)
         {
-            var marker = new google.maps.Marker({
-                position: new google.maps.LatLng(locations[i]["latitude"], locations[i]["longitude"]),
-                map: map,
-                label: "H",
-            });
+					var center_distance = google.maps.geometry.spherical.computeDistanceBetween(cityCircle.center, new google.maps.LatLng(locations[i]["latitude"], locations[i]["longitude"]));
+					if(center_distance < <?php echo($range);?>){
+						var marker = new google.maps.Marker({
+							position: new google.maps.LatLng(locations[i]["latitude"], locations[i]["longitude"]),
+							map: map,
+							label: "H",
+						});
 
-            google.maps.event.addListener(marker, 'click', (function (marker, i) {
-                return function () {
-                    infowindow.setContent("<p>" + locations[i]["providerName"] + "<br><a href=" + locations[i][5]+" > More Info</a > ");
-                    //alert(locations[i][4])
-                    infowindow.open(map, marker);
-                }
-            })(marker, i));
-		markers.push(marker);
+						google.maps.event.addListener(marker, 'click', (function (marker, i) {
+							return function () {
+								infowindow.setContent("<p>" + locations[i]["providerName"] + "<br><a href=" + locations[i][5]+" > More Info</a > ");
+								//alert(locations[i][4])
+								infowindow.open(map, marker);
+							}
+						})(marker, i));
+						markers.push(marker);
+					}
         }
 
   	function show(id){
