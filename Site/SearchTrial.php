@@ -4,9 +4,6 @@ $servername = "silva.computing.dundee.ac.uk";
 $username = "2019indteam2";
 $password = "9364.ind2.4639";
 
-$DEFAULT_RANGE = 400000;
-$DEFAUT_PRICE = 9999999;
-
 $conn = mysqli_connect($servername, $username, $password);
 //outputs if you are connected or not, not massively important
 if(!$conn){
@@ -16,20 +13,12 @@ if($conn){
 //echo "connected <br>";
 
 //Get user input from the search page
+//re-add range and medicare after client meeting
 $injury = $_POST["injury_input"];
 $location = $_POST["location_input"];
-
-if($_POST["range_input"]!=null)
-	$price = $_POST["range_input"];
-else
-	$price = $DEFAUT_PRICE;
-
-if($_POST["price_input"]!=null)
-	$price = $_POST["price_input"];
-else
-	$price = $DEFAUT_PRICE;
-
-$medicare = $_POST["medicare_input"];
+$range = $_POST["range_input"];
+$price = $_POST["price_input"];
+//$medicare = $_POST["medicare_input"];
 
 //query stuff
 //hardcoded input, this will need to change so user inoput is taken
@@ -47,8 +36,7 @@ ON x.providerId = y.providerId
 and x.code = ".mysqli_fetch_array($result_code)["code"]."
 and averageTotalPayments <".$price."
 order by averageTotalPayments asc
-limit 10;
-";
+LIMIT 10";
 
 $result_coord = mysqli_query($conn,$sql_coord);
 $results_coord = [];
@@ -68,7 +56,9 @@ while($row = mysqli_fetch_array($result_coord))
             type="text/javascript"></script>
 
             <script type="text/javascript">
+	    var markers = [];
             var i;
+	    var x;
             var locations = <?php echo(json_encode($results_coord));?>
 
             </script>
@@ -110,19 +100,22 @@ while($row = mysqli_fetch_array($result_coord))
 
     <div class = "searchresult">
         <script type="text/javascript">
-
- for(i = 0;i<locations.length;i++)
+var test = {0:0,1:1}
+ for(let i = 0;i<locations.length;i++)
         {
+x=i;
             document.write("<div class='card'>");
                     document.write("<div class='card-body'>");
                         document.write( "<h1>" + locations[i]["providerName"] + "</h1>");
                         document.write("$" + locations[i]["averageTotalPayments"] + "<br>");
                         document.write("<br>");
-
+			document.write("<a href='#' value='i.value' onclick='show("+i+")'>View</a>");
                     document.write("</div>");
             document.write("</div>");
+		
         }
         </script>
+
     </div>
 
 
@@ -132,8 +125,8 @@ while($row = mysqli_fetch_array($result_coord))
 
         var map = new google.maps.Map(document.getElementById('map'),
         {
-            zoom: 1,
-            center: new google.maps.LatLng(-33.92, 151.25),
+            zoom: 4,
+            center: new google.maps.LatLng(30.0902, -85.7129),
             mapTypeId: google.maps.MapTypeId.ROADMAP
         });
 
@@ -154,6 +147,11 @@ while($row = mysqli_fetch_array($result_coord))
                     infowindow.open(map, marker);
                 }
             })(marker, i));
+		markers.push(marker);
+        }
+
+  	function show(id){
+            google.maps.event.trigger(markers[id], 'click');
         }
     	</script>
     </div>
