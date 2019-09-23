@@ -4,6 +4,9 @@ $servername = "silva.computing.dundee.ac.uk";
 $username = "2019indteam2";
 $password = "9364.ind2.4639";
 
+$DEFAULT_RANGE = 400000;
+$DEFAUT_PRICE = 9999999;
+
 $conn = mysqli_connect($servername, $username, $password);
 //outputs if you are connected or not, not massively important
 if(!$conn){
@@ -15,8 +18,17 @@ if($conn){
 //Get user input from the search page
 $injury = $_POST["injury_input"];
 $location = $_POST["location_input"];
-$range = $_POST["range_input"];
-$price = $_POST["price_input"];
+
+if($_POST["range_input"]!=null)
+	$price = $_POST["range_input"];
+else
+	$price = $DEFAUT_PRICE;
+
+if($_POST["price_input"]!=null)
+	$price = $_POST["price_input"];
+else
+	$price = $DEFAUT_PRICE;
+
 $medicare = $_POST["medicare_input"];
 
 //query stuff
@@ -35,7 +47,8 @@ ON x.providerId = y.providerId
 and x.code = ".mysqli_fetch_array($result_code)["code"]."
 and averageTotalPayments <".$price."
 order by averageTotalPayments asc
-LIMIT 10";
+limit 10;
+";
 
 $result_coord = mysqli_query($conn,$sql_coord);
 $results_coord = [];
