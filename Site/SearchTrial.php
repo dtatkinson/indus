@@ -20,23 +20,26 @@ if($conn){
 $injury = $_POST["injury_input"];
 $location = $_POST["location_input"];
 
+/*
 $lat = $_POST["lat_input"];
 $long = $_POST["long_input"];
+*/
 
 $lat = 36.1278915;
 $long = -86.6997864;
 
-if($_POST["range_input"]!=null)
-	$range = $_POST["range_input"];
+if(!empty($_POST["range_input"]))
+	$range = (int)$_POST["range_input"];
 else
 	$range = $DEFAULT_RANGE;
 
-if($_POST["price_input"]!=null)
+if(!empty($_POST["price_input"]))
 	$price = $_POST["price_input"];
 else
 	$price = $DEFAUT_PRICE;
 
-$medicare = $_POST["medicare_input"];
+if(!empty($_POST["medicare_input"]))
+    $medicare = $_POST["medicare_input"];
 
 //query stuff
 //hardcoded input, this will need to change so user inoput is taken
@@ -116,17 +119,8 @@ while($row = mysqli_fetch_array($result_coord))
 <body>
 <div class = "resultholder">
 
-    <div class = "searchresult">
-        <script type="text/javascript">
-var test = {0:0,1:1}
- for(let i = 0;i<locations.length;i++)
-        {
-x=i;
-            document.write("<div class='card'>"+"<div class='card-body'>"+ "<h1>" + locations[i]["providerName"] + "</h1>"+"$" + locations[i]["averageTotalPayments"] + "<br>"+"<br>"+"<a href='#' value='i.value' onclick='show("+i+")'>View</a>"+"</div>"+"</div>");
+    <div id="searchres" class = "searchresult">
 
-
-        }
-        </script>
 
     </div>
 
@@ -154,16 +148,20 @@ x=i;
 					 });
 
         var infowindow = new google.maps.InfoWindow();
+        var searchres = document.getElementById("searchres");
 
         for (var i = 0; i < locations.length; i++)
         {
 					var center_distance = google.maps.geometry.spherical.computeDistanceBetween(cityCircle.center, new google.maps.LatLng(locations[i]["latitude"], locations[i]["longitude"]));
 					if(center_distance < <?php echo($range);?>){
+
 						var marker = new google.maps.Marker({
 							position: new google.maps.LatLng(locations[i]["latitude"], locations[i]["longitude"]),
 							map: map,
 							label: "H",
 						});
+
+                        searchres.innerHTML += "<div class='card'>"+"<div class='card-body'>"+ "<h3>" + locations[i]["providerName"] + "</h3>"+"$" + locations[i]["averageTotalPayments"] + "<br>"+"<br>"+"<a href='#' value='i.value' onclick='show("+i+")'>View</a>"+"</div>"+"</div>";
 
 						google.maps.event.addListener(marker, 'click', (function (marker, i) {
 							return function () {

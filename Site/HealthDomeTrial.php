@@ -28,8 +28,7 @@
 function showPosition(position) {
 	document.getElementById('lat').value=position.coords.latitude;
 	document.getElementById('long').value=position.coords.longitude;
-	alert(document.getElementById('lat').value);
-	alert(document.getElementById('long').value);
+	alert("Google has now access to your location (lol)");
 }
 
   </script>
@@ -70,13 +69,13 @@ function showPosition(position) {
 								<label class="mr-sm-2" for="inlineFormCustomSelect">Distance Range</label>
 								<select class="custom-select name="range_input" mr-sm-2" id="inlineFormCustomSelect">
 									<option selected>Distance Range</option>
-									<option value="20">20 Miles</option>
-									<option value="50">50 Miles</option>
-									<option value="100">100 Miles</option>
-									<option value="250">250 Miles</option>
-									<option value="500">500 Miles</option>
-									<option value="999">999 Miles</option>
-									<option value="0">No Limit</option>
+									<option value="20000">20 Miles</option>
+									<option value="50000">50 Miles</option>
+									<option value="100000">100 Miles</option>
+									<option value="250000">250 Miles</option>
+									<option value="500000">500 Miles</option>
+									<option value="999999">999 Miles</option>
+									<option value="9999999">No Limit</option>
 								</select>
 
 							</div>
