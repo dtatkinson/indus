@@ -4,8 +4,8 @@ $servername = "silva.computing.dundee.ac.uk";
 $username = "2019indteam2";
 $password = "9364.ind2.4639";
 
-$DEFAULT_RANGE = 600000;
-$DEFAUT_PRICE = 9999999;
+$DEFAULT_RANGE = 2500000;
+$DEFAUT_PRICE = 99999999;
 
 $conn = mysqli_connect($servername, $username, $password);
 //outputs if you are connected or not, not massively important
@@ -28,10 +28,11 @@ $long = $_POST["long_input"];
 $lat = 36.1278915;
 $long = -86.6997864;
 
-if(!empty($_POST["range_input"]))
-	$range = (int)$_POST["range_input"];
-else
+if(!empty($_POST["range_input"])){
+	$range = $_POST["range_input"];
+}else{
 	$range = $DEFAULT_RANGE;
+}
 
 if(!empty($_POST["price_input"]))
 	$price = $_POST["price_input"];
@@ -52,7 +53,7 @@ $result_code = mysqli_query($conn,$sql_code);
 
 $sql_coord = "SELECT x.code,x.providerId,x.averageTotalPayments,providerName,latitude,longitude
 FROM 2019indteam2db.financial_info_2017 x
-inner join 2019indteam2db.hospital_info y
+inner join 2019indteam2db.hospital_information y
 ON x.providerId = y.providerId
 and x.code = ".mysqli_fetch_array($result_code)["code"]."
 and averageTotalPayments <".$price."
@@ -149,12 +150,11 @@ while($row = mysqli_fetch_array($result_coord))
 
         var infowindow = new google.maps.InfoWindow();
         var searchres = document.getElementById("searchres");
-
+				locations.sort(function(a,b){return(b["averageTotalPayments"]-a["averageTotalPayments"])})//Allows to sort the hospitals
         for (var i = 0; i < locations.length; i++)
         {
 					var center_distance = google.maps.geometry.spherical.computeDistanceBetween(cityCircle.center, new google.maps.LatLng(locations[i]["latitude"], locations[i]["longitude"]));
 					if(center_distance < <?php echo($range);?>){
-
 						var marker = new google.maps.Marker({
 							position: new google.maps.LatLng(locations[i]["latitude"], locations[i]["longitude"]),
 							map: map,

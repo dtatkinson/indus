@@ -67,7 +67,7 @@ function showPosition(position) {
 							<div class="form-row">
 							<div class="col-auto my-1">
 								<label class="mr-sm-2" for="inlineFormCustomSelect">Distance Range</label>
-								<select class="custom-select name="range_input" mr-sm-2" id="inlineFormCustomSelect">
+								<select class="custom-select mr-sm-2" name="range_input" id="inlineFormCustomSelect">
 									<option selected>Distance Range</option>
 									<option value="20000">20 Miles</option>
 									<option value="50000">50 Miles</option>
