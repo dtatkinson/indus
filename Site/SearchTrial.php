@@ -22,14 +22,14 @@ $location = $_POST["location_input"];
 
 $pieces = explode(":",$injurys);
 $injury = $pieces[1];
-/*
+
 $lat = $_POST["lat_input"];
 $long = $_POST["long_input"];
-*/
 
+/*
 $lat = 36.1278915;
 $long = -86.6997864;
-
+*/
 if(!empty($_POST["range_input"])){
 	$range = $_POST["range_input"];
 }else{
