@@ -61,6 +61,9 @@ function showPosition(position) {
   							</div>
 							 <input type="text" name="location_input" class="form-control" placeholder="Example:24424 or 'California' " aria-label="Username" aria-describedby="basic-addon1">
 							</div>
+							<div>
+							<button type="button" onclick="getLocation()">Get my location</button>
+							</div>
 
 							<div class="form-row">
 							<div class="col-auto my-1">
@@ -103,8 +106,6 @@ function showPosition(position) {
 
 
 	<div>
-							<button onclick="getLocation()">Get my location</button>
-							</div>
 
 
 </body>

@@ -118,18 +118,14 @@ while($row = mysqli_fetch_array($result_coord))
 
     <div class = "searchresult">
         <script type="text/javascript">
-					for(let i = 0;i<locations.length;i++)
-					{
-						x=i;
-						document.write("<div class='card'>");
-						document.write("<div class='card-body'>");
-						document.write( "<h1>" + locations[i]["providerName"] + "</h1>");
-						document.write("$" + locations[i]["averageTotalPayments"] + "<br>");
-						document.write("<br>");
-						document.write("<a href='#' value='i.value' onclick='show("+i+")'>View</a>");
-						document.write("</div>");
-						document.write("</div>");
-					}
+var test = {0:0,1:1}
+ for(let i = 0;i<locations.length;i++)
+        {
+x=i;
+            document.write("<div class='card'>"+"<div class='card-body'>"+ "<h1>" + locations[i]["providerName"] + "</h1>"+"$" + locations[i]["averageTotalPayments"] + "<br>"+"<br>"+"<a href='#' value='i.value' onclick='show("+i+")'>View</a>"+"</div>"+"</div>");
+
+
+        }
         </script>
 
     </div>
