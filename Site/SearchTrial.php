@@ -75,9 +75,12 @@ while($row = mysqli_fetch_array($result_coord))
 }
 ?>
 <html>
+<link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 <link href="Trial.css" rel="stylesheet" type="text/css">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAWOLJZDit5LJs6RhOe2fjY3hJUKnqJjvs&libraries=geometry"
+
             type="text/javascript"></script>
 
             <script type="text/javascript">
@@ -87,6 +90,15 @@ while($row = mysqli_fetch_array($result_coord))
             var locations = <?php echo(json_encode($results_coord));?>
 
             </script>
+
+<style>
+
+.card:hover
+{
+	background-color:white;
+}
+</style>
+
 
 <head>
   <nav class="navbar navbar-expand navbar-light bg-light">
@@ -121,13 +133,13 @@ while($row = mysqli_fetch_array($result_coord))
 
 <body>
 <div class = "resultholder">
-
+<div class ="w3-animate-opacity">
     <div id="searchres" class = "searchresult">
 
 
     </div>
 
-
+</div>
 		<div id="map">
 
 			<script type="text/javascript">

@@ -8,6 +8,14 @@ head
 
 }
 
+h2
+{
+text-shadow: 3px 2px 3px rgba(255,255,255,.2), -40px -40px 0px rgba(0,0,0,0);
+color: #4F4F4F;
+letter-spacing: -2.4px;
+word-spacing: 2px;
+}
+
 .bg-light 
 {
 	background-color:black;
@@ -77,6 +85,14 @@ left:0%;
 margin:0;
 	
 }
+
+
+.card
+{
+
+background: #EDEDED;
+}
+
 .form-check
 {
 display:inline;

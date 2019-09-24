@@ -5,7 +5,7 @@
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAWOLJZDit5LJs6RhOe2fjY3hJUKnqJjvs&libraries=Geocoder"></script>
   <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-  
+  <script src="https://kit.fontawesome.com/caf1c83931.js" crossorigin="anonymous"></script>
   <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
   <script>
   
@@ -81,11 +81,9 @@ function findLocation()
 							  <input type="text" hidden name="long_input" id="long" class="form-control">
 							 <div class="input-group-prepend">
    							 <span class="input-group-text" id="Address">Address</span>
+							 <button type="button" class="btn btn-primary"onclick="getLocation()"><i class="fas fa-map-marked-alt"></i></button>
   							</div>
 							 <input type="text" id="address" name="location_input" class="form-control" placeholder="Example:24424 or 'California' " aria-label="Username" aria-describedby="basic-addon1">
-							</div>
-							<div>
-							<button type="button" onclick="getLocation()">Get my location</button>
 							</div>
 							<div>
 							<button type="button" onclick="findLocation()">Find my location</button>
