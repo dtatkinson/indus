@@ -17,9 +17,11 @@ if($conn){
 
 //Get user input from the search page
 //re-add range and medicare after client meeting
-$injury = $_POST["injury_input"];
+$injurys = $_POST["injury_input"];
 $location = $_POST["location_input"];
 
+$pieces = explode(":",$injurys);
+$injury = $pieces[1];
 /*
 $lat = $_POST["lat_input"];
 $long = $_POST["long_input"];
