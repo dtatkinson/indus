@@ -17,9 +17,11 @@ if($conn){
 
 //Get user input from the search page
 //re-add range and medicare after client meeting
-$injury = $_POST["injury_input"];
+$injurys = $_POST["injury_input"];
 $location = $_POST["location_input"];
 
+$pieces = explode(":",$injurys);
+$injury = $pieces[1];
 /*
 $lat = $_POST["lat_input"];
 $long = $_POST["long_input"];
@@ -52,7 +54,7 @@ $result_code = mysqli_query($conn,$sql_code);
 
 $sql_coord = "SELECT x.code,x.providerId,x.averageTotalPayments,providerName,latitude,longitude
 FROM 2019indteam2db.financial_info_2017 x
-inner join 2019indteam2db.hospital_info y
+inner join 2019indteam2db.hospital_information y
 ON x.providerId = y.providerId
 and x.code = ".mysqli_fetch_array($result_code)["code"]."
 and averageTotalPayments <".$price."
