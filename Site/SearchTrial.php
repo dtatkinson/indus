@@ -60,7 +60,7 @@ ON x.providerId = y.providerId
 and x.code = ".mysqli_fetch_array($result_code)["code"]."
 and averageTotalPayments <".$price."
 order by averageTotalPayments asc
-limit 10;
+;
 ";
 
 $result_coord = mysqli_query($conn,$sql_coord);
