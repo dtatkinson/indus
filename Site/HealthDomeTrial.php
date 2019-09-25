@@ -22,7 +22,7 @@
 
 	function getLocation()
 	{
-  	if (navigator.geolocation) {
+    if (navigator.geolocation) {
     	navigator.geolocation.getCurrentPosition(showPosition);
   	}
 	else
@@ -31,11 +31,9 @@
   	}
 	}
 
-function dataValidation(){
-  var valid = true;
-
-  document.getElementById('lat').value=="";
-  document.getElementById('long').value=="";
+function findAddress(){
+  document.getElementById('lat').value="";
+  document.getElementById('long').value="";
 
   //Switch statement to set the position
   var addressValue = document.getElementById("address").value;
@@ -44,24 +42,30 @@ function dataValidation(){
       valid = false;
       break;
     case "My location":
-    getLocation();
-        break;
+      getLocation();
+      break;
     default:
       findLocation();
       break;
   }
+}
+
+function dataValidation(){
+  var valid = true;
 
   //Check the positions are set
+
   if(document.getElementById('lat').value=="" || document.getElementById('long').value==""){
     valid = false;
+    alert("Coordinates invalid");
   }else{
 
   }
 
   if(valid){
-     document.getElementById("search_form").submit();
+    document.getElementById("search_form").submit();
   }else{
-    //alert("Some fields are incorrect");
+
   }
 }
 
@@ -74,24 +78,22 @@ function showPosition(position)
 
 function findLocation()
 {
-	var geocoder = new google.maps.Geocoder();
 	var address = document.getElementById('address').value;
+  var geocoder = new google.maps.Geocoder();
 
-	geocoder.geocode({'address': address}, function(results, status)
+	geocoder.geocode({address: address}, function(results, status)
 	{
-		if(status ==='OK')
+		if(status ===google.maps.GeocoderStatus.OK)
 		{
-
       document.getElementById('lat').value=results[0].geometry.location.lat();
   		document.getElementById('long').value=results[0].geometry.location.lng();
+      dataValidation();
 		}else{
-      alert("Could not get coordinated for specified address");
+      alert("Failed to retrieve coordinates of specified address.");
     }
-
 	}
 	)
 }
-
   </script>
 <body>
 
@@ -190,7 +192,7 @@ function findLocation()
 						<div class="Searchbutton">
 							<br>
 							<!--<input type="submit" class="btn btn-primary btn-block" value="Search">-->
-              <button type="button" class="btn btn-primary btn-block" onclick="dataValidation()">Search</button>
+              <button type="button" class="btn btn-primary btn-block" onclick="findAddress()">Search</button>
 						</div>
 
 					</form>
