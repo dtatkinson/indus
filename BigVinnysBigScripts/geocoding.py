@@ -3,7 +3,7 @@ import geopy
 import csv
 import time
 
-API_KEY = "AIzaSyAWOLJZDit5LJs6RhOe2fjY3hJUKnqJjvs"
+API_KEY = ""
 
 INPUT_FILE = "hospital_info.csv"
 OUTPUT_FILE = "coordinates.csv"
