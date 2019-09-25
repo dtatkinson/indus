@@ -4,6 +4,7 @@ $servername = "silva.computing.dundee.ac.uk";
 $username = "2019indteam2";
 $password = "9364.ind2.4639";
 
+$DEFAULT_RANGE = 2500000;
 $DEFAUT_PRICE = 99999999;
 
 $conn = mysqli_connect($servername, $username, $password);
@@ -29,7 +30,11 @@ $long = $_POST["long_input"];
 $lat = 36.1278915;
 $long = -86.6997864;
 */
-if(!empty($_POST["range_input"]))	$range = $_POST["range_input"];
+if(!empty($_POST["range_input"])){
+	$range = $_POST["range_input"];
+}else{
+	$range = $DEFAULT_RANGE;
+}
 
 if(!empty($_POST["price_input"]))
 	$price = $_POST["price_input"];
@@ -79,12 +84,16 @@ while($row = mysqli_fetch_array($result_coord))
             type="text/javascript"></script>
 
             <script type="text/javascript">
-	    var markers = [];
+		var markers = [];
+		var actualLocation=[];
             var i,j;
+			var counter = 0;
 	    var x;
             var locations = <?php echo(json_encode($results_coord));?>
 
             </script>
+
+<script type="text/javascript" src="pagination.js"></script>
 
 <style>
 
@@ -130,9 +139,13 @@ while($row = mysqli_fetch_array($result_coord))
 <div class = "resultholder">
 <div class ="w3-animate-opacity">
     <div id="searchres" class = "searchresult">
-
+	<ul class="pagination">
+  <li class="page-item"><a class="page-link" id="btn_prev" href="javascript:prevPage()">Previous</a></li>
+  <li class="page-item"><a class="page-link" id="btn_next" href="javascript:nextPage()">Next</a></li>
+</ul>
 
     </div>
+
 
 </div>
 		<div id="map">
@@ -142,7 +155,7 @@ while($row = mysqli_fetch_array($result_coord))
         var map = new google.maps.Map(document.getElementById('map'),
         {
             zoom: 4,
-            center: new google.maps.LatLng(<?php echo($lat);?>,<?php echo($long);?>),
+            center: new google.maps.LatLng(30.0902, -85.7129),
             mapTypeId: google.maps.MapTypeId.ROADMAP
         });
 
@@ -158,31 +171,67 @@ while($row = mysqli_fetch_array($result_coord))
 					 });
 		j=0;
         var infowindow = new google.maps.InfoWindow();
-        var searchres = document.getElementById("searchres");
+		var searchres = document.getElementById("searchres");
+		
 				locations.sort(function(a,b){return(b["averageTotalPayments"]-a["averageTotalPayments"])})//Allows to sort the hospitals
         for (var i = 0; i < locations.length; i++)
         {
+			
 					var center_distance = google.maps.geometry.spherical.computeDistanceBetween(cityCircle.center, new google.maps.LatLng(locations[i]["latitude"], locations[i]["longitude"]));
-					if(center_distance < <?php echo($range);?>){
-						var marker = new google.maps.Marker({
-							position: new google.maps.LatLng(locations[i]["latitude"], locations[i]["longitude"]),
-							map: map,
-							label: "H",
-						});
 
-                        searchres.innerHTML += "<div class='card'>"+"<div class='card-body'>"+ "<h3>" + locations[i]["providerName"] + "</h3>"+"$" + locations[i]["averageTotalPayments"] + "<br>"+"<br>"+"<a href='#' value='i.value' onclick='show("+j+")'>View</a>"+"</div>"+"</div>";
-						j++;
-						google.maps.event.addListener(marker, 'click', (function (marker, i) {
-							return function () {
-								infowindow.setContent("<h6>" + locations[i]["providerName"] + "</h6>"+"<br>"+"<button type='button' class='btn btn-info btn-lg' data-toggle='modal' data-target='#myModal'>Open Modal</button>");
-								//alert(locations[i][4])
-								infowindow.open(map, marker);
-							}
-						})(marker, i));
-						markers.push(marker);
+					if(center_distance < <?php echo($range);?>)
+					{
+						actualLocation[counter] = locations[i];
+						//alert(actualLocation[counter]["latitude"]);
+						counter++;					
 					}
-        }
+		}
+		alert(counter);
+		</script>
 
+	<script>
+	//	alert(current_page);
+//	test();
+	//alert(records_per_page);
+display();
+
+function display()
+{
+	for(var i=0; i <markers.length;i++){
+		markers[i].setMap(null);
+	}
+	markers = [];
+	var upperbound;
+	if(current_page == numPages())
+	{
+		upperbound = counter;
+	}
+	else
+	{
+		upperbound = current_page*records_per_page;
+	}
+	for(var a=(records_per_page*(current_page-1));a<upperbound;a++)
+		{
+					var marker = new google.maps.Marker({
+					position: new google.maps.LatLng(actualLocation[a]["latitude"],actualLocation[a]["longitude"]),
+					map: map,
+					label: "H",
+					});
+								
+			searchres.innerHTML += "<div class='card'>"+"<div class='card-body'>"+ "<h3>" + actualLocation[a]["providerName"] + "</h3>"+"$" + actualLocation[a]["averageTotalPayments"] + "<br>"+"<br>"+"<a href='#' value='i.value' onclick='show("+a+")'>View</a>"+"</div>"+"</div>";
+			j++;
+			google.maps.event.addListener(marker, 'click', (function (marker, a) 
+			{
+				return function () 
+				{
+					infowindow.setContent("<h6>" + actualLocation[a]["providerName"] + "</h6>"+"<br>"+"<button type='button' class='btn btn-info btn-lg' data-toggle='modal' data-target='#myModal'>Open Modal</button>");
+					infowindow.open(map, marker);
+				}
+			})(marker, a));
+			markers.push(marker);
+		}				
+}
+        
   	function show(id)
 	  {
             google.maps.event.trigger(markers[id], 'click');
