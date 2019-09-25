@@ -85,7 +85,7 @@ while($row = mysqli_fetch_array($result_coord))
 
             <script type="text/javascript">
 	    var markers = [];
-            var i;
+            var i,j;
 	    var x;
             var locations = <?php echo(json_encode($results_coord));?>
 
@@ -161,7 +161,7 @@ while($row = mysqli_fetch_array($result_coord))
 							 center: {lat:<?php echo($lat);?>,lng:<?php echo($long);?>},
 							 radius: <?php echo($range);?>
 					 });
-
+		j=0;
         var infowindow = new google.maps.InfoWindow();
         var searchres = document.getElementById("searchres");
 				locations.sort(function(a,b){return(b["averageTotalPayments"]-a["averageTotalPayments"])})//Allows to sort the hospitals
@@ -175,11 +175,11 @@ while($row = mysqli_fetch_array($result_coord))
 							label: "H",
 						});
 
-                        searchres.innerHTML += "<div class='card'>"+"<div class='card-body'>"+ "<h3>" + locations[i]["providerName"] + "</h3>"+"$" + locations[i]["averageTotalPayments"] + "<br>"+"<br>"+"<a href='#' value='i.value' onclick='show("+i+")'>View</a>"+"</div>"+"</div>";
-
+                        searchres.innerHTML += "<div class='card'>"+"<div class='card-body'>"+ "<h3>" + locations[i]["providerName"] + "</h3>"+"$" + locations[i]["averageTotalPayments"] + "<br>"+"<br>"+"<a href='#' value='i.value' onclick='show("+j+")'>View</a>"+"</div>"+"</div>";
+						j++;
 						google.maps.event.addListener(marker, 'click', (function (marker, i) {
 							return function () {
-								infowindow.setContent("<p>" + locations[i]["providerName"] + "<br><a href=" + locations[i][5]+" > More Info</a > ");
+								infowindow.setContent("<h6>" + locations[i]["providerName"] + "</h6>"+"<br>"+"<button type='button' class='btn btn-info btn-lg' data-toggle='modal' data-target='#myModal'>Open Modal</button>");
 								//alert(locations[i][4])
 								infowindow.open(map, marker);
 							}
@@ -188,9 +188,10 @@ while($row = mysqli_fetch_array($result_coord))
 					}
         }
 
-  	function show(id){
+  	function show(id)
+	  {
             google.maps.event.trigger(markers[id], 'click');
-        }
+      }
     	</script>
     </div>
 </body>
