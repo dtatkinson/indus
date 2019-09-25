@@ -4,7 +4,6 @@ $servername = "silva.computing.dundee.ac.uk";
 $username = "2019indteam2";
 $password = "9364.ind2.4639";
 
-$DEFAULT_RANGE = 2500000;
 $DEFAUT_PRICE = 99999999;
 
 $conn = mysqli_connect($servername, $username, $password);
@@ -30,11 +29,7 @@ $long = $_POST["long_input"];
 $lat = 36.1278915;
 $long = -86.6997864;
 */
-if(!empty($_POST["range_input"])){
-	$range = $_POST["range_input"];
-}else{
-	$range = $DEFAULT_RANGE;
-}
+if(!empty($_POST["range_input"]))	$range = $_POST["range_input"];
 
 if(!empty($_POST["price_input"]))
 	$price = $_POST["price_input"];
@@ -147,7 +142,7 @@ while($row = mysqli_fetch_array($result_coord))
         var map = new google.maps.Map(document.getElementById('map'),
         {
             zoom: 4,
-            center: new google.maps.LatLng(30.0902, -85.7129),
+            center: new google.maps.LatLng(<?php echo($lat);?>,<?php echo($long);?>),
             mapTypeId: google.maps.MapTypeId.ROADMAP
         });
 
