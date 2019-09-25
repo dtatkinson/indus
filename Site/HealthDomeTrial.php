@@ -32,8 +32,6 @@
 	}
 
 function findAddress(){
-  document.getElementById('lat').value="";
-  document.getElementById('long').value="";
 
   //Switch statement to set the position
   var addressValue = document.getElementById("address").value;
@@ -42,7 +40,7 @@ function findAddress(){
       valid = false;
       break;
     case "My location":
-      getLocation();
+      dataValidation();
       break;
     default:
       findLocation();
@@ -73,7 +71,7 @@ function showPosition(position)
 {
 	document.getElementById('lat').value=position.coords.latitude;
 	document.getElementById('long').value=position.coords.longitude;
-	document.getElementById("address").value="My Location";
+	document.getElementById("address").value="My location";
 }
 
 function findLocation()
