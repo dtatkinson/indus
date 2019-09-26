@@ -119,7 +119,7 @@ while($row = mysqli_fetch_array($result_coord))
      	   	<a class="nav-link" href="#"></a>
      	 	</li>
      	 	<li class="nav-item active">
-        	<a class="nav-link" href="#">Home</a>
+        	<a class="nav-link" href="healthdometrial.php">Home</a>
       		</li>
 	   		<li class="nav-item">
        	 	<a class="nav-link" href="#">About Us</a>
