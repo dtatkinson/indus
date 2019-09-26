@@ -210,13 +210,7 @@ while($row = mysqli_fetch_array($result_coord))
 					if(center_distance < <?php echo($range);?>)
 					{
 						actualLocation[counter] = locations[i];
-<<<<<<< HEAD
-						actualLocation[counter]
-						//alert(actualLocation[counter]["latitude"]);
 						counter++;
-=======
-						counter++;					
->>>>>>> a593eadfa048fa428f70b63ef48aefa12e8a360b
 					}
 				}
 				actualLocation = actualLocation.sort(function(a,b){return(a["averageTotalPayments"]-b["averageTotalPayments"])})//Sorts ascending
@@ -249,13 +243,8 @@ function display()
 					map: map,
 					label: "H",
 					});
-<<<<<<< HEAD
 
-			searchres.innerHTML += "<div class='card'>"+"<div class='card-body'>"+ "<h3>" + actualLocation[a]["providerName"] + "</h3>"+"$" + actualLocation[a]["averageTotalPayments"] + "<br>"+"<br>"+"<a href='#' value='i.value' onclick='show("+a+")'>View</a>"+"</div>"+"</div>";
-=======
-								
 			searchres.innerHTML += "<div class='card'>"+"<div class='card-body'>"+ "<h3>" + actualLocation[a]["providerName"] + "</h3>"+"$" + actualLocation[a]["averageTotalPayments"] + "<br>"+"<br>"+"<a href='#' value='i.value' onclick='show("+j+")'>View on map</a>"+"<br>"+"<a href='www.google.com'target='_blank')>More Details</a> </div>"+"</div>";
->>>>>>> a593eadfa048fa428f70b63ef48aefa12e8a360b
 			j++;
 			google.maps.event.addListener(marker, 'click', (function (marker, a)
 			{
