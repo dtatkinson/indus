@@ -79,7 +79,7 @@ while($row = mysqli_fetch_array($result_coord))
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 <link href="Trial.css" rel="stylesheet" type="text/css">
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-<script src="https://maps.googleapis.com/maps/api/js?key=&libraries=geometry"
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDFuSON-6LCX7ZZ6wynMcfwG_UEfb1KxOA &libraries=geometry"
 
             type="text/javascript"></script>
 
@@ -244,7 +244,7 @@ function display()
 					label: "H",
 					});
 
-			searchres.innerHTML += "<div class='card'>"+"<div class='card-body'>"+ "<h3>" + actualLocation[a]["providerName"] + "</h3>"+"$" + actualLocation[a]["averageTotalPayments"] + "<br>"+"<br>"+"<a href='#' value='i.value' onclick='show("+j+")'>View on map</a>"+"<br>"+"<a href='www.google.com'target='_blank')>More Details</a> </div>"+"</div>";
+					searchres.innerHTML += "<div class='card'>"+"<div class='card-body'>"+"<form id='map_form' action='MoreDetails.php' method='post'>"+"<h4>" + actualLocation[a]['providerName']+"</h4>"+"Average Total Payments: $" + actualLocation[a]['averageTotalPayments']+"<input type='text' hidden id='hosId' name='hosIdInput' class='form-control' value="+actualLocation[a]["providerId"]+">"+"<input type='text' hidden id='code' class='form-control' name='codeInput' value="+actualLocation[a]['code']+">"+"<br>"+"<br>"+"<a href='#' value='i.value' onclick='show("+j+")'>View on map</a>"+"<br>"+"<button>More Details</button>"+"</form>"+"</div>"+"</div>";
 			j++;
 			google.maps.event.addListener(marker, 'click', (function (marker, a)
 			{
