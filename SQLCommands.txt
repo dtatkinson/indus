@@ -24,3 +24,5 @@ and averageTotalPayments <12000
 order by averageTotalPayments asc
 
 
+
+
