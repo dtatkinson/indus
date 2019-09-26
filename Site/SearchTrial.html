@@ -191,6 +191,9 @@
                     infowindow.setContent("<p>" + locations[i][0] + "<br/>" + locations[i][4] + "<br/>" + "<a href=" + locations[i][5]+" > More Info</a > ");
                     //alert(locations[i][4])
                     infowindow.open(map, marker);
+					var latLng = new google.maps.LatLng(0, 0);
+    map.panTo(latLng);
+					maps.panTo(latLng)
                 }
             })(marker, i));
         }
