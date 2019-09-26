@@ -59,7 +59,7 @@ inner join 2019indteam2db.hospital_information y
 ON x.providerId = y.providerId
 and x.code = ".mysqli_fetch_array($result_code)["code"]."
 and averageTotalPayments <".$price."
-order by averageTotalPayments asc
+order by averageTotalPayments desc
 ;
 ";
 
@@ -119,7 +119,7 @@ while($row = mysqli_fetch_array($result_coord))
      	   	<a class="nav-link" href="#"></a>
      	 	</li>
      	 	<li class="nav-item active">
-        	<a class="nav-link" href="#">Home</a>
+        	<a class="nav-link" href="healthdometrial.php">Home</a>
       		</li>
 	   		<li class="nav-item">
        	 	<a class="nav-link" href="#">About Us</a>
@@ -210,22 +210,24 @@ while($row = mysqli_fetch_array($result_coord))
 					if(center_distance < <?php echo($range);?>)
 					{
 						actualLocation[counter] = locations[i];
+<<<<<<< HEAD
 						actualLocation[counter]
 						//alert(actualLocation[counter]["latitude"]);
 						counter++;
+=======
+						counter++;					
+>>>>>>> a593eadfa048fa428f70b63ef48aefa12e8a360b
 					}
 				}
 				actualLocation = actualLocation.sort(function(a,b){return(a["averageTotalPayments"]-b["averageTotalPayments"])})//Sorts ascending
 		</script>
 
 	<script>
-	//	alert(current_page);
-//	test();
-	//alert(records_per_page);
 display();
 
 function display()
 {
+	j=0;
 	for(var i=0; i <markers.length;i++){
 		markers[i].setMap(null);
 	}
@@ -243,17 +245,25 @@ function display()
 		{
 					var marker = new google.maps.Marker({
 					position: new google.maps.LatLng(actualLocation[a]["latitude"],actualLocation[a]["longitude"]),
+					animation: google.maps.Animation.DROP,
 					map: map,
 					label: "H",
 					});
+<<<<<<< HEAD
 
 			searchres.innerHTML += "<div class='card'>"+"<div class='card-body'>"+ "<h3>" + actualLocation[a]["providerName"] + "</h3>"+"$" + actualLocation[a]["averageTotalPayments"] + "<br>"+"<br>"+"<a href='#' value='i.value' onclick='show("+a+")'>View</a>"+"</div>"+"</div>";
+=======
+								
+			searchres.innerHTML += "<div class='card'>"+"<div class='card-body'>"+ "<h3>" + actualLocation[a]["providerName"] + "</h3>"+"$" + actualLocation[a]["averageTotalPayments"] + "<br>"+"<br>"+"<a href='#' value='i.value' onclick='show("+j+")'>View on map</a>"+"<br>"+"<a href='www.google.com'target='_blank')>More Details</a> </div>"+"</div>";
+>>>>>>> a593eadfa048fa428f70b63ef48aefa12e8a360b
 			j++;
 			google.maps.event.addListener(marker, 'click', (function (marker, a)
 			{
 				return function ()
 				{
-					infowindow.setContent("<h6>" + actualLocation[a]["providerName"] + "</h6>"+"<br>"+"<button type='button' class='btn btn-info btn-lg' data-toggle='modal' data-target='#myModal'>Open Modal</button>");
+					map.setCenter(marker.getPosition());
+					map.setZoom(10);
+					infowindow.setContent("<h6>" + actualLocation[a]["providerName"] + "</h6>"+"<br>");
 					infowindow.open(map, marker);
 				}
 			})(marker, a));
