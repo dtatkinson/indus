@@ -4,6 +4,9 @@ $servername = "silva.computing.dundee.ac.uk";
 $username = "2019indteam2";
 $password = "9364.ind2.4639";
 
+$DEFAULT_RANGE = 2500000;
+$DEFAUT_PRICE = 99999999;
+
 $conn = mysqli_connect($servername, $username, $password);
 //outputs if you are connected or not, not massively important
 if(!$conn){
@@ -14,11 +17,32 @@ if($conn){
 
 //Get user input from the search page
 //re-add range and medicare after client meeting
-$injury = $_POST["injury_input"];
+$injurys = $_POST["injury_input"];
 $location = $_POST["location_input"];
-$range = $_POST["range_input"];
-$price = $_POST["price_input"];
-//$medicare = $_POST["medicare_input"];
+
+$pieces = explode(":",$injurys);
+$injury = $pieces[1];
+
+$lat = $_POST["lat_input"];
+$long = $_POST["long_input"];
+
+/*
+$lat = 36.1278915;
+$long = -86.6997864;
+*/
+if(!empty($_POST["range_input"])){
+	$range = $_POST["range_input"];
+}else{
+	$range = $DEFAULT_RANGE;
+}
+
+if(!empty($_POST["price_input"]))
+	$price = $_POST["price_input"];
+else
+	$price = $DEFAUT_PRICE;
+
+if(!empty($_POST["medicare_input"]))
+    $medicare = $_POST["medicare_input"];
 
 //query stuff
 //hardcoded input, this will need to change so user inoput is taken
@@ -31,12 +55,13 @@ $result_code = mysqli_query($conn,$sql_code);
 
 $sql_coord = "SELECT x.code,x.providerId,x.averageTotalPayments,providerName,latitude,longitude
 FROM 2019indteam2db.financial_info_2017 x
-inner join 2019indteam2db.hospital_info y
+inner join 2019indteam2db.hospital_information y
 ON x.providerId = y.providerId
 and x.code = ".mysqli_fetch_array($result_code)["code"]."
 and averageTotalPayments <".$price."
 order by averageTotalPayments asc
-LIMIT 10";
+;
+";
 
 $result_coord = mysqli_query($conn,$sql_coord);
 $results_coord = [];
@@ -50,19 +75,34 @@ while($row = mysqli_fetch_array($result_coord))
 }
 ?>
 <html>
+<link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 <link href="Trial.css" rel="stylesheet" type="text/css">
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAWOLJZDit5LJs6RhOe2fjY3hJUKnqJjvs"
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<script src="https://maps.googleapis.com/maps/api/js?key=&libraries=geometry"
+
             type="text/javascript"></script>
 
             <script type="text/javascript">
-	    var markers = [];
-            var i;
+		var markers = [];
+		var actualLocation=[];
+            var i,j;
+			var counter = 0;
 	    var x;
             var locations = <?php echo(json_encode($results_coord));?>
 
             </script>
-<body>
+
+<script type="text/javascript" src="pagination.js"></script>
+
+<style>
+
+.card:hover
+{
+	background-color:white;
+}
+</style>
+
 
 <head>
   <nav class="navbar navbar-expand navbar-light bg-light">
@@ -97,28 +137,17 @@ while($row = mysqli_fetch_array($result_coord))
 
 <body>
 <div class = "resultholder">
-
-    <div class = "searchresult">
-        <script type="text/javascript">
-var test = {0:0,1:1}
- for(let i = 0;i<locations.length;i++)
-        {
-x=i;
-            document.write("<div class='card'>");
-                    document.write("<div class='card-body'>");
-                        document.write( "<h1>" + locations[i]["providerName"] + "</h1>");
-                        document.write("$" + locations[i]["averageTotalPayments"] + "<br>");
-                        document.write("<br>");
-			document.write("<a href='#' value='i.value' onclick='show("+i+")'>View</a>");
-                    document.write("</div>");
-            document.write("</div>");
-		
-        }
-        </script>
+<div class ="w3-animate-opacity">
+    <div id="searchres" class = "searchresult">
+	<ul class="pagination">
+  <li class="page-item"><a class="page-link" id="btn_prev" href="javascript:prevPage()">Previous</a></li>
+  <li class="page-item"><a class="page-link" id="btn_next" href="javascript:nextPage()">Next</a></li>
+</ul>
 
     </div>
 
 
+</div>
 		<div id="map">
 
 			<script type="text/javascript">
@@ -130,29 +159,83 @@ x=i;
             mapTypeId: google.maps.MapTypeId.ROADMAP
         });
 
+				var cityCircle = new google.maps.Circle({
+							 strokeColor: '#FF0000',
+							 strokeOpacity: 0.8,
+							 strokeWeight: 1,
+							 fillColor: '#FF0000',
+							 fillOpacity: 0.005,
+							 map: map,
+							 center: {lat:<?php echo($lat);?>,lng:<?php echo($long);?>},
+							 radius: <?php echo($range);?>
+					 });
+		j=0;
         var infowindow = new google.maps.InfoWindow();
-
+		var searchres = document.getElementById("searchres");
+		
+				locations.sort(function(a,b){return(b["averageTotalPayments"]-a["averageTotalPayments"])})//Allows to sort the hospitals
         for (var i = 0; i < locations.length; i++)
         {
-            var marker = new google.maps.Marker({
-                position: new google.maps.LatLng(locations[i]["latitude"], locations[i]["longitude"]),
-                map: map,
-                label: "H",
-            });
+			
+					var center_distance = google.maps.geometry.spherical.computeDistanceBetween(cityCircle.center, new google.maps.LatLng(locations[i]["latitude"], locations[i]["longitude"]));
 
-            google.maps.event.addListener(marker, 'click', (function (marker, i) {
-                return function () {
-                    infowindow.setContent("<p>" + locations[i]["providerName"] + "<br><a href=" + locations[i][5]+" > More Info</a > ");
-                    //alert(locations[i][4])
-                    infowindow.open(map, marker);
-                }
-            })(marker, i));
-		markers.push(marker);
-        }
+					if(center_distance < <?php echo($range);?>)
+					{
+						actualLocation[counter] = locations[i];
+						//alert(actualLocation[counter]["latitude"]);
+						counter++;					
+					}
+		}
+		alert(counter);
+		</script>
 
-  	function show(id){
+	<script>
+	//	alert(current_page);
+//	test();
+	//alert(records_per_page);
+display();
+
+function display()
+{
+	for(var i=0; i <markers.length;i++){
+		markers[i].setMap(null);
+	}
+	markers = [];
+	var upperbound;
+	if(current_page == numPages())
+	{
+		upperbound = counter;
+	}
+	else
+	{
+		upperbound = current_page*records_per_page;
+	}
+	for(var a=(records_per_page*(current_page-1));a<upperbound;a++)
+		{
+					var marker = new google.maps.Marker({
+					position: new google.maps.LatLng(actualLocation[a]["latitude"],actualLocation[a]["longitude"]),
+					map: map,
+					label: "H",
+					});
+								
+			searchres.innerHTML += "<div class='card'>"+"<div class='card-body'>"+ "<h3>" + actualLocation[a]["providerName"] + "</h3>"+"$" + actualLocation[a]["averageTotalPayments"] + "<br>"+"<br>"+"<a href='#' value='i.value' onclick='show("+a+")'>View</a>"+"</div>"+"</div>";
+			j++;
+			google.maps.event.addListener(marker, 'click', (function (marker, a) 
+			{
+				return function () 
+				{
+					infowindow.setContent("<h6>" + actualLocation[a]["providerName"] + "</h6>"+"<br>"+"<button type='button' class='btn btn-info btn-lg' data-toggle='modal' data-target='#myModal'>Open Modal</button>");
+					infowindow.open(map, marker);
+				}
+			})(marker, a));
+			markers.push(marker);
+		}				
+}
+        
+  	function show(id)
+	  {
             google.maps.event.trigger(markers[id], 'click');
-        }
+      }
     	</script>
     </div>
 </body>

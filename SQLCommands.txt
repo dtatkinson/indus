@@ -23,6 +23,29 @@ and x.code = 165
 and averageTotalPayments <12000
 order by averageTotalPayments asc
 
+//Morty sized boi
+select hos.providerId,hos.providername,hos.latitude,hos.longitude,f2017.code,f2017.averageTotalPayments as "averageTotalPayments2017",f2016.averageTotalPayments  as "averageTotalPayments2016",f2014.averageTotalPayments as "averageTotalPayments2014",f2013.averageTotalPayments as "averageTotalPayments2013",f2012.averageTotalPayments as "averageTotalPayments2012",f2011.averageTotalPayments as "averageTotalPayments2011"
+from 2019indteam2db.financial_info_2017 f2017
+inner join 2019indteam2db.hospital_information hos
+ON hos.providerId = f2017.providerId
+and f2017.code=313
+inner join 2019indteam2db.financial_info_2016 f2016
+ON hos.providerId = f2016.providerId
+and f2016.code=313
+inner join 2019indteam2db.financial_info_2014 f2014
+ON hos.providerId = f2014.providerId
+and f2014.code=313
+inner join 2019indteam2db.financial_info_2013 f2013
+ON hos.providerId = f2013.providerId
+and f2013.code=313
+inner join 2019indteam2db.financial_info_2012 f2012
+ON hos.providerId = f2012.providerId
+and f2012.code=313
+inner join 2019indteam2db.financial_info_2011 f2011
+ON hos.providerId = f2011.providerId
+and f2011.code=313
+
+
 
 
 
