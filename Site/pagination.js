@@ -9,33 +9,33 @@ function prevPage()
         changePage(current_page);
         display();
     }
-    
+
 }
 
 function nextPage()
 {
-   
+
     if (current_page < numPages()) {
         current_page++;
         changePage(current_page);
         display();
     }
-   
+
 }
-    
+
 function changePage(page)
 {
     var btn_next = document.getElementById("btn_next");
     var btn_prev = document.getElementById("btn_prev");
     var searchres = document.getElementById("searchres");
    // var page_span = document.getElementById("page");
- 
+
     // Validate page
     if (page < 1) page = 1;
     if (page > numPages()) page = numPages();
 
-    searchres.innerHTML = '	<ul class="pagination"><li class="page-item"><a class="page-link" id="btn_prev" href="javascript:prevPage()">Previous</a></li><li class="page-item"><a class="page-link" id="btn_next" href="javascript:nextPage()">Next</a></li></ul>';
-
+    //searchres.innerHTML = '	<ul class="pagination"><li class="page-item"><a class="page-link" id="btn_prev" href="javascript:prevPage()">Previous</a></li><li class="page-item"><a class="page-link" id="btn_next" href="javascript:nextPage()">Next</a></li></ul>';
+    searchres.innerHTML = "";
     for (var i = (page) * records_per_page; i < (page * records_per_page); i++) {
         searchres.innerHTML += "<div class='card'>"+"<div class='card-body'>"+ "<h3>" + actualLocation[i]["providerName"] + "</h3>"+"$" + actualLocation[i]["averageTotalPayments"] + "<br>"+"<br>"+"<a href='#' value='i.value' onclick='show("+i+")'>View</a>"+"</div>"+"</div>";
 

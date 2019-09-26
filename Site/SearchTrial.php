@@ -84,13 +84,13 @@ while($row = mysqli_fetch_array($result_coord))
             type="text/javascript"></script>
 
             <script type="text/javascript">
-		var markers = [];
-		var actualLocation=[];
-            var i,j;
-			var counter = 0;
-	    var x;
-            var locations = <?php echo(json_encode($results_coord));?>
-
+							var markers = [];
+							var actualLocation=[];
+	            var i,j;
+							var counter = 0;
+					    var x;
+	            var locations = <?php echo(json_encode($results_coord));?>;
+							var sortAscend = false;
             </script>
 
 <script type="text/javascript" src="pagination.js"></script>
@@ -136,18 +136,47 @@ while($row = mysqli_fetch_array($result_coord))
 </head>
 
 <body>
-<div class = "resultholder">
-<div class ="w3-animate-opacity">
+	<div class="resultmanager">
+		<select class="mr-sm-2" id="sort_select">
+			<option value="averageTotalPayments">Price</option>
+			<option value="rating">Rating</option>
+		</select>
+		<button class = "btn btn-primary" type="button" name="sort_button" onclick="sortHospitals()">Sort</button>
+		<script type="text/javascript">
+			function sortHospitals(){
+
+				var sortValue = document.getElementById("sort_select").value;
+
+				if(sortAscend){
+					actualLocation = actualLocation.sort(function(a,b){return(a[sortValue]-b[sortValue])})//Sorts ascending
+					sortAscend = false;
+				}else{
+					actualLocation = actualLocation.sort(function(a,b){return(b[sortValue]-a[sortValue])})//Sorts descending
+					sortAscend = true;
+				}
+				clearHospitals();
+				display();
+			}
+
+			function clearHospitals(){
+				document.getElementById("searchres").innerHTML = "";
+			}
+		</script>
+	</div>
+	<div class = "resultholder">
+		<div class ="w3-animate-opacity">
+			<div class="pagination-buttons-holder">
+				<ul class="pagination">
+				  <li class="page-item"><a class="page-link" id="btn_prev" style="visibility:hidden;" href="javascript:prevPage()">Previous</a></li>
+				  <li class="page-item"><a class="page-link" id="btn_next" href="javascript:nextPage()">Next</a></li>
+				</ul>
+			</div>
     <div id="searchres" class = "searchresult">
-	<ul class="pagination">
-  <li class="page-item"><a class="page-link" id="btn_prev" href="javascript:prevPage()">Previous</a></li>
-  <li class="page-item"><a class="page-link" id="btn_next" href="javascript:nextPage()">Next</a></li>
-</ul>
 
     </div>
 
 
-</div>
+		</div>
 		<div id="map">
 
 			<script type="text/javascript">
@@ -172,21 +201,21 @@ while($row = mysqli_fetch_array($result_coord))
 		j=0;
         var infowindow = new google.maps.InfoWindow();
 		var searchres = document.getElementById("searchres");
-		
-				locations.sort(function(a,b){return(b["averageTotalPayments"]-a["averageTotalPayments"])})//Allows to sort the hospitals
-        for (var i = 0; i < locations.length; i++)
+
+				for (var i = 0; i < locations.length; i++)
         {
-			
+
 					var center_distance = google.maps.geometry.spherical.computeDistanceBetween(cityCircle.center, new google.maps.LatLng(locations[i]["latitude"], locations[i]["longitude"]));
 
 					if(center_distance < <?php echo($range);?>)
 					{
 						actualLocation[counter] = locations[i];
+						actualLocation[counter]
 						//alert(actualLocation[counter]["latitude"]);
-						counter++;					
+						counter++;
 					}
-		}
-		alert(counter);
+				}
+				actualLocation = actualLocation.sort(function(a,b){return(a["averageTotalPayments"]-b["averageTotalPayments"])})//Sorts ascending
 		</script>
 
 	<script>
@@ -217,21 +246,21 @@ function display()
 					map: map,
 					label: "H",
 					});
-								
+
 			searchres.innerHTML += "<div class='card'>"+"<div class='card-body'>"+ "<h3>" + actualLocation[a]["providerName"] + "</h3>"+"$" + actualLocation[a]["averageTotalPayments"] + "<br>"+"<br>"+"<a href='#' value='i.value' onclick='show("+a+")'>View</a>"+"</div>"+"</div>";
 			j++;
-			google.maps.event.addListener(marker, 'click', (function (marker, a) 
+			google.maps.event.addListener(marker, 'click', (function (marker, a)
 			{
-				return function () 
+				return function ()
 				{
 					infowindow.setContent("<h6>" + actualLocation[a]["providerName"] + "</h6>"+"<br>"+"<button type='button' class='btn btn-info btn-lg' data-toggle='modal' data-target='#myModal'>Open Modal</button>");
 					infowindow.open(map, marker);
 				}
 			})(marker, a));
 			markers.push(marker);
-		}				
+		}
 }
-        
+
   	function show(id)
 	  {
             google.maps.event.trigger(markers[id], 'click');
