@@ -8,6 +8,7 @@
   <script src="https://kit.fontawesome.com/caf1c83931.js" crossorigin="anonymous"></script>
   <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/4.0.0/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
   <script>
 
@@ -141,7 +142,7 @@ function findLocation()
 						<input type="text" hidden name="long_input" id="long" class="form-control">
 							<div class="input-group-prepend">
    							 <span class="input-group-text" id="Address">Address</span>
-							 <button type="button" class="btn btn-primary"onclick="getLocation()"><i class="fas fa-map-marked-alt"></i></button>
+							 <button type="button" data-toggle="tooltip" title="Get location automatically" class="btn btn-primary" onclick="getLocation()"><i class="fas fa-map-marked-alt"></i></button>
   							</div>
 						<input type="text" id="address" name="location_input" class="form-control" placeholder="Example:24424 or 'California' " aria-label="Username" aria-describedby="basic-addon1">
 						</div>
