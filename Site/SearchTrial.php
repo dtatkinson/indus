@@ -237,14 +237,14 @@ function display()
 					animation: google.maps.Animation.DROP,
 					map: map
 					});
+					searchres.innerHTML += "<div class='card' value='i.value' onclick='show("+j+")'>"+"<div  class='card-body result-cards'>"+"<form id='map_form' action='MoreDetails.php' method='post'>" +"<h3>" + actualLocation[a]["providerName"] + "</h3>"+"$" + actualLocation[a]["averageTotalPayments"] + "<br>"+"<br>"+"<input type='text' hidden id='hosId' name='hosIdInput' class='form-control' value="+actualLocation[a]["providerId"]+">"+"<input type='text' hidden id='code' class='form-control' name='codeInput' value="+actualLocation[a]['code']+">"+"<br>"+"<br>"+"<button>More Details</button>"+"</form>"+ "</div>"+"</div>";
 
-			searchres.innerHTML += "<div class='card' value='i.value' onclick='show("+j+")'>"+"<div  class='card-body result-cards'>"+ "<h3>" + actualLocation[a]["providerName"] + "</h3>"+"$" + actualLocation[a]["averageTotalPayments"] + "<br>"+"<br>"+"<a href='www.google.com'target='_blank')>More Details</a> </div>"+"</div>";
 			j++;
 			google.maps.event.addListener(marker, 'click', (function (marker, a)
 			{
 				return function ()
 				{
-					map.setCenter(marker.getPosition());
+					map.panTo(marker.getPosition());
 					map.setZoom(10);
 					infowindow.setContent("<h6>" + actualLocation[a]["providerName"] + "</h6>"+"<br>");
 					infowindow.open(map, marker);
