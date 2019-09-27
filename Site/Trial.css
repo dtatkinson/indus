@@ -115,7 +115,7 @@ margin:0;
 background: #EDEDED;
 }
 
-.card-body:hover{
+.result-cards:hover{
 	background-color:white;
 	cursor: pointer;
 }
