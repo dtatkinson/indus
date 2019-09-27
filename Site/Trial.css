@@ -89,6 +89,7 @@ margin:0;
 .resultmanager{
 	width:29.95%;
 	padding: 1em;
+<<<<<<< HEAD
 }
 
 .sorting-container{
@@ -104,6 +105,23 @@ margin:0;
 	vertical-align: middle;
 }
 
+=======
+}
+
+.sorting-container{
+	float: left;
+}
+
+.sorting-list{
+	display: inline-block;
+	height: calc(2.25rem + 2px);
+	padding: .375rem 1.75rem .375rem .75rem;
+	line-height: 1.5;
+	color: #495057;
+	vertical-align: middle;
+}
+
+>>>>>>> origin/AlexUI
 .pagination-buttons-holder
 {
 	float: right;
@@ -180,3 +198,37 @@ top:50%;
   background-color: #007BFF;
   color: white;
 }
+<<<<<<< HEAD
+=======
+.backgroundimage img[src="images/bgimg.jpg"]
+{
+	height:94vh;
+	width:99.9vw;
+	opacity:0.8;
+}
+.header {
+  background-color: #f1f1f1;
+  padding: 30px;
+  text-align: center;
+  font-size: 35px;
+}
+
+.column {
+  float: left;
+  
+  width: 33.33%;
+  padding: 10px;
+  height : 75vh;
+}
+
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+.footer {
+  background-color: #f1f1f1;
+  padding: 10px;
+  text-align: center;
+>>>>>>> origin/AlexUI
