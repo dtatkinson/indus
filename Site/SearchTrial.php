@@ -171,6 +171,7 @@ while($row = mysqli_fetch_array($result_coord))
 
 
 		</div>
+	</div>
 		<div id="map">
 
 			<script type="text/javascript">
