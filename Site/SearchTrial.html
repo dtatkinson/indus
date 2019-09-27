@@ -1,23 +1,35 @@
+
 <html>
+<link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-<link href="Trial.css" rel="stylesheet" type="text/css"> 
-<script src="https://maps.googleapis.com/maps/api/js?key="
+<link href="Trial.css" rel="stylesheet" type="text/css">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<script src="https://maps.googleapis.com/maps/api/js?key=&libraries=geometry"
+
             type="text/javascript"></script>
-            
+
             <script type="text/javascript">
-            var locations = [
-            ['Bondi Beach', -33.890542, 151.274856, 4,'Price = 100','bondibeach'],
-            ['Coogee Beach', -33.923036, 151.259052, 5,'Price = 10220','coogeebeach'],
-            ['Cronulla Beach', -34.028249, 151.157507, 3,'Price = 1500','cronullabeach'],
-            ['Manly Beach', -33.80010128657071, 151.28747820854187, 2,'Price = 1600','manlybeach'],
-            ['Maroubra Beach', -33.950198, 151.259302, 1,'Price = 16300','maroubrabeach'],
-            ['Not a beach', 0, 0, 1,'Price = 09','Not a beach']
-
-            ];
+							var markers = [];
+							var actualLocation=[];
+	            var i,j;
+							var counter = 0;
+					    var x;
+	            var locations = <?php echo(json_encode($results_coord));?>;
+							var sortAscend = false;
             </script>
-<body>
 
-<head>			 
+<script type="text/javascript" src="pagination.js"></script>
+
+<style>
+
+.card:hover
+{
+	background-color:white;
+}
+</style>
+
+
+<head>
   <nav class="navbar navbar-expand navbar-light bg-light">
 	<a class="navbar-brand" href="#">
 		<img src="Images/healthdomeman.jpg" width="30" height="30" class="d-inline-block align-top" alt="">
@@ -32,7 +44,7 @@
      	   	<a class="nav-link" href="#"></a>
      	 	</li>
      	 	<li class="nav-item active">
-        	<a class="nav-link" href="#">Home</a>
+        	<a class="nav-link" href="healthdometrial.php">Home</a>
       		</li>
 	   		<li class="nav-item">
        	 	<a class="nav-link" href="#">About Us</a>
@@ -45,182 +57,139 @@
   		</div>
 		</a>
 	</nav>
-	
+
 </head>
 
 <body>
-<div class = "resultholder">
+	<div class="resultmanager">
+		<select class="mr-sm-2" id="sort_select">
+			<option value="averageTotalPayments">Price</option>
+			<option value="rating">Rating</option>
+		</select>
+		<button class = "btn btn-primary" type="button" name="sort_button" onclick="sortHospitals()">Sort</button>
+		<script type="text/javascript">
+			function sortHospitals(){
 
-    <div class = "searchresult">
-        <div class="card">
-                <div class="card-body">
-                    <script type="text/javascript">
-                    
-                    document.write( "<h1>" + locations[0][0] + "</h1>");                    
-                    document.write(locations[0][4] + "<br>");
+				var sortValue = document.getElementById("sort_select").value;
 
+				if(sortAscend){
+					actualLocation = actualLocation.sort(function(a,b){return(a[sortValue]-b[sortValue])})//Sorts ascending
+					sortAscend = false;
+				}else{
+					actualLocation = actualLocation.sort(function(a,b){return(b[sortValue]-a[sortValue])})//Sorts descending
+					sortAscend = true;
+				}
+				clearHospitals();
+				display();
+			}
 
-                    </script>
-                    <br>
-                    <br>
-                    <br>
-                    <br>
-                    <br>
-                    <br>
-                </div>
-        </div>
-    </div>
-        <div class = "searchresult">
-        <div class="card">
-                <div class="card-body">
+			function clearHospitals(){
+				document.getElementById("searchres").innerHTML = "";
+			}
+		</script>
+	</div>
+	<div class = "resultholder">
+		<div class ="w3-animate-opacity">
+			<div class="pagination-buttons-holder">
+				<ul class="pagination">
+				  <li class="page-item"><a class="page-link" id="btn_prev" style="visibility:hidden;" href="javascript:prevPage()">Previous</a></li>
+				  <li class="page-item"><a class="page-link" id="btn_next" href="javascript:nextPage()">Next</a></li>
+				</ul>
+			</div>
+    <div id="searchres" class = "searchresult">
 
-                    <script type="text/javascript">
-
-                    
-                    document.write( "<h1>" + locations[1][0] + "</h1>");                    
-                    document.write(locations[1][4] + "<br>");
-
-                    </script>
-                    <br>
-                    <br>
-                    <br>
-                    <br>
-                    <br>
-                </div>
-        </div>
-    </div>
-    
-
-    <div class = "searchresult">
-        <div class="card">
-                <div class="card-body">
-                    <script type="text/javascript">
-                    
-                    document.write( "<h1>" + locations[2][0] + "</h1>");                    
-                    document.write(locations[2][4] + "<br>");
-
-
-                    </script>
-                    <br>
-                    <br>
-                    <br>
-                    <br>
-                    <br>
-                </div>
-        </div>
     </div>
 
-    <div class = "searchresult">
-        <div class="card">
-                <div class="card-body">
-                   
-                    <script type="text/javascript">
-                    
-                    document.write( "<h1>" + locations[3][0] + "</h1>");                    
-                    document.write(locations[3][4] + "<br>");
 
+		</div>
+		<div id="map">
 
-                    </script>
-                    <br>
-                    <br>
-                    <br>
-                </div>
-        </div>
-    </div>
-    <div class = "searchresult">
-        <div class="card">
-                <div class="card-body">
-                                        <script type="text/javascript">
-                    
-                    document.write( "<h1>" + locations[4][0] + "</h1>");                    
-                    document.write(locations[4][4] + "<br>");
+			<script type="text/javascript">
 
-
-                    </script>
-                    <br>
-                    <br>
-                    <br>
-                    <br>
-                    <br>
-                    <br>
-                </div>
-        </div>
-    </div>
-</div>
-
-
-
-
-
- 
-
-<p>Click the button to get your coordinates.</p>
-
-<button onclick="getLocation()">Try It</button>
-
-<p id="demo"></p>
-
-
-
-
-
-  <div id="map" </div>
-
-    <script type="text/javascript">
-
-        var map = new google.maps.Map(document.getElementById('map'), {
-            zoom: 2.5,
-            center: new google.maps.LatLng(-33.92, 151.25),
+        var map = new google.maps.Map(document.getElementById('map'),
+        {
+            zoom: 4,
+            center: new google.maps.LatLng(30.0902, -85.7129),
             mapTypeId: google.maps.MapTypeId.ROADMAP
-          
         });
 
-  
+				var cityCircle = new google.maps.Circle({
+							 strokeColor: '#FF0000',
+							 strokeOpacity: 0.8,
+							 strokeWeight: 1,
+							 fillColor: '#FF0000',
+							 fillOpacity: 0.005,
+							 map: map,
+							 center: {lat:<?php echo($lat);?>,lng:<?php echo($long);?>},
+							 radius: <?php echo($range);?>
+					 });
+		j=0;
         var infowindow = new google.maps.InfoWindow();
+		var searchres = document.getElementById("searchres");
 
-        var marker, i;
-        for (i = 0; i < locations.length; i++) {
-            marker = new google.maps.Marker({
-                position: new google.maps.LatLng(locations[i][1], locations[i][2]),
-                map: map,
-                label: "H",
-            });
+				for (var i = 0; i < locations.length; i++)
+        {
 
-            google.maps.event.addListener(marker, 'click', (function (marker, i) {
-                return function () {
-                    infowindow.setContent("<p>" + locations[i][0] + "<br/>" + locations[i][4] + "<br/>" + "<a href=" + locations[i][5]+" > More Info</a > ");
-                    //alert(locations[i][4])
-                    infowindow.open(map, marker);
-                }
-            })(marker, i));
-        }
+					var center_distance = google.maps.geometry.spherical.computeDistanceBetween(cityCircle.center, new google.maps.LatLng(locations[i]["latitude"], locations[i]["longitude"]));
 
+					if(center_distance < <?php echo($range);?>)
+					{
+						actualLocation[counter] = locations[i];
+						counter++;
+					}
+				}
+				actualLocation = actualLocation.sort(function(a,b){return(a["averageTotalPayments"]-b["averageTotalPayments"])})//Sorts ascending
+		</script>
 
+	<script>
+display();
 
+function display()
+{
+	j=0;
+	for(var i=0; i <markers.length;i++){
+		markers[i].setMap(null);
+	}
+	markers = [];
+	var upperbound;
+	if(current_page == numPages())
+	{
+		upperbound = counter;
+	}
+	else
+	{
+		upperbound = current_page*records_per_page;
+	}
+	for(var a=(records_per_page*(current_page-1));a<upperbound;a++)
+		{
+					var marker = new google.maps.Marker({
+					position: new google.maps.LatLng(actualLocation[a]["latitude"],actualLocation[a]["longitude"]),
+					animation: google.maps.Animation.DROP,
+					map: map,
+					label: "H",
+					});
 
-
-        //geolocation testing
-var x = document.getElementById("demo");
-
-function getLocation() {
-  if (navigator.geolocation) {
-    navigator.geolocation.getCurrentPosition(showPosition);
-  } else { 
-    x.innerHTML = "Geolocation is not supported by this browser.";
-  }
+			searchres.innerHTML += "<div class='card'>"+"<div class='card-body'>"+ "<h3>" + actualLocation[a]["providerName"] + "</h3>"+"$" + actualLocation[a]["averageTotalPayments"] + "<br>"+"<br>"+"<a href='#' value='i.value' onclick='show("+j+")'>View on map</a>"+"<br>"+"<a href='www.google.com'target='_blank')>More Details</a> </div>"+"</div>";
+			j++;
+			google.maps.event.addListener(marker, 'click', (function (marker, a)
+			{
+				return function ()
+				{
+					map.setCenter(marker.getPosition());
+					map.setZoom(10);
+					infowindow.setContent("<h6>" + actualLocation[a]["providerName"] + "</h6>"+"<br>");
+					infowindow.open(map, marker);
+				}
+			})(marker, a));
+			markers.push(marker);
+		}
 }
 
-function showPosition(position) {
-  x.innerHTML = "Latitude: " + position.coords.latitude + 
-  "<br>Longitude: " + position.coords.longitude;
-
-
-CurrentMarker = new google.maps.Marker({
-                position: new google.maps.LatLng(position.coords.latitude, position.coords.longitude),
-                map: map,
-                label: "H",
-            });
-}
-    </script>
+  	function show(id)
+	  {
+            google.maps.event.trigger(markers[id], 'click');
+      }
+    	</script>
+    </div>
 </body>
 </html>
