@@ -95,15 +95,6 @@ while($row = mysqli_fetch_array($result_coord))
 
 <script type="text/javascript" src="pagination.js"></script>
 
-<style>
-
-.card:hover
-{
-	background-color:white;
-}
-</style>
-
-
 <head>
   <nav class="navbar navbar-expand navbar-light bg-light">
 	<a class="navbar-brand" href="#">
@@ -244,7 +235,7 @@ function display()
 					label: "H",
 					});
 
-			searchres.innerHTML += "<div class='card'>"+"<div class='card-body'>"+ "<h3>" + actualLocation[a]["providerName"] + "</h3>"+"$" + actualLocation[a]["averageTotalPayments"] + "<br>"+"<br>"+"<a href='#' value='i.value' onclick='show("+j+")'>View on map</a>"+"<br>"+"<a href='www.google.com'target='_blank')>More Details</a> </div>"+"</div>";
+			searchres.innerHTML += "<div class='card' value='i.value' onclick='show("+j+")'>"+"<div class='card-body'>"+ "<h3>" + actualLocation[a]["providerName"] + "</h3>"+"$" + actualLocation[a]["averageTotalPayments"] + "<br>"+"<br>"+"<a href='www.google.com'target='_blank')>More Details</a> </div>"+"</div>";
 			j++;
 			google.maps.event.addListener(marker, 'click', (function (marker, a)
 			{

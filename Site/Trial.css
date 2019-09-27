@@ -1,6 +1,6 @@
 *
 {
-	
+
 }
 
 head
@@ -16,7 +16,7 @@ letter-spacing: -2.4px;
 word-spacing: 2px;
 }
 
-.bg-light 
+.bg-light
 {
 	background-color:black;
 }
@@ -40,7 +40,7 @@ margin:0;
 
 .infobox1
 {
-	
+
 	position:absolute;
 	top:50%;
 	left:22.5%;
@@ -83,7 +83,7 @@ width:29.95%;
 
 left:0%;
 margin:0;
-	
+
 }
 
 
@@ -93,10 +93,19 @@ margin:0;
 background: #EDEDED;
 }
 
+.card-body:hover{
+	background-color:white;
+	cursor: pointer;
+}
+
 .form-check
 {
 display:inline;
 top:50%;
+}
+
+.resultmanager{
+	height: 5em;
 }
 
 .modal-content {
@@ -116,7 +125,7 @@ top:50%;
 
 /* Add Animation */
 @-webkit-keyframes animatetop {
-  from {top:-300px; opacity:0} 
+  from {top:-300px; opacity:0}
   to {top:25%;opacity:1}
 }
 
