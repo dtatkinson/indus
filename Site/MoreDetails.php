@@ -88,9 +88,48 @@ mysqli_close($conn);
 </head>
 
 <body>
-<div class="chartjs-wrapper">
-<canvas id="myChart" class="chartjs" width="1000" height="500"></canvas>
+<div class="container">
+
+  <!-- Portfolio Item Heading -->
+  <h1 class="my-4">More Information<br>
+    <small>
+	*hospital name*
+	</small>
+  </h1>
+
+  <!-- Portfolio Item Row -->
+  <div class="row">
+
+    <div class="col-md-8">
+	<div id='photo-container' ></div>
+	
+
+    </div>
+
+    <div class="col-md-4">
+      <h3 class="my-3">Graph</h3>
+	  <div class="chartjs-wrapper">
+<canvas id="myChart" class="chartjs" width="500" height="250"></canvas>
 </div>
+      
+      <h3 class="my-3">
+	  <div class="pictureinfo">
+		<script type="text/javascript">
+		document.write(financial_info[0]["providername"]+ "</h3>" + "<p>" + "Table of average prices over the last x years" + "</p>");	 
+		getPhotos(financial_info[0]["providername"]);
+
+		</script>
+<div>
+	  
+	  
+	  </h3>
+      <ul>
+
+      </ul>
+    </div>
+
+  </div>
+
 <div hidden id="map">
 
 </div>
@@ -128,11 +167,9 @@ mysqli_close($conn);
 		});
 </script>
 <script type="text/javascript">
-document.write(financial_info[0]["providername"]+" Table of average prices over the last x years");	 
-getPhotos(financial_info[0]["providername"]);
+		getPhotos(financial_info[0]["providername"]);
+		</script>
 
-</script>
-<div id='photo-container' height="50" width="50"></div>"
 
 </body>
 

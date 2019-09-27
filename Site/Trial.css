@@ -180,11 +180,43 @@ top:50%;
   background-color: #007BFF;
   color: white;
 }
-
 .backgroundimage img[src="images/bgimg.jpg"]
 {
-
+	filter: blur(8px);
+ 
 	height:94vh;
 	width:99.9vw;
 	opacity:0.8;
+}
+
+.profile-photo
+{
+	width:35vw;
+	height:40vh;
+}
+
+.pictureinfo
+{
+	
+}
+@media only screen and (max-width: 1024px) 
+{
+
+  .searchbox
+  {
+	left:0%;
+    display:block;
+	float:center;
+	width:100%;
+  }
+
+#map
+{
+	display:block;
+	width:69vw;
+	height:50vh;
+	left:31%;
+
+}
+
 }
