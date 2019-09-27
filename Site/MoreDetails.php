@@ -11,8 +11,8 @@ if(!$conn){
 	}
 //if($conn){
 //echo "connected <br>";
-$hospitalID = 10001;
-$code = 313;
+$hospitalID = $_POST["hosIdInput"];
+$code = $_POST["codeInput"];
 //this query is ruining everything
 $sql_query = "SELECT hos.providerId,hos.providername,hos.latitude,hos.longitude,f2017.code,f2017.averageTotalPayments as 'averageTotalPayments2017',f2016.averageTotalPayments  as 'averageTotalPayments2016'
 FROM 2019indteam2db.financial_info_2017 f2017
@@ -46,6 +46,8 @@ mysqli_close($conn);
   <!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/4.0.0/jquery.min.js"></script>-->
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+  <script type="text/javascript" src="placephoto.js"></script>
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBff9onASc5AUwK1DbBVXxW4dDoc-3qm1o&libraries=places" type="text/javascript"></script>
 
 
 <script  type="text/javascript">
@@ -89,6 +91,9 @@ mysqli_close($conn);
 <div class="chartjs-wrapper">
 <canvas id="myChart" class="chartjs" width="1000" height="500"></canvas>
 </div>
+<div hidden id="map">
+
+</div>
 <script type="text/javascript">
 //var a = parseFloat(financial_info[0]['averageTotalPayments2011']);
 	//var b = parseFloat(financial_info[0]['averageTotalPayments2012']);
@@ -107,7 +112,7 @@ mysqli_close($conn);
 			data: {
 				labels: ['2011', '2012', '2013', '2014', '2015', '2016', '2017'],
 				datasets: [{
-					label: 'Average Price Change',
+					label: 'Average Price ($)',
 					backgroundColor: 'rgb(255, 99, 132)',
 					borderColor: 'rgb(255, 99, 132)',
 					fill: false,
@@ -124,7 +129,11 @@ mysqli_close($conn);
 </script>
 <script type="text/javascript">
 document.write(financial_info[0]["providername"]+" Table of average prices over the last x years");	 
+getPhotos(financial_info[0]["providername"]);
+
 </script>
+<div id='photo-container' height="50" width="50"></div>"
+
 </body>
 
 
