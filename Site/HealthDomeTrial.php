@@ -126,7 +126,9 @@ function findLocation()
 	</nav>
 
 </head>
-
+<div class="backgroundimage">
+<img src="images/bgimg.jpg" alt="" height="" width="">
+</div>
 	<div class="searchbox">
 			<div class="card">
   				<div class="card-body">
