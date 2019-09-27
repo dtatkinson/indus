@@ -180,3 +180,11 @@ top:50%;
   background-color: #007BFF;
   color: white;
 }
+
+.backgroundimage img[src="images/bgimg.jpg"]
+{
+
+	height:94vh;
+	width:99.9vw;
+	opacity:0.8;
+}
