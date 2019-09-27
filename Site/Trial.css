@@ -153,3 +153,9 @@ top:50%;
   background-color: #007BFF;
   color: white;
 }
+.pagination-buttons-holder
+{
+	position:absolute;
+	top:5.5%;
+	left:20%;
+}
