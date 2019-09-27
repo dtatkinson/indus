@@ -128,11 +128,20 @@ while($row = mysqli_fetch_array($result_coord))
 
 <body>
 	<div class="resultmanager">
-		<select class="mr-sm-2" id="sort_select">
-			<option value="averageTotalPayments">Price</option>
-			<option value="rating">Rating</option>
-		</select>
-		<button class = "btn btn-primary" type="button" name="sort_button" onclick="sortHospitals()">Sort</button>
+		<div class="sorting-container">
+			<select class="sorting-list mr-sm-2" id="sort_select">
+				<option value="averageTotalPayments">Price</option>
+				<option value="rating">Rating</option>
+			</select>
+			<button class = "btn btn-primary" type="button" name="sort_button" onclick="sortHospitals()">Sort</button>
+		</div>
+
+		<div class="pagination-buttons-holder">
+			<ul class="pagination">
+				<li class="page-item"><a class="page-link" id="btn_prev" style="visibility:hidden;" href="javascript:prevPage()">Previous</a></li>
+				<li class="page-item"><a class="page-link" id="btn_next" href="javascript:nextPage()">Next</a></li>
+			</ul>
+		</div>
 		<script type="text/javascript">
 			function sortHospitals(){
 
@@ -156,12 +165,6 @@ while($row = mysqli_fetch_array($result_coord))
 	</div>
 	<div class = "resultholder">
 		<div class ="w3-animate-opacity">
-			<div class="pagination-buttons-holder">
-				<ul class="pagination">
-				  <li class="page-item"><a class="page-link" id="btn_prev" style="visibility:hidden;" href="javascript:prevPage()">Previous</a></li>
-				  <li class="page-item"><a class="page-link" id="btn_next" href="javascript:nextPage()">Next</a></li>
-				</ul>
-			</div>
     <div id="searchres" class = "searchresult">
 
     </div>
