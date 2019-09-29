@@ -139,7 +139,16 @@ while($row = mysqli_fetch_array($result_coord))
 			</select>
 			<button class = "btn btn-primary" type="button" name="sort_button" onclick="sortHospitals()">Sort</button>
 		</div>
+<div class="markers-container">
+			<select class="sorting-list mr-sm-2" id="num_of_entries">
+					<option value=10>10</option>
+					<option value=20>20</option>
+					<option value=50>50</option>
+					<option value=100>100</option>
 
+				</select>
+				<button class = "btn btn-primary" type="button" name="sort_button" onclick="numOfEntries()">Filter</button>
+			</div>
 		<div class="pagination-buttons-holder">
 			<ul class="pagination">
 				<li class="page-item"><a class="page-link" id="btn_prev" style="visibility:hidden;" href="javascript:prevPage()">Previous</a></li>
@@ -162,6 +171,14 @@ while($row = mysqli_fetch_array($result_coord))
 				display();
 			}
 
+			function numOfEntries()
+			{
+				var entries = document.getElementById("num_of_entries").value;
+				records_per_page = entries;
+				clearHospitals();
+				display();
+			}
+			
 			function clearHospitals(){
 				document.getElementById("searchres").innerHTML = "";
 			}
