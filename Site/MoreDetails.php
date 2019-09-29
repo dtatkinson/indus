@@ -11,7 +11,14 @@ if(!$conn){
 	}
 //if($conn){
 //echo "connected <br>";
-$hospitalID = $_POST["hosIdInput"];
+if(!empty($hospitalID = $_POST["hosIdInput"])){
+	$hospitalID = $_POST["hosIdInput"];
+}
+else{
+	header('Location:healthdometrial.php');
+	exit;
+}
+
 $code = $_POST["codeInput"];
 //this query is ruining everything
 $sql_query = "SELECT hos.providerId,hos.providername,hos.latitude,hos.longitude,f2017.code,f2017.averageTotalPayments as 'averageTotalPayments2017',f2016.averageTotalPayments  as 'averageTotalPayments2016'

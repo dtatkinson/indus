@@ -17,7 +17,13 @@ if($conn){
 
 //Get user input from the search page
 //re-add range and medicare after client meeting
-$injurys = $_POST["injury_input"];
+if(!empty($injurys = $_POST["injury_input"])){
+	$injurys = $_POST["injury_input"];
+}
+else{
+	header('Location:healthdometrial.php');
+	exit;
+}
 $location = $_POST["location_input"];
 
 $pieces = explode(":",$injurys);
