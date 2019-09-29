@@ -159,12 +159,12 @@ function findLocation()
 								<label class="mr-sm-2" for="inlineFormCustomSelect">Distance Range</label>
 								<select class="custom-select mr-sm-2" name="range_input" id="inlineFormCustomSelect">
                   <option value="9999999">No Limit</option>
-                  <option value="20000">20 Miles</option>
-									<option value="50000">50 Miles</option>
-									<option value="100000">100 Miles</option>
-									<option selected value="250000">250 Miles</option>
-									<option value="500000">500 Miles</option>
-									<option value="999999">999 Miles</option>
+                  <option value="32186.9">20 Miles</option>
+									<option value="80467.2">50 Miles</option>
+									<option value="160934">100 Miles</option>
+									<option selected value="402336">250 Miles</option>
+									<option value="804672">500 Miles</option>
+									<option value="1609844">1000 Miles</option>
 								</select>
 
 							</div>

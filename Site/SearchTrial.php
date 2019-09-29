@@ -53,7 +53,7 @@ $sql_code = "SELECT * FROM 2019indteam2db.codes_info WHERE description LIKE '%".
 //$result stores the result of the query, you can convert this to use in javascript, see david for this
 $result_code = mysqli_query($conn,$sql_code);
 
-$sql_coord = "SELECT x.code,x.providerId,x.averageTotalPayments,providerName,latitude,longitude
+$sql_coord = "SELECT x.code,x.providerId,x.averageTotalPayments,x.totalDischarges,providerName,latitude,longitude
 FROM 2019indteam2db.financial_info_2017 x
 inner join 2019indteam2db.hospital_information y
 ON x.providerId = y.providerId
@@ -79,9 +79,6 @@ while($row = mysqli_fetch_array($result_coord))
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 <link href="Trial.css" rel="stylesheet" type="text/css">
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-<script src="https://maps.googleapis.com/maps/api/js?key=&libraries=geometry"
-
-            type="text/javascript"></script>
 
             <script type="text/javascript">
 							var markers = [];
@@ -94,6 +91,7 @@ while($row = mysqli_fetch_array($result_coord))
             </script>
 
 <script type="text/javascript" src="pagination.js"></script>
+<script type="text/javascript" src="rating.js"></script>
 
 <head>
   <nav class="navbar navbar-expand navbar-light bg-light">
@@ -131,6 +129,7 @@ while($row = mysqli_fetch_array($result_coord))
 		<div class="sorting-container">
 			<select class="sorting-list mr-sm-2" id="sort_select">
 				<option value="averageTotalPayments">Price</option>
+				<option value="center_distance">Distance</option>
 				<option value="rating">Rating</option>
 			</select>
 			<button class = "btn btn-primary" type="button" name="sort_button" onclick="sortHospitals()">Sort</button>
@@ -205,10 +204,12 @@ while($row = mysqli_fetch_array($result_coord))
 					if(center_distance < <?php echo($range);?>)
 					{
 						actualLocation[counter] = locations[i];
+						actualLocation[counter]["center_distance"] = center_distance;
 						counter++;
 					}
 				}
-				actualLocation = actualLocation.sort(function(a,b){return(a["averageTotalPayments"]-b["averageTotalPayments"])})//Sorts ascending
+				actualLocation = actualLocation.sort(function(a,b){return(a["averageTotalPayments"]-b["averageTotalPayments"])});//Sorts ascending
+				addRatings();
 		</script>
 
 	<script>
@@ -238,7 +239,7 @@ function display()
 					map: map
 					});
 
-			searchres.innerHTML += "<div class='card' value='i.value' onclick='show("+j+")'>"+"<div  class='card-body result-cards'>"+ "<h3>" + actualLocation[a]["providerName"] + "</h3>"+"$" + actualLocation[a]["averageTotalPayments"] + "<br>"+"<br>"+"<a href='www.google.com'target='_blank')>More Details</a> </div>"+"</div>";
+			searchres.innerHTML += "<div class='card' value='i.value' onclick='show("+j+")'>"+"<div  class='card-body result-cards'>"+ "<h3>" + actualLocation[a]["providerName"] + "</h3>"+"Average price: $" + actualLocation[a]["averageTotalPayments"] + "<br>Distance: " + Math.round(actualLocation[a]["center_distance"]*0.00062371) + " miles<br>"+"<a href='www.google.com'target='_blank')>More Details</a> </div>"+"</div>";
 			j++;
 			google.maps.event.addListener(marker, 'click', (function (marker, a)
 			{
