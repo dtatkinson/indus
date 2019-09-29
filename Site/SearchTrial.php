@@ -75,10 +75,8 @@ while($row = mysqli_fetch_array($result_coord))
 {
 		$results_coord[] = $row;
 }
-//echo "<script type='text\javascript'> var locations = ".$jsarray."; <script>";
 //closes connection to the database
- //mysqli_close($conn);
-}
+mysqli_close($conn);
 ?>
 <html>
 <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
