@@ -12,7 +12,6 @@ $conn = mysqli_connect($servername, $username, $password);
 if(!$conn){
 	die("Connection failed: " . mysqli_connect_error());
 	}
-if($conn){
 //echo "connected <br>";
 
 //Get user input from the search page
