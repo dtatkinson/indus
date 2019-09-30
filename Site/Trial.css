@@ -195,6 +195,11 @@ top:50%;
 	height:40vh;
 }
 
+.ui-autocomplete { max-height: 30vh;
+overflow-y: scroll;
+overflow-x: hidden;
+}
+
 .pictureinfo
 {
 	

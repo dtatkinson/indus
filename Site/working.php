@@ -11,7 +11,14 @@ if(!$conn){
 	}
 //if($conn){
 //echo "connected <br>";
-$hospitalID = $_POST["hosIdInput"];
+if(!empty($hospitalID = $_POST["hosIdInput"])){
+	$hospitalID = $_POST["hosIdInput"];
+}
+else{
+	header('Location:healthdometrial.php');
+	exit;
+}
+
 $code = $_POST["codeInput"];
 //this query is ruining everything
 $sql_query = "SELECT hos.providerId,hos.providername,hos.latitude,hos.longitude,f2017.code,f2017.averageTotalPayments as 'averageTotalPayments2017',f2016.averageTotalPayments  as 'averageTotalPayments2016'
@@ -55,9 +62,6 @@ mysqli_close($conn);
 	 
 </script>
 
-
- 
-</script>
 
     <head>
   <nav class="navbar navbar-expand navbar-light bg-light">
@@ -104,11 +108,7 @@ mysqli_close($conn);
   <div class="row">
 
     <div class="col-md-8">
-
-  <div id='photo-container' >
-
-	<img src="Images/spinnergif.gif" id="spinner"></img>
-	</div>
+	<div id='photo-container' ></div>
 	
 
     </div>
@@ -122,8 +122,8 @@ mysqli_close($conn);
       <h3 class="my-3">
 	  <div class="pictureinfo">
 		<script type="text/javascript">
-		//document.write(financial_info[0]["providername"]+ "</h3>" + "<p>" + "Table of average prices over the last x years" + "</p>");	 
-		
+		document.write(financial_info[0]["providername"]+ "</h3>" + "<p>" + "Table of average prices over the last x years" + "</p>");	 
+		getPhotos(financial_info[0]["providername"]);
 
 		</script>
 <div>
@@ -178,11 +178,6 @@ mysqli_close($conn);
 		</script>
 
 
-
-    <script type ="text/javascript">
- window.onload = function(){
- document.getElementById("spinner").hidden = true;}
-</script>
 </body>
 
 
