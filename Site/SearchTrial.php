@@ -79,7 +79,7 @@ while($row = mysqli_fetch_array($result_coord))
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 <link href="Trial.css" rel="stylesheet" type="text/css">
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBff9onASc5AUwK1DbBVXxW4dDoc-3qm1o&libraries=geometry" type="text/javascript"></script>
+<script src="https://maps.googleapis.com/maps/api/js?key=&libraries=geometry" type="text/javascript"></script>
 <script src="rating.js"></script>
             <script type="text/javascript">
 							var markers = [];
