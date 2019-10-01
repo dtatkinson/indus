@@ -7,6 +7,7 @@
   <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
   <script src="https://kit.fontawesome.com/caf1c83931.js" crossorigin="anonymous"></script>
   <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+  
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
   <script>
@@ -16,7 +17,7 @@
         $.get("searchcodes.txt" , function(data)
         {
         var searchedwords = data.split('\n');
-        $("#tags").autocomplete({ source: searchedwords});
+        $("#tags").autocomplete({ source: searchedwords, scroll:true});
         });
     });
 
@@ -32,20 +33,23 @@
 	}
 
 function findAddress(){
-
-  //Switch statement to set the position
-  var addressValue = document.getElementById("address").value;
-  switch(addressValue){
-    case "":
-      valid = false;
-      break;
-    case "My location":
-      dataValidation();
-      break;
-    default:
-      findLocation();
-      break;
-  }
+	if(document.getElementById("address").disabled == false){
+		//Switch statement to set the position
+		var addressValue = document.getElementById("address").value;
+		switch(addressValue){
+			case "":
+			valid = false;
+			break;
+			case "My location":
+			dataValidation();
+			break;
+			default:
+			findLocation();
+			break;
+		}
+	}else{
+		document.getElementById("search_form").submit();
+	}
 }
 
 function dataValidation(){
@@ -93,10 +97,11 @@ function findLocation()
 	)
 }
   </script>
+<body onload="locationChange()">
 
-    <head>
-  <nav class="navbar navbar-expand navbar-light bg-light">
-	<a class="navbar-brand" href="#">
+        <head>
+    <nav class="navbar navbar-expand navbar-light bg-light">
+	<a class="navbar-brand" href="healthdometrial.php">
 		<img src="Images/healthdomeman.jpg" width="30" height="30" class="d-inline-block align-top" alt="">
 		HealthDome
 
@@ -109,13 +114,13 @@ function findLocation()
      	   	<a class="nav-link" href="#"></a>
      	 	</li>
      	 	<li class="nav-item active">
-        	<a class="nav-link" href="#">Home</a>
+        	<a class="nav-link" href="HealthdomeTrial.php">Home</a>
       		</li>
 	   		<li class="nav-item">
-       	 	<a class="nav-link" href="#">About Us</a>
+       	 	<a class="nav-link" href="Aboutus.html">About Us</a>
       		</li>
       		<li class="nav-item">
-       	 	<a class="nav-link" href="#">Contact
+       	 	<a class="nav-link" href="Contactus.html">Contact
 			</a>
     	    </li>
     	 </ul>
@@ -124,7 +129,6 @@ function findLocation()
 	</nav>
 
 </head>
-<body>
 
 <div class="backgroundimage">
 <img src="images/bgimg.jpg" alt="" height="" width="">
@@ -137,33 +141,111 @@ function findLocation()
    						 <div class="input-group mb-3">
   							<div class="input-group-prepend">
    							 <span class="input-group-text" id="basic-addon1">Injury</span>
-  							</div>
-
+  							
 					    <input type="text" name="injury_input" id="tags" class="form-control" placeholder="Broken Leg" aria-label="Username" aria-describedby="basic-addon1">
 						<input type="text" hidden name="lat_input"  id="lat" class="form-control">
 						<input type="text" hidden name="long_input" id="long" class="form-control">
+						</div>
 							<div class="input-group-prepend">
-   							 <span class="input-group-text" id="Address">Address</span>
+   							<select class="custom-select mr-sm-2" name="locselect" id="locselect" onchange="locationChange()"value="1">
+							<option value="1"selected>Address</option>
+							<option value="0">State</option>
+							 </select>
 							 <button type="button" data-toggle="tooltip" title="Get location automatically" class="btn btn-primary" onclick="getLocation()"><i class="fas fa-map-marked-alt"></i></button>
   							</div>
+							
 						<input type="text" id="address" name="location_input" class="form-control" placeholder="24424 or 'California' " aria-label="Username" aria-describedby="basic-addon1">
 						</div>
+						<div class="State_choice">
+							
+              <label class="mr-sm-2" for="inlineFormCustomSelect">Search By State</label>
+								<select class="custom-select mr-sm-2" name="state_input" id="state_input">
+									<option value="AL">Alabama</option>
+									<option value="AK">Alaska</option>
+									<option value="AZ">Arizona</option>
+									<option value="AR">Arkansas</option>
+									<option value="CA">California</option>
+									<option value="CO">Colorado</option>
+									<option value="CT">Connecticut</option>
+									<option value="DE">Delaware</option>
+									<option value="FL">Florida</option>
+									<option value="GA">Georgia</option>
+									<option value="HI">Hawaii</option>
+									<option value="ID">Idaho</option>
+									<option value="IL">Illinois</option>
+									<option value="IN">Indiana</option>
+									<option value="IA">Iowa</option>
+									<option value="KS">Kansas</option>
+									<option value="KY">Kentucky</option>
+									<option value="LA">Louisiana</option>
+									<option value="ME">Maine</option>
+									<option value="MD">Maryland</option>
+									<option value="MA">Massachusetts</option>
+									<option value="MI">Michigan</option>
+									<option value="MN">Minnesota</option>
+									<option value="MS">Mississippi</option>
+									<option value="MO">Missouri</option>
+									<option value="MT">Montana</option>
+									<option value="NE">Nebraska</option>
+									<option value="NV">Nevada</option>
+									<option value="NH">New Hampshire</option>
+									<option value="NJ">New Jersey</option>
+									<option value="NM">New Mexico</option>
+									<option value="NY">New York</option>
+									<option value="NC">North Carolina</option>
+									<option value="ND">North Dakota</option>
+									<option value="OH">Ohio</option>
+									<option value="OK">Oklahoma</option>
+									<option value="OR">Oregon</option>
+									<option value="PA">Pennsylvania</option>
+									<option value="RI">Rhode Island</option>
+									<option value="SC">South Carolina</option>
+									<option value="SD">South Dakota</option>
+									<option value="TN">Tennessee</option>
+									<option value="TX">Texas</option>
+									<option value="UT">Utah</option>
+									<option value="VT">Vermont</option>
+									<option value="VA">Virginia</option>
+									<option value="WA">Washington</option>
+									<option value="WV">West Virginia</option>
+									<option value="WI">Wisconsin</option>
+									<option value="WY">Wyoming</option>
+								</select>
 
+								</div>
+									<script>
+										function locationChange() {
+											
+										var choice = document.getElementById("locselect").value;
+										if (choice == 1) {
+														
+														document.getElementById("address").disabled = false;
+														document.getElementById("state_input").disabled = true;
+													   }
+										else if (choice == 0)
+														{
+									
+														document.getElementById("address").disabled = true;
+														document.getElementById("state_input").disabled = false;
+														}
+										}
+									</script>
 						<div>
+							<!--<button type="button" onclick="findLocation()">Find my location</button>-->
 						</div>
 						<button type="button" data-toggle="collapse" data-target="#advancesearch" class="btn btn-link">Advanced search <i class="fas fa-sort-down"></i></button>
 	<div class="collapse" id="advancesearch">
 						<div class="form-row">
 							<div class="col-auto my-1">
-								<label class="mr-sm-2" for="inlineFormCustomSelect">Distance Range(Radius)</label>
+								<label class="mr-sm-2" for="inlineFormCustomSelect">Distance Range</label>
 								<select class="custom-select mr-sm-2" name="range_input" id="inlineFormCustomSelect">
-                  					<option value="9999999">No Limit</option>
-                  					<option value="20000">Within 20 Miles</option>
-									<option value="50000">Within 50 Miles</option>
-									<option value="100000">Within 100 Miles</option>
-									<option selected value="250000"> Within 250 Miles</option>
-									<option value="500000"> Within 500 Miles</option>
-									<option value="999999"> Within 999 Miles</option>
+                  <option value="9999999">No Limit</option>
+                  <option value="20000">20 Miles</option>
+									<option value="50000">50 Miles</option>
+									<option value="100000">100 Miles</option>
+									<option selected value="250000">250 Miles</option>
+									<option value="500000">500 Miles</option>
+									<option value="999999">999 Miles</option>
 								</select>
 
 							</div>
@@ -173,32 +255,29 @@ function findLocation()
 								<label for="inlineFormCustomSelect">Max Price</label>
 								<input class="custom-select mr-sm-2" type="number" name="price_input" id="inlineFormCustomSelect">
 							</div>
+							<br>
 
-							<div class="col-auto my-1">
-								<div class="form-check">
-								<input type="checkbox" name="medicare_input" class="inline-form-check-input" id="exampleCheck1">
-								<label class="form-check-label" name="medicare_input" for="medicare_input">I have Medicare</label>
-								<br>
-
-
-
-
-
-								</div>
+							
+							
 							</div>
 
 						</div>
-	</div>
 						<div class="Searchbutton">
-							<br>
+
 							<!--<input type="submit" class="btn btn-primary btn-block" value="Search">-->
               <button type="button" class="btn btn-primary btn-block" onclick="findAddress()">Search</button>
-						</div>
+ 
+          	</div>
+	</div>
+						
 
 					</form>
  		 		</div>
   		  </div>
 	</div>
+
+
+	<div>
 
 
 </body>
