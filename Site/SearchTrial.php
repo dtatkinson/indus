@@ -140,6 +140,7 @@ mysqli_close($conn);
 
 <head>
   <nav class="navbar navbar-expand navbar-light bg-light">
+	<a class="navbar-brand" href="#">
 		<img src="Images/healthdomeman.jpg" width="30" height="30" class="d-inline-block align-top" alt="">
 		HealthDome
 
@@ -171,7 +172,13 @@ mysqli_close($conn);
 <body>
 	<div class="resultmanager">
 		<div class="sorting-container">
-			<select class="sorting-list mr-sm-2" id="sort_select" onchange="sortHospitals()">
+		<select class="sorting-list mr-sm-2" id="sort_select" onchange="sortHospitals()">
+				<option value="priceLH">Price - Low to High</option>
+	   			<option value="priceHL">Price - High to Low</option>
+	   			<option value="ratingLH">Rating - Low to High</option>
+	   			<option value="ratingHL">Rating - High to Low</option>
+	   			<option value="distanceLH">Distance - Low to High</option>
+	   			<option value="distanceHL">Distance - High to Low</option>
 			</select>
 		</div>
 		<div class="markers-container">
