@@ -144,14 +144,16 @@ mysqli_close($conn);
 <script type="text/javascript" src="rating.js"></script>
 
 <head>
-  <nav class="navbar navbar-expand navbar-light bg-light">
-	<a class="navbar-brand" href="#">
-		<img src="Images/healthdomeman.jpg" width="30" height="30" class="d-inline-block align-top" alt="">
-		HealthDome
+<title>Price Search</title>
+	<nav class="navbar navbar-expand navbar-light bg-light">
+		<a class="navbar-brand" href="#">
+			<img src="Images/healthdomeman.jpg" width="30" height="30" class="d-inline-block align-top" alt="">
+		     HealthDome
 
-  		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-    	<span class="navbar-toggler-icon"></span>
+  		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="HealthDome Buttons">
+			<span class="navbar-toggler-icon"></span>
  		</button>
+		
   		<div class="collapse navbar-collapse" id="navbarNav">
    		 <ul class="navbar-nav">
     	  	<li class="nav-item active">
@@ -161,10 +163,10 @@ mysqli_close($conn);
         	<a class="nav-link" href="healthdometrial.php">Home</a>
       		</li>
 	   		<li class="nav-item">
-       	 	<a class="nav-link" href="#">About Us</a>
+       	 	<a class="nav-link" href="aboutus.html">About Us</a>
       		</li>
       		<li class="nav-item">
-       	 	<a class="nav-link" href="#">Contact
+       	 	<a class="nav-link" href="contactus.html">Contact
 			</a>
     	    </li>
     	 </ul>
@@ -177,7 +179,7 @@ mysqli_close($conn);
 <body>
 	<div class="resultmanager">
 		<div class="sorting-container">
-		<select class="sorting-list mr-sm-2" id="sort_select" onchange="sortHospitals()">
+			<select class="sorting-list mr-sm-2" id="sort_select" onchange="sortHospitals()" aria-label="Sorting Selector">
 				<option value="priceLH">Price - Low to High</option>
 	   			<option value="priceHL">Price - High to Low</option>
 	   			<option value="ratingLH">Rating - Low to High</option>
@@ -186,36 +188,34 @@ mysqli_close($conn);
 	   			<option value="distanceHL">Distance - High to Low</option>
 			</select>
 		</div>
+		
 		<div class="markers-container">
-	  <select class="sorting-list mr-sm-2" id="num_of_entries" onchange="numOfEntries()">
-	    <option value=10>10</option>
-	    <option value=20>20</option>
-	    <option value=50>50</option>
-	    <option value=100>100</option>
-
-	   </select>
+			<select class="sorting-list mr-sm-2" id="num_of_entries" onchange="numOfEntries()"aria-label="Select Amount of Markers">
+			<option value=10>10</option>
+			<option value=20>20</option>
+			<option value=50>50</option>
+			<option value=100>100</option>
+			</select>
 	   
-	   		<div class="pagination-buttons-holder">
-			<ul class="pagination">
-				<li class="page-item"><a class="page-link" id="btn_prev" style="visibility:hidden;" href="javascript:prevPage()">Previous</a></li>
-				<li class="page-item"><a class="page-link" id="btn_next" href="javascript:nextPage()">Next</a></li>
-			</ul>
-		</div>
+				<div class="pagination-buttons-holder">
+					<ul class="pagination" aria-label="Next and Previous Buttons">
+						<li class="page-item"><a class="page-link" id="btn_prev" style="visibility:hidden;" href="javascript:prevPage()">Previous</a></li>
+						<li class="page-item"><a class="page-link" id="btn_next" href="javascript:nextPage()">Next</a></li>
+					</ul>
+				</div>
 	   
-  	</div>
-	  </div>
-	<div class = "resultholder">
-		<div class ="w3-animate-opacity">
-    <div id="searchres" class = "searchresult">
-
-    </div>
-
-
 		</div>
 	</div>
-		<div id="map">
+	
+	<div class = "resultholder">
+		<div class ="w3-animate-opacity">
+			<div id="searchres" class = "searchresult"></div>	
 		</div>
-		<script type="text/javascript">
+	</div>
+	
+	<div id="map"></div>
+	
+	<script type="text/javascript">
 
 			function sortHospitals(){
 

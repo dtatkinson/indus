@@ -97,69 +97,75 @@ function findLocation()
 	)
 }
   </script>
-<body onload="locationChange()">
 
-        <head>
-    <nav class="navbar navbar-expand navbar-light bg-light">
-	<a class="navbar-brand" href="healthdometrial.php">
-		<img src="Images/healthdomeman.jpg" width="30" height="30" class="d-inline-block align-top" alt="">
-		HealthDome
 
-  		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-    	<span class="navbar-toggler-icon"></span>
- 		</button>
-  		<div class="collapse navbar-collapse" id="navbarNav">
-   		 <ul class="navbar-nav">
-    	  	<li class="nav-item active">
-     	   	<a class="nav-link" href="#"></a>
-     	 	</li>
-     	 	<li class="nav-item active">
-        	<a class="nav-link" href="HealthdomeTrial.php">Home</a>
-      		</li>
-	   		<li class="nav-item">
-       	 	<a class="nav-link" href="Aboutus.html">About Us</a>
-      		</li>
-      		<li class="nav-item">
-       	 	<a class="nav-link" href="Contactus.html">Contact
-			</a>
-    	    </li>
-    	 </ul>
-  		</div>
+<head>
+<title>HealthDome</title>
+
+	<nav class="navbar navbar-expand navbar-light bg-light">
+		<a class="navbar-brand" href="healthdometrial.php">
+			<img src="Images/healthdomeman.jpg" width="30" height="30" class="d-inline-block align-top" alt="">
+			HealthDome
+			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Nav bar options">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+		
+			<div class="collapse navbar-collapse" id="navbarNav">
+				<ul class="navbar-nav">
+				<li class="nav-item active">
+				<a class="nav-link" href="#"></a>
+				</li>
+				<li class="nav-item active">
+				<a class="nav-link" href="HealthdomeTrial.php">Home</a>
+				</li>
+				<li class="nav-item">
+				<a class="nav-link" href="Aboutus.html">About Us</a>
+				</li>
+				<li class="nav-item">
+				<a class="nav-link" href="Contactus.html">Contact
+				</a>
+				</li>
+				</ul>
+			</div>
 		</a>
 	</nav>
 
 </head>
 
-<div class="backgroundimage">
-<img src="images/bgimg.jpg" alt="" height="" width="">
-</div>
+<body onload="locationChange()">
+	<div class="backgroundimage">
+		<img src="images/bgimg.jpg" alt="" height="" width="">
+	</div>
+	
 	<div class="searchbox">
 			<div class="card">
   				<div class="card-body">
 					<form id="search_form" class="" action="SearchTrial.php" method="post">
 						<h1> Compare Prices! </h1>
-   						 <div class="input-group mb-3">
+   						<div class="input-group mb-3">
   							<div class="input-group-prepend">
-   							 <span class="input-group-text" id="basic-addon1">Injury</span>
+								<span class="input-group-text" id="basic-addon1">Injury</span>
   							
-					    <input type="text" name="injury_input" id="tags" class="form-control" placeholder="Broken Leg" aria-label="Username" aria-describedby="basic-addon1">
-						<input type="text" hidden name="lat_input"  id="lat" class="form-control">
-						<input type="text" hidden name="long_input" id="long" class="form-control">
-						</div>
-							<div class="input-group-prepend">
-   							<select class="custom-select mr-sm-2" name="locselect" id="locselect" onchange="locationChange()"value="1">
-							<option value="1"selected>Address</option>
-							<option value="0">State</option>
-							 </select>
-							 <button type="button" data-toggle="tooltip" title="Get location automatically" class="btn btn-primary" onclick="getLocation()"><i class="fas fa-map-marked-alt"></i></button>
-  							</div>
+								<input type="text" name="injury_input" id="tags" class="form-control" placeholder="Broken Leg" aria-label="Injury Input" aria-describedby="basic-addon1">
+								<input type="text" hidden name="lat_input"  id="lat" class="form-control">
+								<input type="text" hidden name="long_input" id="long" class="form-control">
+							</div>
 							
-						<input type="text" id="address" name="location_input" class="form-control" placeholder="24424 or 'California' " aria-label="Username" aria-describedby="basic-addon1">
+							<div class="input-group-prepend">
+								<select class="custom-select mr-sm-2" name="locselect" id="locselect" onchange="locationChange()"value="1" aria-label="Location drop down selector." >
+									<option value="1"selected>Address</option>
+									<option value="0">State</option>
+								</select>
+								<button type="button" data-toggle="tooltip" title="Get location automatically" class="btn btn-primary" onclick="getLocation()"><i class="fas fa-map-marked-alt"aria-label="Use Your own Location"></i></button>
+							</div>
+							
+							<input type="text" id="address" name="location_input" class="form-control" placeholder="24424 or 'California' " aria-label="Address input" aria-describedby="basic-addon1">
 						</div>
+						
 						<div class="State_choice">
 							
-              <label class="mr-sm-2" for="inlineFormCustomSelect">Search By State</label>
-								<select class="custom-select mr-sm-2" name="state_input" id="state_input">
+							<label class="mr-sm-2" for="inlineFormCustomSelect">Search By State</label>
+								<select class="custom-select mr-sm-2" name="state_input" id="state_input" aria-label="Choice Of states">
 									<option value="AL">Alabama</option>
 									<option value="AK">Alaska</option>
 									<option value="AZ">Arizona</option>
@@ -212,7 +218,7 @@ function findLocation()
 									<option value="WY">Wyoming</option>
 								</select>
 
-								</div>
+						</div>
 									<script>
 										function locationChange() {
 											
@@ -230,57 +236,43 @@ function findLocation()
 														}
 										}
 									</script>
-						<div>
-							<!--<button type="button" onclick="findLocation()">Find my location</button>-->
-						</div>
+
 						<button type="button" data-toggle="collapse" data-target="#advancesearch" class="btn btn-link">Advanced search <i class="fas fa-sort-down"></i></button>
-	<div class="collapse" id="advancesearch">
-						<div class="form-row">
-							<div class="col-auto my-1">
-								<label class="mr-sm-2" for="inlineFormCustomSelect">Distance Range</label>
-								<select class="custom-select mr-sm-2" name="range_input" id="inlineFormCustomSelect">
-                  <option value="9999999">No Limit</option>
-                  <option value="20000">20 Miles</option>
-									<option value="50000">50 Miles</option>
-									<option value="100000">100 Miles</option>
-									<option selected value="250000">250 Miles</option>
-									<option value="500000">500 Miles</option>
-									<option value="999999">999 Miles</option>
-								</select>
-
-							</div>
-
-
-							<div class="col-auto my-1">
-								<label for="inlineFormCustomSelect">Max Price</label>
-								<input class="custom-select mr-sm-2" type="number" name="price_input" id="inlineFormCustomSelect">
-							</div>
-							<br>
-
-							
-							
-							</div>
-
-						</div>
-						<div class="Searchbutton">
-
-							<!--<input type="submit" class="btn btn-primary btn-block" value="Search">-->
-              <button type="button" class="btn btn-primary btn-block" onclick="findAddress()">Search</button>
- 
-          	</div>
-	</div>
 						
+						<div class="collapse" id="advancesearch">
+							<div class="form-row">
+								<div class="col-auto my-1">
+									<label class="mr-sm-2" for="inlineFormCustomSelect">Distance Range</label>
+									<select class="custom-select mr-sm-2" name="range_input" id="inlineFormCustomSelect">
+										<option value="9999999">No Limit</option>
+										<option value="20000">20 Miles</option>
+										<option value="50000">50 Miles</option>
+										<option value="100000">100 Miles</option>
+										<option selected value="250000">250 Miles</option>
+										<option value="500000">500 Miles</option>
+										<option value="999999">999 Miles</option>
+									</select>
+								</div>
+								
+								<div class="col-auto my-1">
+									<label for="inlineFormCustomSelect">Max Price</label>
+									<input class="custom-select mr-sm-2" type="number" name="price_input" id="inlineFormCustomSelect" aria-label="Price Input">
+								</div>
+								<br>
 
+							
+							
+							</div>
+						</div>
+						
+						<div class="Searchbutton">
+							<!--<input type="submit" class="btn btn-primary btn-block" value="Search">-->
+							<button type="button" class="btn btn-primary btn-block" aria-label="Search Button" onclick="findAddress()">Search</button>
+ 
+						</div>
 					</form>
- 		 		</div>
-  		  </div>
-	</div>
-
-
-	<div>
-
-
+				</div>
+	 		</div>
+    </div>
 </body>
-
-
 </html>

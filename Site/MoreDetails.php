@@ -54,10 +54,8 @@ mysqli_close($conn);
 	 financial_info = <?php echo(json_encode($results_Information));?>;
 	 
 </script>
-
-
-
-    <head>
+<head>
+<title>More Details</title>
   <nav class="navbar navbar-expand navbar-light bg-light">
 	<a class="navbar-brand" href="#">
 		<img src="Images/healthdomeman.jpg" width="30" height="30" class="d-inline-block align-top" alt="">
@@ -75,10 +73,10 @@ mysqli_close($conn);
         	<a class="nav-link" href="Healthdometrial.php">Home</a>
       		</li>
 	   		<li class="nav-item">
-       	 	<a class="nav-link" href="#">About Us</a>
+       	 	<a class="nav-link" href="aboutus.html">About Us</a>
       		</li>
       		<li class="nav-item">
-       	 	<a class="nav-link" href="#">Contact
+       	 	<a class="nav-link" href="contactus.html">Contact
 			</a>
     	    </li>
     	 </ul>
