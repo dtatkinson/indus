@@ -19,6 +19,12 @@ if(!$conn){
 //re-add range and medicare after client meeting
 if(!empty($injurys = $_POST["injury_input"])){
 	$injurys = $_POST["injury_input"];
+	$pieces = explode(":",$injurys);
+	if($pieces[1]){
+		$injury = $pieces[1];
+	}else{
+		header('Location:healthdometrial.php');
+	}
 }
 else{
 	header('Location:healthdometrial.php');
@@ -36,8 +42,7 @@ if(isset($_POST["state_input"])){
 	unset($statecode);
 }
 
-$pieces = explode(":",$injurys);
-$injury = $pieces[1];
+
 
 $lat = $_POST["lat_input"];
 $long = $_POST["long_input"];
