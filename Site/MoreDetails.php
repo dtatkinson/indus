@@ -47,7 +47,7 @@ mysqli_close($conn);
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
   <script type="text/javascript" src="placephoto.js"></script>
-  <script src="https://maps.googleapis.com/maps/api/js?key=&libraries=places" type="text/javascript"></script>
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAGKN1feLE8oRZ0i756q0PFcECdvZYkuoE&libraries=places" type="text/javascript"></script>
 
 
 <script  type="text/javascript">
@@ -56,8 +56,6 @@ mysqli_close($conn);
 </script>
 
 
- 
-</script>
 
     <head>
   <nav class="navbar navbar-expand navbar-light bg-light">

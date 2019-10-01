@@ -79,7 +79,7 @@ while($row = mysqli_fetch_array($result_coord))
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 <link href="Trial.css" rel="stylesheet" type="text/css">
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-<script src="https://maps.googleapis.com/maps/api/js?key=&libraries=geometry" type="text/javascript"></script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAGKN1feLE8oRZ0i756q0PFcECdvZYkuoE&libraries=geometry" type="text/javascript"></script>
 <script src="rating.js"></script>
             <script type="text/javascript">
 							var markers = [];
@@ -96,7 +96,7 @@ while($row = mysqli_fetch_array($result_coord))
 
 <head>
   <nav class="navbar navbar-expand navbar-light bg-light">
-	<a class="navbar-brand" href="#">
+	<a class="navbar-brand" href="HealthDomeTrial.php">
 		<img src="Images/healthdomeman.jpg" width="30" height="30" class="d-inline-block align-top" alt="">
 		HealthDome
 
@@ -128,22 +128,24 @@ while($row = mysqli_fetch_array($result_coord))
 <body>
 	<div class="resultmanager">
 		<div class="sorting-container">
-			<select class="sorting-list mr-sm-2" id="sort_select">
-				<option value="averageTotalPayments">Price</option>
-				<option value="center_distance">Distance</option>
-				<option value="rating">Rating</option>
+			<select class="sorting-list mr-sm-2" id="sort_select" onchange="sortHospitals()">
+				<option value="priceLH">Price - Low to High</option>
+	   			<option value="priceHL">Price - High to Low</option>
+	   			<option value="ratingLH">Rating - Low to High</option>
+	   			<option value="ratingHL">Rating - High to Low</option>
+	   			<option value="distanceLH">Distance - Low to High</option>
+	   			<option value="distanceHL">Distance - High to Low</option>
 			</select>
-			<button class = "btn btn-primary" type="button" name="sort_button" onclick="sortHospitals()">Sort</button> &nbsp; &nbsp; 
+			<!--<button class = "btn btn-primary" type="button" name="sort_button" onclick="sortHospitals()">Sort</button>--> &nbsp; &nbsp;
 		</div>
 		<div class="markers-container">
-	  <select class="sorting-list mr-sm-2" id="num_of_entries">
+	  <select class="sorting-list mr-sm-2" id="num_of_entries" onchange="numOfEntries()">
 	    <option value=10>10</option>
 	    <option value=20>20</option>
 	    <option value=50>50</option>
 	    <option value=100>100</option>
 
 	   </select>
-	   <button class = "btn btn-primary" type="button" name="sort_button" onclick="numOfEntries()">Filter</button>
 	   
 	   		<div class="pagination-buttons-holder">
 			<ul class="pagination">
@@ -155,28 +157,42 @@ while($row = mysqli_fetch_array($result_coord))
   	</div>
 
 		<script type="text/javascript">
+
 			function sortHospitals(){
 
-				var sortValue = document.getElementById("sort_select").value;
+   			 var sortValue = document.getElementById("sort_select").value;
 
-				if(sortAscend){
-					actualLocation = actualLocation.sort(function(a,b){return(a[sortValue]-b[sortValue])})//Sorts ascending
-					sortAscend = false;
-				}else{
-					actualLocation = actualLocation.sort(function(a,b){return(b[sortValue]-a[sortValue])})//Sorts descending
-					sortAscend = true;
-				}
+   			 switch(sortValue){
+   				 case "priceLH":
+   					 actualLocation = actualLocation.sort(function(a,b){return(a["averageTotalPayments"]-b["averageTotalPayments"])});
+   					 break;
+   				 case "priceHL":
+   					 actualLocation = actualLocation.sort(function(a,b){return(b["averageTotalPayments"]-a["averageTotalPayments"])});
+   					 break;
+   				 case "ratingLH":
+   					 actualLocation = actualLocation.sort(function(a,b){return(a["rating"]-b["rating"])});
+   					 break;
+   				 case "ratingHL":
+   					 actualLocation = actualLocation.sort(function(a,b){return(b["rating"]-a["rating"])});
+   					 break;
+   				 case "distanceLH":
+   					 actualLocation = actualLocation.sort(function(a,b){return(a["center_distance"]-b["center_distance"])});
+   					 break;
+   				 case "distanceHL":
+   					 actualLocation = actualLocation.sort(function(a,b){return(b["center_distance"]-a["center_distance"])});
+   					 break;
+   			 }
+
 				clearHospitals();
 				display();
 			}
 
-			function numOfEntries()
-  {
-   var entries = document.getElementById("num_of_entries").value;
-   records_per_page = entries;
-   clearHospitals();
-   display();
-  }
+			function numOfEntries(){
+				var entries = document.getElementById("num_of_entries").value;
+				records_per_page = entries;
+				clearHospitals();
+				display();
+				}
 
 			function clearHospitals(){
 				document.getElementById("searchres").innerHTML = "";

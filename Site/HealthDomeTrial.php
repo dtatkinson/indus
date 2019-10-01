@@ -3,7 +3,7 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 <link href="Trial.css" rel="stylesheet" type="text/css">
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-<script src="https://maps.googleapis.com/maps/api/js?key=&libraries=Geocoder"></script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAGKN1feLE8oRZ0i756q0PFcECdvZYkuoE&libraries=Geocoder"></script>
   <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
   <script src="https://kit.fontawesome.com/caf1c83931.js" crossorigin="anonymous"></script>
   <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
@@ -93,7 +93,6 @@ function findLocation()
 	)
 }
   </script>
-<body>
 
     <head>
   <nav class="navbar navbar-expand navbar-light bg-light">
@@ -125,6 +124,8 @@ function findLocation()
 	</nav>
 
 </head>
+<body>
+
 <div class="backgroundimage">
 <img src="images/bgimg.jpg" alt="" height="" width="">
 </div>
@@ -138,32 +139,31 @@ function findLocation()
    							 <span class="input-group-text" id="basic-addon1">Injury</span>
   							</div>
 
-					    <input type="text" name="injury_input" id="tags" class="form-control" placeholder="Example: Broken Leg" aria-label="Username" aria-describedby="basic-addon1">
+					    <input type="text" name="injury_input" id="tags" class="form-control" placeholder="Broken Leg" aria-label="Username" aria-describedby="basic-addon1">
 						<input type="text" hidden name="lat_input"  id="lat" class="form-control">
 						<input type="text" hidden name="long_input" id="long" class="form-control">
 							<div class="input-group-prepend">
    							 <span class="input-group-text" id="Address">Address</span>
 							 <button type="button" data-toggle="tooltip" title="Get location automatically" class="btn btn-primary" onclick="getLocation()"><i class="fas fa-map-marked-alt"></i></button>
   							</div>
-						<input type="text" id="address" name="location_input" class="form-control" placeholder="Example:24424 or 'California' " aria-label="Username" aria-describedby="basic-addon1">
+						<input type="text" id="address" name="location_input" class="form-control" placeholder="24424 or 'California' " aria-label="Username" aria-describedby="basic-addon1">
 						</div>
 
 						<div>
-							<!--<button type="button" onclick="findLocation()">Find my location</button>-->
 						</div>
 						<button type="button" data-toggle="collapse" data-target="#advancesearch" class="btn btn-link">Advanced search <i class="fas fa-sort-down"></i></button>
 	<div class="collapse" id="advancesearch">
 						<div class="form-row">
 							<div class="col-auto my-1">
-								<label class="mr-sm-2" for="inlineFormCustomSelect">Distance Range</label>
+								<label class="mr-sm-2" for="inlineFormCustomSelect">Distance Range(Radius)</label>
 								<select class="custom-select mr-sm-2" name="range_input" id="inlineFormCustomSelect">
-                  <option value="9999999">No Limit</option>
-                  <option value="20000">20 Miles</option>
-									<option value="50000">50 Miles</option>
-									<option value="100000">100 Miles</option>
-									<option selected value="250000">250 Miles</option>
-									<option value="500000">500 Miles</option>
-									<option value="999999">999 Miles</option>
+                  					<option value="9999999">No Limit</option>
+                  					<option value="20000">Within 20 Miles</option>
+									<option value="50000">Within 50 Miles</option>
+									<option value="100000">Within 100 Miles</option>
+									<option selected value="250000"> Within 250 Miles</option>
+									<option value="500000"> Within 500 Miles</option>
+									<option value="999999"> Within 999 Miles</option>
 								</select>
 
 							</div>
@@ -199,9 +199,6 @@ function findLocation()
  		 		</div>
   		  </div>
 	</div>
-
-
-	<div>
 
 
 </body>
