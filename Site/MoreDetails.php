@@ -14,7 +14,7 @@ if(!$conn){
 $hospitalID = $_POST["hosIdInput"];
 $code = $_POST["codeInput"];
 //this query is ruining everything
-$sql_query = "SELECT hos.providerId,hos.providername,hos.latitude,hos.longitude,f2017.code,f2017.averageTotalPayments as 'averageTotalPayments2017',f2016.averageTotalPayments  as 'averageTotalPayments2016'
+$sql_query = "SELECT hos.providerId,hos.providername,hos.providerStreetAddress,hos.providerCity,hos.latitude,hos.longitude,f2017.code,f2017.averageTotalPayments as 'averageTotalPayments2017',f2016.averageTotalPayments  as 'averageTotalPayments2016'
 FROM 2019indteam2db.financial_info_2017 f2017
 INNER JOIN 2019indteam2db.hospital_information hos
 ON hos.providerId = f2017.providerId
@@ -32,7 +32,7 @@ while($row = mysqli_fetch_array($result_Information))
 {
 		$results_Information[] = $row;
 }
-mysqli_close($conn); 
+mysqli_close($conn);
 ?>
 <html>
 
@@ -46,16 +46,20 @@ mysqli_close($conn);
   <!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/4.0.0/jquery.min.js"></script>-->
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
-  <script type="text/javascript" src="placephoto.js"></script>
+  <script type="text/javascript" src="placedetails.js"></script>
   <script src="https://maps.googleapis.com/maps/api/js?key=&libraries=places" type="text/javascript"></script>
 
 
 <script  type="text/javascript">
 	 financial_info = <?php echo(json_encode($results_Information));?>;
-	 
+
 </script>
-<head>
-<title>More Details</title>
+
+
+
+</script>
+
+    <head>
   <nav class="navbar navbar-expand navbar-light bg-light">
 	<a class="navbar-brand" href="#">
 		<img src="Images/healthdomeman.jpg" width="30" height="30" class="d-inline-block align-top" alt="">
@@ -73,10 +77,10 @@ mysqli_close($conn);
         	<a class="nav-link" href="Healthdometrial.php">Home</a>
       		</li>
 	   		<li class="nav-item">
-       	 	<a class="nav-link" href="aboutus.html">About Us</a>
+       	 	<a class="nav-link" href="#">About Us</a>
       		</li>
       		<li class="nav-item">
-       	 	<a class="nav-link" href="contactus.html">Contact
+       	 	<a class="nav-link" href="#">Contact
 			</a>
     	    </li>
     	 </ul>
@@ -87,6 +91,12 @@ mysqli_close($conn);
 </head>
 
 <body>
+
+
+
+
+
+
 <div class="container">
 
   <!-- Portfolio Item Heading -->
@@ -96,6 +106,20 @@ mysqli_close($conn);
 	</small>
   </h1>
 
+<div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
+  <div class="carousel-inner" id="carousel-inner">
+
+  </div>
+
+  <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="sr-only">Previous</span>
+  </a>
+  <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="sr-only">Next</span>
+  </a>
+</div>
   <!-- Portfolio Item Row -->
   <div class="row">
 
@@ -105,31 +129,31 @@ mysqli_close($conn);
 
 	<img src="Images/spinnergif.gif" id="spinner"></img>
 	</div>
-	
+
 
     </div>
 
-    <div class="col-md-4">
-      <h3 class="my-3">Graph</h3>
-	  <div class="chartjs-wrapper">
-<canvas id="myChart" class="chartjs" width="500" height="250"></canvas>
-</div>
-      
+
+
       <h3 class="my-3">
 	  <div class="pictureinfo">
 		<script type="text/javascript">
-		//document.write(financial_info[0]["providername"]+ "</h3>" + "<p>" + "Table of average prices over the last x years" + "</p>");	 
-		
+		//document.write(financial_info[0]["providername"]+ "</h3>" + "<p>" + "Table of average prices over the last x years" + "</p>");
+
 
 		</script>
 <div>
-	  
-	  
+
+	  <div class="col-md-4">
+      <h3 class="my-3">Graph</h3>
+	  <div class="chartjs-wrapper">
+<canvas id="myChart" class="chartjs"></canvas>
+</div>
 	  </h3>
       <ul>
 
       </ul>
-    </div>
+
 
   </div>
 
@@ -164,13 +188,13 @@ mysqli_close($conn);
 
 			// Configuration options go here
 			options: {
-				maintainAspectRatio: false,
+				maintainAspectRatio:true,
 				responsive:false,
 			}
 		});
 </script>
 <script type="text/javascript">
-		getPhotos(financial_info[0]["providername"]);
+		getPlaceDetails(financial_info[0]["providername"]+" "+financial_info[0]["providerStreetAddress"]+" "+financial_info[0]["providerCity"]);
 		</script>
 
 

@@ -7,7 +7,7 @@
   <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
   <script src="https://kit.fontawesome.com/caf1c83931.js" crossorigin="anonymous"></script>
   <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-  
+
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
   <script>
@@ -109,7 +109,7 @@ function findLocation()
 			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Nav bar options">
 				<span class="navbar-toggler-icon"></span>
 			</button>
-		
+
 			<div class="collapse navbar-collapse" id="navbarNav">
 				<ul class="navbar-nav">
 				<li class="nav-item active">
@@ -136,7 +136,7 @@ function findLocation()
 	<div class="backgroundimage">
 		<img src="images/bgimg.jpg" alt="" height="" width="">
 	</div>
-	
+
 	<div class="searchbox">
 			<div class="card">
   				<div class="card-body">
@@ -145,12 +145,12 @@ function findLocation()
    						<div class="input-group mb-3">
   							<div class="input-group-prepend">
 								<span class="input-group-text" id="basic-addon1">Injury</span>
-  							
+
 								<input type="text" name="injury_input" id="tags" class="form-control" placeholder="Broken Leg" aria-label="Injury Input" aria-describedby="basic-addon1">
 								<input type="text" hidden name="lat_input"  id="lat" class="form-control">
 								<input type="text" hidden name="long_input" id="long" class="form-control">
 							</div>
-							
+
 							<div class="input-group-prepend">
 								<select class="custom-select mr-sm-2" name="locselect" id="locselect" onchange="locationChange()"value="1" aria-label="Location drop down selector." >
 									<option value="1"selected>Address</option>
@@ -158,12 +158,12 @@ function findLocation()
 								</select>
 								<button type="button" data-toggle="tooltip" title="Get location automatically" class="btn btn-primary" onclick="getLocation()"><i class="fas fa-map-marked-alt"aria-label="Use Your own Location"></i></button>
 							</div>
-							
+
 							<input type="text" id="address" name="location_input" class="form-control" placeholder="24424 or 'California' " aria-label="Address input" aria-describedby="basic-addon1">
 						</div>
-						
+
 						<div class="State_choice">
-							
+
 							<label class="mr-sm-2" for="inlineFormCustomSelect">Search By State</label>
 								<select class="custom-select mr-sm-2" name="state_input" id="state_input" aria-label="Choice Of states">
 									<option value="AL">Alabama</option>
@@ -221,16 +221,16 @@ function findLocation()
 						</div>
 									<script>
 										function locationChange() {
-											
+
 										var choice = document.getElementById("locselect").value;
 										if (choice == 1) {
-														
+
 														document.getElementById("address").disabled = false;
 														document.getElementById("state_input").disabled = true;
 													   }
 										else if (choice == 0)
 														{
-									
+
 														document.getElementById("address").disabled = true;
 														document.getElementById("state_input").disabled = false;
 														}
@@ -238,7 +238,7 @@ function findLocation()
 									</script>
 
 						<button type="button" data-toggle="collapse" data-target="#advancesearch" class="btn btn-link">Advanced search <i class="fas fa-sort-down"></i></button>
-						
+
 						<div class="collapse" id="advancesearch">
 							<div class="form-row">
 								<div class="col-auto my-1">
@@ -253,22 +253,22 @@ function findLocation()
 										<option value="999999">999 Miles</option>
 									</select>
 								</div>
-								
+
 								<div class="col-auto my-1">
 									<label for="inlineFormCustomSelect">Max Price</label>
 									<input class="custom-select mr-sm-2" type="number" name="price_input" id="inlineFormCustomSelect" aria-label="Price Input">
 								</div>
 								<br>
 
-							
-							
+
+
 							</div>
 						</div>
-						
+
 						<div class="Searchbutton">
 							<!--<input type="submit" class="btn btn-primary btn-block" value="Search">-->
 							<button type="button" class="btn btn-primary btn-block" aria-label="Search Button" onclick="findAddress()">Search</button>
- 
+
 						</div>
 					</form>
 				</div>

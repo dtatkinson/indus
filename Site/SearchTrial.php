@@ -100,7 +100,7 @@ if(!isset($_POST["state_input"])){
 	order by averageTotalPayments desc
 	;
 	";
-	
+
 }else{
 	header('Location:healthdometrial.php');
 	exit;
@@ -113,7 +113,7 @@ $results_coord = [];
 while($row = mysqli_fetch_array($result_coord))
 {
 		$results_coord[] = $row;
-		
+
 }
 //closes connection to the database
 mysqli_close($conn);
@@ -155,7 +155,7 @@ mysqli_close($conn);
   		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="HealthDome Buttons">
 			<span class="navbar-toggler-icon"></span>
  		</button>
-		
+
   		<div class="collapse navbar-collapse" id="navbarNav">
    		 <ul class="navbar-nav">
     	  	<li class="nav-item active">
@@ -190,7 +190,7 @@ mysqli_close($conn);
 	   			<option value="distanceHL">Distance - High to Low</option>
 			</select>
 		</div>
-		
+
 		<div class="markers-container">
 			<select class="sorting-list mr-sm-2" id="num_of_entries" onchange="numOfEntries()"aria-label="Select Amount of Markers">
 			<option value=10>10</option>
@@ -198,25 +198,25 @@ mysqli_close($conn);
 			<option value=50>50</option>
 			<option value=100>100</option>
 			</select>
-	   
+
 				<div class="pagination-buttons-holder">
 					<ul class="pagination" aria-label="Next and Previous Buttons">
 						<li class="page-item"><a class="page-link" id="btn_prev" style="visibility:hidden;" href="javascript:prevPage()">Previous</a></li>
 						<li class="page-item"><a class="page-link" id="btn_next" href="javascript:nextPage()">Next</a></li>
 					</ul>
 				</div>
-	   
+
 		</div>
 	</div>
-	
+
 	<div class = "resultholder">
 		<div class ="w3-animate-opacity">
-			<div id="searchres" class = "searchresult"></div>	
+			<div id="searchres" class = "searchresult"></div>
 		</div>
 	</div>
-	
+
 	<div id="map"></div>
-	
+
 	<script type="text/javascript">
 
 			function sortHospitals(){
@@ -280,11 +280,11 @@ mysqli_close($conn);
 							 center: {lat:<?php echo($lat);?>,lng:<?php echo($long);?>},
 							 radius: <?php echo($range);?>
 					 });
-			
-	
-		
+
+
+
 				actualLocation = actualLocation.sort(function(a,b){return(a["averageTotalPayments"]-b["averageTotalPayments"])});//Sorts ascending
-			
+
 			}
 			function assignLocations()
 			{
@@ -307,7 +307,7 @@ mysqli_close($conn);
 				if(<?php var_export(isset($_POST["state_input"])); ?> == true)
 				{
 					for (var i = 0; i < locations.length; i++)
-					{						
+					{
 							actualLocation[counter] = locations[i];
 							actualLocation[counter]["center_distance"] = center_distance;
 							counter++;
@@ -386,6 +386,6 @@ window.onload =function start()
 
 	</script>
 
-    
+
 </body>
 </html>
