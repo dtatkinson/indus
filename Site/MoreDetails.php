@@ -17,34 +17,35 @@ $code = $_POST["codeInput"];
 //this query is ruining everything
 $sql_query = "SELECT hos.providerId,f2017.code,providername,f2017.averageTotalPayments as '2017',f2016.averageTotalPayments as '2016',f2015.averageTotalPayments as '2015',f2014.averageTotalPayments as '2014',f2013.averageTotalPayments as '2013',f2012.averageTotalPayments as '2012',f2011.averageTotalPayments as '2011'
 from 2019indteam2db.hosinfo hos
-inner join 2019indteam2db.financial_info_2017 f2017
+left join 2019indteam2db.financial_info_2017 f2017
 on hos.providerId = f2017.providerId
 and f2017.code = ".$code."
 and hos.providerId = ".$hospitalID."
-inner join 2019indteam2db.financial_info_2016 f2016
+left join 2019indteam2db.financial_info_2016 f2016
 on hos.providerId = f2016.providerId
 and f2016.code = ".$code."
 and hos.providerId = ".$hospitalID."
-inner join 2019indteam2db.financial_info_2015 f2015
+left join 2019indteam2db.financial_info_2015 f2015
 on hos.providerId = f2015.providerId
 and f2015.code = ".$code."
 and hos.providerId = ".$hospitalID."
-inner join 2019indteam2db.financial_info_2014 f2014
+left join 2019indteam2db.financial_info_2014 f2014
 on hos.providerId = f2014.providerId
 and f2014.code = ".$code."
 and hos.providerId = ".$hospitalID."
-inner join 2019indteam2db.financial_info_2013 f2013
+left join 2019indteam2db.financial_info_2013 f2013
 on hos.providerId = f2013.providerId
 and f2013.code = ".$code."
 and hos.providerId = ".$hospitalID."
-inner join 2019indteam2db.financial_info_2012 f2012
+left join 2019indteam2db.financial_info_2012 f2012
 on hos.providerId = f2012.providerId
 and f2012.code = ".$code."
 and hos.providerId = ".$hospitalID."
-inner join 2019indteam2db.financial_info_2011 f2011
+left join 2019indteam2db.financial_info_2011 f2011
 on hos.providerId = f2011.providerId
 and f2011.code = ".$code."
 and hos.providerId = ".$hospitalID."
+order by f2017.code desc
 ;";
 
 $result_Information = mysqli_query($conn,$sql_query);
@@ -70,7 +71,7 @@ mysqli_close($conn);
   <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
   <script type="text/javascript" src="placedetails.js"></script>
   <script src="https://maps.googleapis.com/maps/api/js?key=&libraries=places" type="text/javascript"></script>
-
+<script type="text/javascript" src="projected.js"></script>
 
 <script  type="text/javascript">
 	 financial_info = <?php echo(json_encode($results_Information));?>;
@@ -122,7 +123,7 @@ mysqli_close($conn);
 
   <div id='photo-container' >
 
-	<img src="Images/spinnergif.gif" id="spinner"></img>
+	<img src="Images/spinnergif.gif" id="spinner">
 	</div>
 
 
@@ -163,7 +164,8 @@ mysqli_close($conn);
 	var e = parseFloat(financial_info[0]['2015']);
 	var f = parseFloat(financial_info[0]['2016']);
 	var g = parseFloat(financial_info[0]['2017']);
-
+	calculate();
+	//alert(projectedval);
 		var ctx = document.getElementById('myChart').getContext('2d');
 		var chart = new Chart(ctx, {
 			// The type of chart we want to create
@@ -171,13 +173,14 @@ mysqli_close($conn);
 
 			// The data for our dataset
 			data: {
-				labels: ['2011', '2012', '2013', '2014', '2015', '2016', '2017'],
+				labels: ['2011', '2012', '2013', '2014', '2015', '2016', '2017','2018 PROJECTED'],
 				datasets: [{
 					label: 'Average Price ($)',
 					backgroundColor: 'rgb(255, 99, 132)',
-					borderColor: 'rgb(255, 99, 132)',
+					borderColor: ['rgb(255, 99, 132)','rgb(255, 99, 132)','rgb(255, 99, 132)','rgb(255, 99, 132)','rgb(255, 99, 132)','rgb(255, 99, 132)','rgb(255, 99, 132)','rgb(0, 255, 0)',],
 					fill: false,
-					data: [a, b, c, d, e, f, g]
+					data: [a, b, c, d, e, f, g,projectedval],
+					
 				}]
 			},
 

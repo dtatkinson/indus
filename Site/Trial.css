@@ -218,7 +218,7 @@ overflow-x: hidden;
 
 .chartjs
 {
-	height:17.5vh;
+	height:40vh;
 	width:35vw;
 }
 
@@ -230,9 +230,20 @@ margin-left:15%;
 
 
 
+.d-block
+{
+	max-height:40vh;
+	max-width:40vw;
+}
 
-
-
+#locselect
+{
+	width:30%;
+}
+#igp1
+{
+width:100%;	
+}
 @media only screen and (max-width: 1024px) 
 {
 .profile-photo
@@ -243,6 +254,7 @@ margin-left:15%;
 .chartjs
 {
 	width:100vw;
+	height:70vh;
 	
 }
 .card

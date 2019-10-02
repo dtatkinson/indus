@@ -117,25 +117,26 @@ function findLocation()
 					<form id="search_form" class="" action="SearchTrial.php" method="post">
 						<h1> Compare Prices! </h1>
    						<div class="input-group mb-3">
-  							<div class="input-group-prepend">
+  							<div class="input-group-prepend" id="igp1">
 								<span class="input-group-text" id="basic-addon1">Injury</span>
 
 								<input type="text" name="injury_input" id="tags" class="form-control" placeholder="Broken Leg" aria-label="Injury Input" aria-describedby="basic-addon1">
 								<input type="text" hidden name="lat_input"  id="lat" class="form-control">
 								<input type="text" hidden name="long_input" id="long" class="form-control">
 							</div>
+							</div>
 
 							<div class="input-group-prepend">
-								<select class="custom-select mr-sm-2" name="locselect" id="locselect" onchange="locationChange()"value="1" aria-label="Location drop down selector." >
+								<select class="custom-select mr-sm-2" name="locselect" id="locselect" onchange="locationChange()"value="1" aria-label="Location drop down selector." data-toggle="tooltip" title="Choose Search Type">
 									<option value="1"selected>Address</option>
 									<option value="0">State</option>
 								</select>
 								<button type="button" data-toggle="tooltip" title="Get location automatically" class="btn btn-primary" onclick="getLocation()"><i class="fas fa-map-marked-alt"aria-label="Use Your own Location"></i></button>
-							</div>
+							
+
 
 							<input type="text" id="address" name="location_input" class="form-control" placeholder="24424 or 'California' " aria-label="Address input" aria-describedby="basic-addon1">
 						</div>
-
 						<div class="State_choice">
 
 							<label class="mr-sm-2" for="inlineFormCustomSelect">Search By State</label>
