@@ -32,12 +32,14 @@ else{
 }
 if(isset($_POST["location_input"])){
 	$location = $_POST["location_input"];
+	$VINCENT = 1;
 }else{
 	unset($location);
 }
 
 if(isset($_POST["state_input"])){
 	$statecode = $_POST["state_input"];
+	$VINCENT = 0;
 }else{
 	unset($statecode);
 }
@@ -137,6 +139,7 @@ mysqli_close($conn);
 			var searchres;
 			var cityCircle;
 			var bool;
+			var choice = json_encode(<?php echo $VINCENT; ?>);
             </script>
 
 <script type="text/javascript" src="pagination.js"></script>
