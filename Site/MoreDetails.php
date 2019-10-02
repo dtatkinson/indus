@@ -14,15 +14,36 @@ if(!$conn){
 $hospitalID = $_POST["hosIdInput"];
 $code = $_POST["codeInput"];
 //this query is ruining everything
-$sql_query = "SELECT hos.providerId,hos.providername,hos.providerStreetAddress,hos.providerCity,hos.latitude,hos.longitude,f2017.code,f2017.averageTotalPayments as 'averageTotalPayments2017',f2016.averageTotalPayments  as 'averageTotalPayments2016'
-FROM 2019indteam2db.financial_info_2017 f2017
-INNER JOIN 2019indteam2db.hospital_information hos
-ON hos.providerId = f2017.providerId
-AND f2017.code=".$code."
-AND hos.providerId = ".$hospitalID."
+$sql_query = "SELECT hos.providerId,f2017.code,providername,f2017.averageTotalPayments as '2017',f2016.averageTotalPayments as '2016',f2015.averageTotalPayments as '2015',f2014.averageTotalPayments as '2014',f2013.averageTotalPayments as '2013',f2012.averageTotalPayments as '2012',f2011.averageTotalPayments as '2011'
+from 2019indteam2db.hosinfo hos
+inner join 2019indteam2db.financial_info_2017 f2017
+on hos.providerId = f2017.providerId
+and f2017.code = ".$code."
+and hos.providerId = ".$hospitalID."
 inner join 2019indteam2db.financial_info_2016 f2016
-ON hos.providerId = ".$hospitalID."
-and f2016.code=".$code."
+on hos.providerId = f2016.providerId
+and f2016.code = ".$code."
+and hos.providerId = ".$hospitalID."
+inner join 2019indteam2db.financial_info_2015 f2015
+on hos.providerId = f2015.providerId
+and f2015.code = ".$code."
+and hos.providerId = ".$hospitalID."
+inner join 2019indteam2db.financial_info_2014 f2014
+on hos.providerId = f2014.providerId
+and f2014.code = ".$code."
+and hos.providerId = ".$hospitalID."
+inner join 2019indteam2db.financial_info_2013 f2013
+on hos.providerId = f2013.providerId
+and f2013.code = ".$code."
+and hos.providerId = ".$hospitalID."
+inner join 2019indteam2db.financial_info_2012 f2012
+on hos.providerId = f2012.providerId
+and f2012.code = ".$code."
+and hos.providerId = ".$hospitalID."
+inner join 2019indteam2db.financial_info_2011 f2011
+on hos.providerId = f2011.providerId
+and f2011.code = ".$code."
+and hos.providerId = ".$hospitalID."
 ;";
 
 $result_Information = mysqli_query($conn,$sql_query);
@@ -161,13 +182,13 @@ mysqli_close($conn);
 
 </div>
 <script type="text/javascript">
-//var a = parseFloat(financial_info[0]['averageTotalPayments2011']);
-	//var b = parseFloat(financial_info[0]['averageTotalPayments2012']);
-	//var c = parseFloat(financial_info[0]['averageTotalPayments2013']);
-	//var d = parseFloat(financial_info[0]['averageTotalPayments2014']);
-	//var e = parseFloat(financial_info[0]['averageTotalPayments2015']);
-	var f = parseFloat(financial_info[0]['averageTotalPayments2016']);
-	var g = parseFloat(financial_info[0]['averageTotalPayments2017']);
+	var a = parseFloat(financial_info[0]['2011']);
+	var b = parseFloat(financial_info[0]['2012']);
+	var c = parseFloat(financial_info[0]['2013']);
+	var d = parseFloat(financial_info[0]['2014']);
+	var e = parseFloat(financial_info[0]['2015']);
+	var f = parseFloat(financial_info[0]['2016']);
+	var g = parseFloat(financial_info[0]['2017']);
 
 		var ctx = document.getElementById('myChart').getContext('2d');
 		var chart = new Chart(ctx, {
@@ -182,13 +203,13 @@ mysqli_close($conn);
 					backgroundColor: 'rgb(255, 99, 132)',
 					borderColor: 'rgb(255, 99, 132)',
 					fill: false,
-					data: [4500, 3900, 5000, 2450, 2240, f, g]
+					data: [a, b, c, d, e, f, g]
 				}]
 			},
 
 			// Configuration options go here
 			options: {
-				maintainAspectRatio:true,
+				maintainAspectRatio: true,
 				responsive:false,
 			}
 		});
