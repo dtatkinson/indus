@@ -24,11 +24,11 @@ if(!empty($injurys = $_POST["injury_input"])){
 	if($pieces[1]){
 		$injury = $pieces[1];
 	}else{
-		header('Location:healthdometrial.php');
+		header('Location:error.php');
 	}
 }
 else{
-	header('Location:healthdometrial.php');
+	header('Location:error.php');
 	exit;
 }
 if(isset($_POST["location_input"])){
