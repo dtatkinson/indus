@@ -1,14 +1,20 @@
-var ratingFields = [
-   {field:"averageTotalPayments",weight:4,order:"dsc"},
-   {field:"center_distance",weight:3,order:"dsc"},
-   {field:"totalDischarges",weight:2,order:"dsc"}
-];
 
-var tempActualLocation = Object.create(actualLocation);
-
-var totalWeights;
+var ratingFields, tempActualLocation, totalWeights;
 
 function addRatings(){
+  if(choice == 0)
+    ratingFields = [
+       {field:"averageTotalPayments",weight:4,order:"dsc"},
+       {field:"center_distance",weight:3,order:"dsc"},
+       {field:"totalDischarges",weight:2,order:"dsc"}
+    ];
+  else
+  ratingFields = [
+     {field:"averageTotalPayments",weight:4,order:"dsc"},
+     {field:"totalDischarges",weight:2,order:"dsc"}
+  ];
+
+  tempActualLocation = Object.create(actualLocation);
    totalWeights = getTotalWeights();
    for(var i=0;i<actualLocation.length;i++){
      actualLocation[i]["rating"] = getOverallRating(actualLocation[i])*10;
@@ -60,12 +66,3 @@ function getTotalWeights(){
    }
    return tWeights;
 }
-
-/*function display(hospList){
-   for(var i=0;i<hospList.length;i++){
-     alert(hospList[i]["providerName"]+"\tAverage Price:
-"+hospList[i]["averageTotalPayments"]+"\tDischarges:
-"+hospList[i]["totalDischarges"]+"\tDistance:
-"+hospList[i]["center_distance"]+"\n");
-   }
-}*/
