@@ -1,4 +1,5 @@
 <?php
+include_once('header.php');
 //set up connection to DB
 $servername = "silva.computing.dundee.ac.uk";
 $username = "2019indteam2";
@@ -147,34 +148,7 @@ mysqli_close($conn);
 
 <head>
 <title>Price Search</title>
-	<nav class="navbar navbar-expand navbar-light bg-light">
-		<a class="navbar-brand" href="#">
-			<img src="Images/healthdomeman.jpg" width="30" height="30" class="d-inline-block align-top" alt="">
-		     HealthDome
 
-  		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="HealthDome Buttons">
-			<span class="navbar-toggler-icon"></span>
- 		</button>
-
-  		<div class="collapse navbar-collapse" id="navbarNav">
-   		 <ul class="navbar-nav">
-    	  	<li class="nav-item active">
-     	   	<a class="nav-link" href="#"></a>
-     	 	</li>
-     	 	<li class="nav-item active">
-        	<a class="nav-link" href="healthdometrial.php">Home</a>
-      		</li>
-	   		<li class="nav-item">
-       	 	<a class="nav-link" href="aboutus.html">About Us</a>
-      		</li>
-      		<li class="nav-item">
-       	 	<a class="nav-link" href="contactus.html">Contact
-			</a>
-    	    </li>
-    	 </ul>
-  		</div>
-		</a>
-	</nav>
 
 </head>
 
