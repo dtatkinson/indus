@@ -42,15 +42,14 @@ if(isset($_POST["state_input"])){
 	unset($statecode);
 }
 
+if (!empty($_POST["lat_input"])){
+	$lat = $_POST["lat_input"];
+	$long = $_POST["long_input"];
+}else{
+	$lat = 10.0;
+	$long = 100.0;
+}
 
-
-$lat = $_POST["lat_input"];
-$long = $_POST["long_input"];
-
-/*
-$lat = 36.1278915;
-$long = -86.6997864;
-*/
 if(!empty($_POST["range_input"])){
 	$range = $_POST["range_input"];
 }else{
