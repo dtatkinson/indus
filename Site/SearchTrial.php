@@ -122,12 +122,19 @@ while($row = mysqli_fetch_array($result_coord))
 mysqli_close($conn);
 ?>
 <html>
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 <link href="Trial.css" rel="stylesheet" type="text/css">
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<<<<<<< HEAD
 <script src="https://maps.googleapis.com/maps/api/js?key=&libraries=geometry" type="text/javascript"></script>
 <script type="text/javascript">
+=======
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA1HSmQsuQWcE8yIghJrvXPMpZEh9l33hw&libraries=geometry" type="text/javascript"></script>
+<script src="rating.js"></script>
+            <script type="text/javascript">
+>>>>>>> 76410adf591e590cf65ea1c7ae365a923272b980
 			var markers = [];
 			var actualLocation=[];
 			var i,j;
@@ -318,11 +325,11 @@ mysqli_close($conn);
 								});
 								if(<?php var_export(isset($_POST["location_input"])); ?> == true)
 								{
-									searchres.innerHTML += "<div class='card' value='i.value' onclick='show("+j+")'>"+"<div  class='card-body result-cards'>"+"<form id='map_form' action='MoreDetails.php' method='post' target='_blank'>"+ "<h4>" + actualLocation[a]["providerName"] + "</h4>"+"Average price: $" + actualLocation[a]["averageTotalPayments"] + "<br>Distance: " + Math.round(actualLocation[a]["center_distance"]*0.00062371) + " miles<br>"+"Rating: "+actualLocation[a]["rating"].toFixed(1)+"/10"+"<input type='text' hidden id='hosId' name='hosIdInput' class='form-control' value="+actualLocation[a]["providerId"]+">"+"<input type='text' hidden id='hosId' name='hosIdInput' class='form-control' value="+actualLocation[a]["providerId"]+">"+"<input type='text' hidden id='code' class='form-control' name='codeInput' value="+actualLocation[a]['code']+">"+"<br>"+"<br>"+"<button>More Details</button>"+"</form>"+ "</div>"+"</div>";
+									searchres.innerHTML += "<div class='card' value='i.value' onclick='show("+j+")'>"+"<div  class='card-body result-cards'>"+"<form id='map_form' action='MoreDetails.php' method='post' target='_blank'>"+ "<div class='card-header'>" + actualLocation[a]["providerName"] + "</div>"+"Average price: $" + actualLocation[a]["averageTotalPayments"] + "<br>Distance: " + Math.round(actualLocation[a]["center_distance"]*0.00062371) + " miles<br>"+"Rating: "+actualLocation[a]["rating"].toFixed(1)+"/10"+"<input type='text' hidden id='hosId' name='hosIdInput' class='form-control' value="+actualLocation[a]["providerId"]+">"+"<input type='text' hidden id='hosId' name='hosIdInput' class='form-control' value="+actualLocation[a]["providerId"]+">"+"<input type='text' hidden id='code' class='form-control' name='codeInput' value="+actualLocation[a]['code']+">"+"<button id='btmoredet' class='btn btn-primary'>More Details</button>"+"</form>"+ "</div>"+"</div>";
 								}
 								else
 								{
-									searchres.innerHTML += "<div class='card' value='i.value' onclick='show("+j+")'>"+"<div  class='card-body result-cards'>"+"<form id='map_form' action='MoreDetails.php' method='post' target='_blank'>"+ "<h4>" + actualLocation[a]["providerName"] + "</h4>"+"Average price: $" + actualLocation[a]["averageTotalPayments"] +"<br>"+"Rating: "+actualLocation[a]["rating"].toFixed(1)+"/10"+"<input type='text' hidden id='hosId' name='hosIdInput' class='form-control' value="+actualLocation[a]["providerId"]+">"+"<input type='text' hidden id='hosId' name='hosIdInput' class='form-control' value="+actualLocation[a]["providerId"]+">"+"<input type='text' hidden id='code' class='form-control' name='codeInput' value="+actualLocation[a]['code']+">"+"<br>"+"<br>"+"<button>More Details</button>"+"</form>"+ "</div>"+"</div>";
+									searchres.innerHTML += "<div class='card' value='i.value' onclick='show("+j+")'>"+"<div  class='card-body result-cards'>"+"<form id='map_form' action='MoreDetails.php' method='post' target='_blank'>"+ "<div class='card-header'>" + actualLocation[a]["providerName"] + "</div>"+"Average price: $" + actualLocation[a]["averageTotalPayments"] +"<br>"+"Rating: "+actualLocation[a]["rating"].toFixed(1)+"/10"+"<input type='text' hidden id='hosId' name='hosIdInput' class='form-control' value="+actualLocation[a]["providerId"]+">"+"<input type='text' hidden id='hosId' name='hosIdInput' class='form-control' value="+actualLocation[a]["providerId"]+">"+"<input type='text' hidden id='code' class='form-control' name='codeInput' value="+actualLocation[a]['code']+">"+"<button class='btn btn-primary'>More Details</button>"+"</form>"+ "</div>"+"</div>";
 
 								}
 			j++;
