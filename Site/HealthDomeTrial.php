@@ -102,7 +102,7 @@ function findLocation()
   							<div class="input-group-prepend" id="igp1">
 								<span class="input-group-text" id="basic-addon1">Injury</span>
 
-								<input type="text" name="injury_input" id="tags" class="form-control" placeholder="Broken Leg" aria-label="Injury Input" aria-describedby="basic-addon1">
+								<input type="text" name="injury_input" id="tags" class="form-control" placeholder="Chest pain" aria-label="Injury Input" aria-describedby="basic-addon1">
 								<input type="text" hidden name="lat_input"  id="lat" class="form-control">
 								<input type="text" hidden name="long_input" id="long" class="form-control">
 							</div>
@@ -110,7 +110,8 @@ function findLocation()
 
 							<div class="input-group-prepend">
 								<select class="custom-select mr-sm-2" name="locselect" id="locselect" onchange="locationChange()"value="1" aria-label="Location drop down selector." data-toggle="tooltip" title="Choose Search Type">
-									<option value="1" selected>Address</option>
+									<option disabled value="title" selected>Search by</option>
+									<option value="1">Address</option>
 									<option value="0">State</option>
 								</select>
 								<button type="button" data-toggle="tooltip" title="Get location automatically" class="btn btn-primary" onclick="getLocation()"><i class="fas fa-map-marked-alt"aria-label="Use Your own Location"></i></button>
@@ -213,7 +214,7 @@ function findLocation()
 
 								<div class="col-auto my-1">
 									<label for="inlineFormCustomSelect">Max Price</label>
-									<input class="custom-select mr-sm-2" type="number" name="price_input" id="inlineFormCustomSelect" aria-label="Price Input">
+									<input class="custom-select mr-sm-2" type="number" name="price_input" placeholder="$9500" id="inlineFormCustomSelect" aria-label="Price Input">
 								</div>
 								<br>
 

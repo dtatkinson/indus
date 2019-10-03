@@ -298,6 +298,11 @@ mysqli_close($conn);
 				function display()
 				{
 				searchres = document.getElementById("searchres");
+				
+				if(actualLocation.length<=0){
+					searchres.innerHTML = "<p style='text-align:center;'>No hospitals match your criteria<br><a href='HealthDomeTrial.php'>Go back</a></p>";
+					return;
+				}
 				j=0;
 				for(var i=0; i <markers.length;i++){
 					markers[i].setMap(null);

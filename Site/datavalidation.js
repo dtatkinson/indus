@@ -6,15 +6,22 @@ function validateInput(){
 
   var valid = true;
   var searchType = document.getElementById("locselect").value;
-  var address = document.getElementById("address").value
+  var address = document.getElementById("address").value;
   var price = document.getElementsByName("price_input")[0].value;
   var injury = document.getElementsByName("injury_input")[0].value;
   var issues = "Please fix the following issues before continuing:";
+  var searchType = document.getElementById("locselect").value;
 
   //Injury
   if(!searchedwords.includes(injury) || injury == ""){
     valid = false;
     issues += "\n-You must select an injury from the injuries list";
+  }
+
+  //Search type
+  if(searchType=="title"){
+    valid = false;
+    issues += "\n-You must select a search type";
   }
 
   //Address
