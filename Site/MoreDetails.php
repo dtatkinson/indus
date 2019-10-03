@@ -83,7 +83,7 @@ mysqli_close($conn);
 
 
     <head>
-  
+
 
 </head>
 
@@ -192,12 +192,12 @@ mysqli_close($conn);
 					backgroundColor: 'rgb(255, 0, 0)',
 					borderColor: ['rgb(255, 0, 0)','rgb(255, 0, 0)','rgb(255, 0, 0)','rgb(255, 0, 0)','rgb(255, 0, 0)','rgb(255, 0, 0)','rgb(255, 0, 0)','rgb(0, 255, 0)',],
 					fill: false,
-					data: [a, b, c, d, e, f, g,projectedval]				
+					data: [a, b, c, d, e, f, g,projectedval]
 			},
 			{
 					label: 'Average Price - Insured($)',
 					backgroundColor: 'rgb(0, 0, 255)',
-					borderColor: ['rgb(0, 0, 255)','rgb(0, 0, 255)','rgb(0, 0, 255)','rgb(0, 0, 255)','rgb(0, 0, 255)','rgb(0, 0, 255)','rgb(0, 0, 255)','rgb(255, 0, 0)',],		
+					borderColor: ['rgb(0, 0, 255)','rgb(0, 0, 255)','rgb(0, 0, 255)','rgb(0, 0, 255)','rgb(0, 0, 255)','rgb(0, 0, 255)','rgb(0, 0, 255)','rgb(255, 0, 0)',],
 					fill: false,
 					data: [ai, bi, ci, di, ei, fi, gi,projectedvali]
 			}
@@ -209,10 +209,10 @@ mysqli_close($conn);
 			}
 		});
 			// The type of chart we want to create
-			
+
 			// The data for our dataset
-		
-	
+
+
 
 </script>
 <script type="text/javascript">

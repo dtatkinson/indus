@@ -23,13 +23,7 @@ if(!empty($injurys = $_POST["injury_input"])){
 	$pieces = explode(":",$injurys);
 	if($pieces[1]){
 		$injury = $pieces[1];
-	}else{
-		header('Location:error.php');
 	}
-}
-else{
-	header('Location:error.php');
-	exit;
 }
 if(isset($_POST["location_input"])){
 	$location = $_POST["location_input"];
