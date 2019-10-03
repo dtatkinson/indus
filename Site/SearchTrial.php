@@ -166,8 +166,8 @@ mysqli_close($conn);
    			<option value="ratingHL">Rating - High to Low</option>
 				<script type="text/javascript">
 				if(choice==1){
-	   			<option value="distanceLH">Distance - Low to High</option>
-	   			<option value="distanceHL">Distance - High to Low</option>
+	   			document.write('<option value="distanceLH">Distance - Low to High</option>');
+	   			document.write('<option value="distanceHL">Distance - High to Low</option>');
 				}
 				</script>
 			</select>

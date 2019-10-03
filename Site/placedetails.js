@@ -43,7 +43,7 @@ function getPlaceData(){
       var website = result["website"];
       var reviews = result["reviews"];
 
-      document.getElementById("hospital-info").innerHTML = "Contact: "+contactNumber+"<br>Address: "+address+"<br>Website: <a target='_blank' href='"+website+"'>"+website+"</a><br>Reviews: "+reviews.length;
+      document.getElementById("hospital-info").innerHTML = "Contact: "+contactNumber+"<br>Address: "+address+"<br>Website: <a target='_blank' href='"+website+"'>"+website+"</a>";
 
       if(photos && photos.length>0){
         document.getElementById(photoContainer).innerHTML += '<div class="carousel-item active"><img class="d-block w-40" src="'+photos[0].getUrl()+'" alt="First slide"></div>';
