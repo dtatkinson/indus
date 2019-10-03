@@ -11,12 +11,12 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
   <script>
-
+  var searchedwords;
    $(function()
     {
         $.get("searchcodes.txt" , function(data)
         {
-        var searchedwords = data.split('\n');
+        searchedwords = data.split('\n');
         $("#tags").autocomplete({ source: searchedwords, scroll:true});
         });
     });
@@ -26,48 +26,33 @@
     if (navigator.geolocation) {
     	navigator.geolocation.getCurrentPosition(showPosition);
   	}
-	else
-	{
+    else
+    {
     	x.innerHTML = "Geolocation is not supported by this browser.";
   	}
 	}
 
 function findAddress(){
+  //Clear the lat and long fields
+  document.getElementById('long').value = "";
+  document.getElementById('lat').value = "";
+
 	if(document.getElementById("address").disabled == false){
-		//Switch statement to set the position
 		var addressValue = document.getElementById("address").value;
 		switch(addressValue){
 			case "":
-			valid = false;
-			break;
+        validateInput();
+  			break;
 			case "My location":
-			dataValidation();
-			break;
+        getLocation();
+        validateInput();
+  			break;
 			default:
-			findLocation();
-			break;
+  			findLocation();
+  			break;
 		}
 	}else{
-		document.getElementById("search_form").submit();
-	}
-}
-
-function dataValidation(){
-  var valid = true;
-
-  //Check the positions are set
-
-  if(document.getElementById('lat').value=="" || document.getElementById('long').value==""){
-    valid = false;
-    alert("Coordinates invalid");
-  }else{
-
-  }
-
-  if(valid){
-    document.getElementById("search_form").submit();
-  }else{
-
+    validateInput();
   }
 }
 
@@ -75,12 +60,12 @@ function showPosition(position)
 {
 	document.getElementById('lat').value=position.coords.latitude;
 	document.getElementById('long').value=position.coords.longitude;
-	document.getElementById("address").value="My location";
+  document.getElementById("address").value="My location";
 }
 
 function findLocation()
 {
-	var address = document.getElementById('address').value;
+  var address = document.getElementById('address').value;
   var geocoder = new google.maps.Geocoder();
 
 	geocoder.geocode({address: address}, function(results, status)
@@ -89,10 +74,8 @@ function findLocation()
 		{
       document.getElementById('lat').value=results[0].geometry.location.lat();
   		document.getElementById('long').value=results[0].geometry.location.lng();
-      dataValidation();
-		}else{
-      alert("Failed to retrieve coordinates of specified address.");
-    }
+		}
+    validateInput();
 	}
 	)
 }
@@ -101,7 +84,7 @@ function findLocation()
 
 <head>
 <title>HealthDome</title>
-
+<script src="datavalidation.js"></script>
 
 </head>
 
