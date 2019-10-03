@@ -37,22 +37,29 @@ function getPlaceData(){
 
   service.getDetails(request, function(result, status){
     if(status === google.maps.places.PlacesServiceStatus.OK){
-      /*if(result["photos"] && result["photos"].length>0)
-        document.getElementById(photoContainer).innerHTML = "<image class='hospital-photo' src="+result["photos"][0].getUrl()+">";
-      else
-        document.getElementById(photoContainer).innerHTML = "No photo available";*/
+      var photos = result["photos"];
+      var address = result["formatted_address"];
+      var contactNumber = result["international_phone_number"];
+      var website = result["website"];
+      var reviews = result["reviews"];
 
-      /*if(result["opening_hours"].length>0)
-        document.getElementById(photoContainer).innerHTML += "<image class='hospital-photo' src="+result["photos"][0].getUrl()+">";
-      else
-        document.getElementById(photoContainer).innerHTML = "No opening hours data available";*/
-      if(result["photos"] && result["photos"].length>0){
+      document.getElementById("hospital-info").innerHTML = "Contact: "+contactNumber+"<br>Address: "+address+"<br>Website: <a target='_blank' href='"+website+"'>"+website+"</a><br>Reviews: "+reviews.length;
+
+      if(photos && photos.length>0){
+        document.getElementById(photoContainer).innerHTML += '<div class="carousel-item active"><img class="d-block w-40" src="'+photos[0].getUrl()+'" alt="First slide"></div>';
+        for(var i=1;i<photos.length;i++)
+          document.getElementById(photoContainer).innerHTML += '<div class="carousel-item"><img class="d-block w-40" src="'+photos[i].getUrl()+'" alt="First slide"></div>';
+      }else{
+          document.getElementById(photoContainer).innerHTML += "No photos available for this hospital";
+      }
+
+      /*if(result["photos"] && result["photos"].length>0){
         document.getElementById(photoContainer).innerHTML += '<div class="carousel-item active"><img class="d-block w-40" src="'+result["photos"][0].getUrl()+'" alt="First slide"></div>';
         for(var i=1;i<result["photos"].length;i++)
           document.getElementById(photoContainer).innerHTML += '<div class="carousel-item"><img class="d-block w-40" src="'+result["photos"][i].getUrl()+'" alt="First slide"></div>';
       }else{
           document.getElementById(photoContainer).innerHTML += "No photos available for this hospital";
-      }
+      }*/
     }
   });
 }

@@ -15,7 +15,7 @@ if(!$conn){
 $hospitalID = $_POST["hosIdInput"];
 $code = $_POST["codeInput"];
 //this query is ruining everything
-$sql_query = "SELECT hos.providerId,f2017.code,providername,f2017.averageTotalPayments as '2017',f2016.averageTotalPayments as '2016',f2015.averageTotalPayments as '2015',f2014.averageTotalPayments as '2014',f2013.averageTotalPayments as '2013',f2012.averageTotalPayments as '2012',f2011.averageTotalPayments as '2011'
+$sql_query = "SELECT hos.providerId,f2017.code,providername,providerStreetAddress,f2017.averageTotalPayments as '2017',f2016.averageTotalPayments as '2016',f2015.averageTotalPayments as '2015',f2014.averageTotalPayments as '2014',f2013.averageTotalPayments as '2013',f2012.averageTotalPayments as '2012',f2011.averageTotalPayments as '2011'
 from 2019indteam2db.hosinfo hos
 left join 2019indteam2db.financial_info_2017 f2017
 on hos.providerId = f2017.providerId
@@ -115,6 +115,9 @@ mysqli_close($conn);
     <span class="carousel-control-next-icon" aria-hidden="true"></span>
     <span class="sr-only">Next</span>
   </a>
+</div>
+<div id="hospital-info">
+
 </div>
   <!-- Portfolio Item Row -->
   <div class="row">
