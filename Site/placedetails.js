@@ -47,9 +47,9 @@ function getPlaceData(){
       else
         document.getElementById(photoContainer).innerHTML = "No opening hours data available";*/
       if(result["photos"] && result["photos"].length>0){
-        document.getElementById(photoContainer).innerHTML += '<div class="carousel-item active"><img class="d-block w-100" src="'+result["photos"][0].getUrl()+'" alt="First slide"></div>';
+        document.getElementById(photoContainer).innerHTML += '<div class="carousel-item active"><img class="d-block w-40" src="'+result["photos"][0].getUrl()+'" alt="First slide"></div>';
         for(var i=1;i<result["photos"].length;i++)
-          document.getElementById(photoContainer).innerHTML += '<div class="carousel-item"><img class="d-block w-100" src="'+result["photos"][i].getUrl()+'" alt="First slide"></div>';
+          document.getElementById(photoContainer).innerHTML += '<div class="carousel-item"><img class="d-block w-40" src="'+result["photos"][i].getUrl()+'" alt="First slide"></div>';
       }else{
           document.getElementById(photoContainer).innerHTML += "No photos available for this hospital";
       }

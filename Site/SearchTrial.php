@@ -33,16 +33,18 @@ else{
 }
 if(isset($_POST["location_input"])){
 	$location = $_POST["location_input"];
-	$VINCENT = 1;
 }else{
 	unset($location);
 }
 
 if(isset($_POST["state_input"])){
 	$statecode = $_POST["state_input"];
-	$VINCENT = 0;
 }else{
 	unset($statecode);
+}
+
+if(isset($_POST["locselect"])){
+	$choice = $_POST["locselect"];
 }
 
 if (!empty($_POST["lat_input"])){
@@ -81,7 +83,7 @@ $result_code = mysqli_query($conn,$sql_code);
 if(!isset($_POST["state_input"])){
 	$sql_coord = "SELECT x.code,x.providerId,x.averageTotalPayments,providerName,latitude,longitude
 	FROM 2019indteam2db.financial_info_2017 x
-	inner join 2019indteam2db.hospital_information y
+	inner join 2019indteam2db.hosinfo y
 	ON x.providerId = y.providerId
 	and x.code = ".mysqli_fetch_array($result_code)["code"]."
 	and averageTotalPayments <".$price."
@@ -93,7 +95,7 @@ if(!isset($_POST["state_input"])){
 	$statecode = $_POST["state_input"];
 	$sql_coord = "SELECT x.code,x.providerId,x.averageTotalPayments,providerName,latitude,longitude
 	FROM 2019indteam2db.financial_info_2017 x
-	inner join 2019indteam2db.hospital_information y
+	inner join 2019indteam2db.hosinfo y
 	ON x.providerId = y.providerId
 	and x.code = ".mysqli_fetch_array($result_code)["code"]."
 	and averageTotalPayments <".$price."
@@ -125,8 +127,7 @@ mysqli_close($conn);
 <link href="Trial.css" rel="stylesheet" type="text/css">
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <script src="https://maps.googleapis.com/maps/api/js?key=&libraries=geometry" type="text/javascript"></script>
-<script src="rating.js"></script>
-            <script type="text/javascript">
+<script type="text/javascript">
 			var markers = [];
 			var actualLocation=[];
 			var i,j;
@@ -140,8 +141,8 @@ mysqli_close($conn);
 			var searchres;
 			var cityCircle;
 			var bool;
-			var choice = json_encode(<?php echo $VINCENT; ?>);
-            </script>
+			var choice = <?php echo $choice; ?>;
+</script>
 
 <script type="text/javascript" src="pagination.js"></script>
 <script type="text/javascript" src="rating.js"></script>
@@ -160,8 +161,12 @@ mysqli_close($conn);
 	   			<option value="priceHL">Price - High to Low</option>
 	   			<option value="ratingLH">Rating - Low to High</option>
 	   			<option value="ratingHL">Rating - High to Low</option>
-	   			<option value="distanceLH">Distance - Low to High</option>
-	   			<option value="distanceHL">Distance - High to Low</option>
+					<script>
+						if(choice==0){
+							document.write('<option value="distanceLH">Distance - Low to High</option>');
+			   			document.write('<option value="distanceHL">Distance - High to Low</option>');
+						}
+					</script>
 			</select>
 		</div>
 
@@ -255,10 +260,6 @@ mysqli_close($conn);
 							 radius: <?php echo($range);?>
 					 });
 
-
-
-				actualLocation = actualLocation.sort(function(a,b){return(a["averageTotalPayments"]-b["averageTotalPayments"])});//Sorts ascending
-
 			}
 			function assignLocations()
 			{
@@ -287,6 +288,7 @@ mysqli_close($conn);
 							counter++;
 					}
 				}
+				actualLocation.sort(function(a,b){return(a["averageTotalPayments"]-b["averageTotalPayments"])});//Sorts ascending
 			}
 
 

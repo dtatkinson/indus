@@ -82,7 +82,7 @@ mysqli_close($conn);
 
 
     <head>
-  
+
 
 </head>
 
@@ -180,7 +180,7 @@ mysqli_close($conn);
 					borderColor: ['rgb(255, 99, 132)','rgb(255, 99, 132)','rgb(255, 99, 132)','rgb(255, 99, 132)','rgb(255, 99, 132)','rgb(255, 99, 132)','rgb(255, 99, 132)','rgb(0, 255, 0)',],
 					fill: false,
 					data: [a, b, c, d, e, f, g,projectedval],
-					
+
 				}]
 			},
 

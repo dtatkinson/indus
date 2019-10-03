@@ -2,22 +2,24 @@
 var ratingFields, tempActualLocation, totalWeights;
 
 function addRatings(){
-  if(choice == 0)
+  alert(choice);
+  if(choice == 0){
     ratingFields = [
-       {field:"averageTotalPayments",weight:4,order:"dsc"},
-       {field:"center_distance",weight:3,order:"dsc"},
-       {field:"totalDischarges",weight:2,order:"dsc"}
+       {field:"averageTotalPayments",weight:3,order:"dsc"},
+       {field:"center_distance",weight:2,order:"dsc"},
+       {field:"totalDischarges",weight:1,order:"dsc"}
     ];
-  else
-  ratingFields = [
-     {field:"averageTotalPayments",weight:4,order:"dsc"},
-     {field:"totalDischarges",weight:2,order:"dsc"}
-  ];
+  }else{
+    ratingFields = [
+      {field:"averageTotalPayments",weight:3,order:"dsc"},
+       {field:"totalDischarges",weight:1,order:"dsc"}
+    ];
+  }
 
   tempActualLocation = Object.create(actualLocation);
    totalWeights = getTotalWeights();
    for(var i=0;i<actualLocation.length;i++){
-     actualLocation[i]["rating"] = getOverallRating(actualLocation[i])*10;
+     actualLocation[i]["rating"] = getOverallRating(actualLocation[i]);
    }
 }
 
@@ -27,16 +29,17 @@ function getOverallRating(hospital){
    for(var i=0;i<ratingFields.length;i++){
      overallRating += getSingleRating(hospital,ratingFields[i]);
    }
-
+   //alert(overallRating+"/"+totalWeights);
    return overallRating/totalWeights;
 }
 
 function getSingleRating(hospital,ratingField){
    sort(ratingField["field"],ratingField["order"]);
 
-   var singleRating =
-getPosition(tempActualLocation,hospital)/actualLocation.length*ratingField["weight"];
+   var position = getPosition(tempActualLocation,hospital);
 
+   var singleRating = position/actualLocation.length*ratingField["weight"]*10;
+   //alert(position/actualLocation.length);
    return singleRating;
 }
 

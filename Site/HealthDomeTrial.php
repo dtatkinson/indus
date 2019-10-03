@@ -128,11 +128,11 @@ function findLocation()
 
 							<div class="input-group-prepend">
 								<select class="custom-select mr-sm-2" name="locselect" id="locselect" onchange="locationChange()"value="1" aria-label="Location drop down selector." data-toggle="tooltip" title="Choose Search Type">
-									<option value="1"selected>Address</option>
+									<option value="1" selected>Address</option>
 									<option value="0">State</option>
 								</select>
 								<button type="button" data-toggle="tooltip" title="Get location automatically" class="btn btn-primary" onclick="getLocation()"><i class="fas fa-map-marked-alt"aria-label="Use Your own Location"></i></button>
-							
+
 
 
 							<input type="text" id="address" name="location_input" class="form-control" placeholder="24424 or 'California' " aria-label="Address input" aria-describedby="basic-addon1">
