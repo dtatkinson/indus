@@ -33,18 +33,16 @@ else{
 }
 if(isset($_POST["location_input"])){
 	$location = $_POST["location_input"];
+	$VINCENT = 1;
 }else{
 	unset($location);
 }
 
 if(isset($_POST["state_input"])){
 	$statecode = $_POST["state_input"];
+	$VINCENT = 0;
 }else{
 	unset($statecode);
-}
-
-if(isset($_POST["locselect"])){
-	$choice = $_POST["locselect"];
 }
 
 if (!empty($_POST["lat_input"])){
@@ -81,7 +79,7 @@ $sql_code = "SELECT * FROM 2019indteam2db.codes_info WHERE description LIKE '%".
 $result_code = mysqli_query($conn,$sql_code);
 
 if(!isset($_POST["state_input"])){
-	$sql_coord = "SELECT x.code,x.providerId,x.averageTotalPayments,providerName,latitude,longitude
+	$sql_coord = "SELECT x.code,x.providerId,x.averageTotalPayments,x.averageTotalPayments - x.averageMedicarePayments as 'Insured',providerName,latitude,longitude
 	FROM 2019indteam2db.financial_info_2017 x
 	inner join 2019indteam2db.hosinfo y
 	ON x.providerId = y.providerId
@@ -93,7 +91,7 @@ if(!isset($_POST["state_input"])){
 }elseif(isset($_POST["state_input"])){
 	$statesearch = true;
 	$statecode = $_POST["state_input"];
-	$sql_coord = "SELECT x.code,x.providerId,x.averageTotalPayments,providerName,latitude,longitude
+	$sql_coord = "SELECT x.code,x.providerId,x.averageTotalPayments,x.averageTotalPayments - x.averageMedicarePayments as 'Insured',providerName,latitude,longitude
 	FROM 2019indteam2db.financial_info_2017 x
 	inner join 2019indteam2db.hosinfo y
 	ON x.providerId = y.providerId
@@ -127,9 +125,9 @@ mysqli_close($conn);
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 <link href="Trial.css" rel="stylesheet" type="text/css">
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-
-<script src="https://maps.googleapis.com/maps/api/js?key=&libraries=geometry" type="text/javascript"></script>
-<script type="text/javascript">
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA1HSmQsuQWcE8yIghJrvXPMpZEh9l33hw&libraries=geometry" type="text/javascript"></script>
+<script src="rating.js"></script>
+            <script type="text/javascript">
 			var markers = [];
 			var actualLocation=[];
 			var i,j;
@@ -143,8 +141,8 @@ mysqli_close($conn);
 			var searchres;
 			var cityCircle;
 			var bool;
-			var choice = <?php echo $choice; ?>;
-</script>
+			var choice = json_encode(<?php echo $VINCENT; ?>);
+            </script>
 
 <script type="text/javascript" src="pagination.js"></script>
 <script type="text/javascript" src="rating.js"></script>
@@ -163,12 +161,8 @@ mysqli_close($conn);
 	   			<option value="priceHL">Price - High to Low</option>
 	   			<option value="ratingLH">Rating - Low to High</option>
 	   			<option value="ratingHL">Rating - High to Low</option>
-					<script>
-						if(choice==0){
-							document.write('<option value="distanceLH">Distance - Low to High</option>');
-			   			document.write('<option value="distanceHL">Distance - High to Low</option>');
-						}
-					</script>
+	   			<option value="distanceLH">Distance - Low to High</option>
+	   			<option value="distanceHL">Distance - High to Low</option>
 			</select>
 		</div>
 
@@ -262,6 +256,10 @@ mysqli_close($conn);
 							 radius: <?php echo($range);?>
 					 });
 
+
+
+				actualLocation = actualLocation.sort(function(a,b){return(a["averageTotalPayments"]-b["averageTotalPayments"])});//Sorts ascending
+
 			}
 			function assignLocations()
 			{
@@ -290,7 +288,6 @@ mysqli_close($conn);
 							counter++;
 					}
 				}
-				actualLocation.sort(function(a,b){return(a["averageTotalPayments"]-b["averageTotalPayments"])});//Sorts ascending
 			}
 
 
@@ -320,11 +317,11 @@ mysqli_close($conn);
 								});
 								if(<?php var_export(isset($_POST["location_input"])); ?> == true)
 								{
-									searchres.innerHTML += "<div class='card' value='i.value' onclick='show("+j+")'>"+"<div  class='card-body result-cards'>"+"<form id='map_form' action='MoreDetails.php' method='post' target='_blank'>"+ "<div class='card-header'>" + actualLocation[a]["providerName"] + "</div>"+"Average price: $" + actualLocation[a]["averageTotalPayments"] + "<br>Distance: " + Math.round(actualLocation[a]["center_distance"]*0.00062371) + " miles<br>"+"Rating: "+actualLocation[a]["rating"].toFixed(1)+"/10"+"<input type='text' hidden id='hosId' name='hosIdInput' class='form-control' value="+actualLocation[a]["providerId"]+">"+"<input type='text' hidden id='hosId' name='hosIdInput' class='form-control' value="+actualLocation[a]["providerId"]+">"+"<input type='text' hidden id='code' class='form-control' name='codeInput' value="+actualLocation[a]['code']+">"+"<button id='btmoredet' class='btn btn-primary'>More Details</button>"+"</form>"+ "</div>"+"</div>";
+									searchres.innerHTML += "<div class='card' value='i.value' onclick='show("+j+")'>"+"<div  class='card-body result-cards'>"+"<form id='map_form' action='MoreDetails.php' method='post' target='_blank'>"+ "<div class='card-header'>" + actualLocation[a]["providerName"] + "</div>"+ "Uninsured price: $" + actualLocation[a]["averageTotalPayments"] +"<br>Insured price: $"+actualLocation[a]["Insured"] +"<br>Distance: " + Math.round(actualLocation[a]["center_distance"]*0.00062371) + " miles<br>"+"Rating: "+actualLocation[a]["rating"].toFixed(1)+"/10"+"<input type='text' hidden id='hosId' name='hosIdInput' class='form-control' value="+actualLocation[a]["providerId"]+">"+"<input type='text' hidden id='hosId' name='hosIdInput' class='form-control' value="+actualLocation[a]["providerId"]+">"+"<input type='text' hidden id='code' class='form-control' name='codeInput' value="+actualLocation[a]['code']+">"+"<button id='btmoredet' class='btn btn-primary'>More Details</button>"+"</form>"+ "</div>"+"</div>";
 								}
 								else
 								{
-									searchres.innerHTML += "<div class='card' value='i.value' onclick='show("+j+")'>"+"<div  class='card-body result-cards'>"+"<form id='map_form' action='MoreDetails.php' method='post' target='_blank'>"+ "<div class='card-header'>" + actualLocation[a]["providerName"] + "</div>"+"Average price: $" + actualLocation[a]["averageTotalPayments"] +"<br>"+"Rating: "+actualLocation[a]["rating"].toFixed(1)+"/10"+"<input type='text' hidden id='hosId' name='hosIdInput' class='form-control' value="+actualLocation[a]["providerId"]+">"+"<input type='text' hidden id='hosId' name='hosIdInput' class='form-control' value="+actualLocation[a]["providerId"]+">"+"<input type='text' hidden id='code' class='form-control' name='codeInput' value="+actualLocation[a]['code']+">"+"<button class='btn btn-primary'>More Details</button>"+"</form>"+ "</div>"+"</div>";
+									searchres.innerHTML += "<div class='card' value='i.value' onclick='show("+j+")'>"+"<div  class='card-body result-cards'>"+"<form id='map_form' action='MoreDetails.php' method='post' target='_blank'>"+ "<div class='card-header'>" + actualLocation[a]["providerName"] + "</div>"+"Uninsured price: $" + actualLocation[a]["averageTotalPayments"]+"<br>Insured price: $"+actualLocation[a]["Insured"]  +"<br>"+"Rating: "+actualLocation[a]["rating"].toFixed(1)+"/10"+"<input type='text' hidden id='hosId' name='hosIdInput' class='form-control' value="+actualLocation[a]["providerId"]+">"+"<input type='text' hidden id='hosId' name='hosIdInput' class='form-control' value="+actualLocation[a]["providerId"]+">"+"<input type='text' hidden id='code' class='form-control' name='codeInput' value="+actualLocation[a]['code']+">"+"<button id='btmoredet' class='btn btn-primary'>More Details</button>"+"</form>"+ "</div>"+"</div>";
 
 								}
 			j++;
