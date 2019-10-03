@@ -62,6 +62,7 @@ mysqli_close($conn);
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 <link href="Trial.css" rel="stylesheet" type="text/css">
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<script src="https://maps.googleapis.com/maps/api/js?key=&libraries=places" type="text/javascript"></script>
   <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
   <script src="https://kit.fontawesome.com/caf1c83931.js" crossorigin="anonymous"></script>
   <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
@@ -191,7 +192,7 @@ mysqli_close($conn);
 		});
 </script>
 <script type="text/javascript">
-		getPlaceDetails(financial_info[0]["providername"]+" "+financial_info[0]["providerStreetAddress"]+" "+financial_info[0]["providerCity"]);
+		getPlaceDetails(financial_info[0]["providername"]+" "+financial_info[0]["providerStreetAddress"]);
 		</script>
 
 
