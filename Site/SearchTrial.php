@@ -33,16 +33,18 @@ else{
 }
 if(isset($_POST["location_input"])){
 	$location = $_POST["location_input"];
-	$VINCENT = 1;
 }else{
 	unset($location);
 }
 
 if(isset($_POST["state_input"])){
 	$statecode = $_POST["state_input"];
-	$VINCENT = 0;
 }else{
 	unset($statecode);
+}
+
+if(isset($_POST["locselect"])){
+	$choice = $_POST["locselect"];
 }
 
 if (!empty($_POST["lat_input"])){
@@ -125,8 +127,7 @@ mysqli_close($conn);
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 <link href="Trial.css" rel="stylesheet" type="text/css">
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA1HSmQsuQWcE8yIghJrvXPMpZEh9l33hw&libraries=geometry" type="text/javascript"></script>
-<script src="rating.js"></script>
+<script src="https://maps.googleapis.com/maps/api/js?key=&libraries=geometry" type="text/javascript"></script>
             <script type="text/javascript">
 			var markers = [];
 			var actualLocation=[];
@@ -141,7 +142,7 @@ mysqli_close($conn);
 			var searchres;
 			var cityCircle;
 			var bool;
-			var choice = json_encode(<?php echo $VINCENT; ?>);
+			var choice = <?php echo $choice; ?>;
             </script>
 
 <script type="text/javascript" src="pagination.js"></script>
@@ -157,12 +158,18 @@ mysqli_close($conn);
 	<div class="resultmanager">
 		<div class="sorting-container">
 			<select class="sorting-list mr-sm-2" id="sort_select" onchange="sortHospitals()" aria-label="Sorting Selector">
-				<option value="priceLH">Price - Low to High</option>
-	   			<option value="priceHL">Price - High to Low</option>
-	   			<option value="ratingLH">Rating - Low to High</option>
-	   			<option value="ratingHL">Rating - High to Low</option>
+				<option value="upriceLH">Uninsured price - Low to High</option>
+   			<option value="upriceHL">Uninsured price - High to Low</option>
+				<option value="ipriceLH">Insured price - Low to High</option>
+   			<option value="ipriceHL">Insured price - High to Low</option>
+   			<option value="ratingLH">Rating - Low to High</option>
+   			<option value="ratingHL">Rating - High to Low</option>
+				<script type="text/javascript">
+				if(choice==1){
 	   			<option value="distanceLH">Distance - Low to High</option>
 	   			<option value="distanceHL">Distance - High to Low</option>
+				}
+				</script>
 			</select>
 		</div>
 
@@ -199,11 +206,17 @@ mysqli_close($conn);
 				var sortValue = document.getElementById("sort_select").value;
 
 				switch(sortValue){
-					case "priceLH":
+					case "upriceLH":
 						actualLocation = actualLocation.sort(function(a,b){return(a["averageTotalPayments"]-b["averageTotalPayments"])});
 						break;
-					case "priceHL":
+					case "upriceHL":
 						actualLocation = actualLocation.sort(function(a,b){return(b["averageTotalPayments"]-a["averageTotalPayments"])});
+						break;
+					case "ipriceLH":
+						actualLocation = actualLocation.sort(function(a,b){return(a["Insured"]-b["Insured"])});
+						break;
+					case "ipriceHL":
+						actualLocation = actualLocation.sort(function(a,b){return(b["Insured"]-a["Insured"])});
 						break;
 					case "ratingLH":
 						actualLocation = actualLocation.sort(function(a,b){return(a["rating"]-b["rating"])});
@@ -256,10 +269,6 @@ mysqli_close($conn);
 							 radius: <?php echo($range);?>
 					 });
 
-
-
-				actualLocation = actualLocation.sort(function(a,b){return(a["averageTotalPayments"]-b["averageTotalPayments"])});//Sorts ascending
-
 			}
 			function assignLocations()
 			{
@@ -288,6 +297,7 @@ mysqli_close($conn);
 							counter++;
 					}
 				}
+				actualLocation.sort(function(a,b){return(a["averageTotalPayments"]-b["averageTotalPayments"])});//Sorts ascending
 			}
 
 

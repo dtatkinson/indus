@@ -70,7 +70,6 @@ mysqli_close($conn);
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
   <script type="text/javascript" src="placedetails.js"></script>
-  <script src="https://maps.googleapis.com/maps/api/js?key=&libraries=places" type="text/javascript"></script>
 <script type="text/javascript" src="projected.js"></script>
 
 <script  type="text/javascript">

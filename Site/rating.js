@@ -2,7 +2,6 @@
 var ratingFields, tempActualLocation, totalWeights;
 
 function addRatings(){
-  alert(choice);
   if(choice == 0){
     ratingFields = [
        {field:"averageTotalPayments",weight:3,order:"dsc"},
@@ -29,7 +28,6 @@ function getOverallRating(hospital){
    for(var i=0;i<ratingFields.length;i++){
      overallRating += getSingleRating(hospital,ratingFields[i]);
    }
-   //alert(overallRating+"/"+totalWeights);
    return overallRating/totalWeights;
 }
 
