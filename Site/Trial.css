@@ -228,12 +228,16 @@ overflow-x: hidden;
 margin-left:15%;
 }
 
-
+.hospital-info
+{
+float:right;  
+}
 
 .d-block
 {
-	max-height:40vh;
-	max-width:40vw;
+	margin-right:0px;
+	max-height:60vh;
+	width:100%;
 }
 
 #locselect
@@ -258,7 +262,7 @@ width:100%;
 }
 .chartjs
 {
-	width:100vw;
+	width:70vw;
 	height:70vh;
 	
 }
@@ -301,11 +305,24 @@ width:100%;
 }
 #map
 {
-	display:block;
-	width:69vw;
-	height:50vh;
-	left:31%;
+	display:absolute;
+	width:100vw;
+	height:40vh;
+	left:0%;
 
 }
-
+.resultmanager
+{
+	width:95vw;
+	position:absolute;
+	top:50vh;
+	height:10vh;
+}
+.resultholder
+{
+	position:relative;
+	top:55vh;
+	width:100vw;
+	height:40vh;
+}
 }

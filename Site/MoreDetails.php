@@ -59,7 +59,7 @@ while($row = mysqli_fetch_array($result_Information))
 mysqli_close($conn);
 ?>
 <html>
-
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 <link href="Trial.css" rel="stylesheet" type="text/css">
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
@@ -97,11 +97,11 @@ mysqli_close($conn);
 <div class="container">
 
   <!-- Portfolio Item Heading -->
-  <h1 class="my-4">More Information<br>
+  <h3 class="my-4">More Information<br>
     <small>
 	<script>document.write(financial_info[0]["providername"])</script>
 	</small>
-  </h1>
+  </h3>
 
 <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
   <div class="carousel-inner" id="carousel-inner">
@@ -118,9 +118,7 @@ mysqli_close($conn);
   </a>
 </div>
 
-<div id="hospital-info">
 
-</div>
   <!-- Portfolio Item Row -->
   <div class="row">
 
@@ -154,8 +152,12 @@ mysqli_close($conn);
       <ul>
 
       </ul>
+<div class="col-md-4">
+<br>
+<div id="hospital-info">
 
-
+</div>
+</div>
   </div>
 
 <div hidden id="map">
@@ -198,7 +200,8 @@ mysqli_close($conn);
 					borderColor: ['rgb(0, 0, 255)','rgb(0, 0, 255)','rgb(0, 0, 255)','rgb(0, 0, 255)','rgb(0, 0, 255)','rgb(0, 0, 255)','rgb(0, 0, 255)','rgb(255, 0, 0)',],		
 					fill: false,
 					data: [ai, bi, ci, di, ei, fi, gi,projectedvali]
-			}]
+			}
+		]
 		},
 		options: {
 				maintainAspectRatio: true,
