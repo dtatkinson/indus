@@ -1,5 +1,6 @@
 var mapContainer = "map";
 var photoContainer = "photo-container";
+//Unused 
 function getPhotos(hospitalname){
     //Remove the map object and replace with the actual object
     map = new google.maps.Map(

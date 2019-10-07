@@ -1,9 +1,9 @@
-var valid_numbers = "012345679";
+var valid_numbers = "0123456789";
 var valid_chars_injury = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789:/ ";
 var valid_chars_address = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789 ";
 
 function validateInput(){
-
+  
   var valid = true;
   var searchType = document.getElementById("locselect").value;
   var address = document.getElementById("address").value;
@@ -11,7 +11,7 @@ function validateInput(){
   var injury = document.getElementsByName("injury_input")[0].value;
   var issues = "Please fix the following issues before continuing:";
   var searchType = document.getElementById("locselect").value;
-
+  
   //Injury
   if(!searchedwords.includes(injury) || injury == ""){
     valid = false;
@@ -37,7 +37,7 @@ function validateInput(){
   }
 
   //Price
-  if(!validate(price,valid_numbers)){
+  if(price && !validate(price,valid_numbers)){
     valid = false;
     issues += "\n-You must enter a valid maximum price";
   }

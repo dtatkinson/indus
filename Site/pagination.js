@@ -1,7 +1,7 @@
 var current_page = 1;
 var records_per_page = 10;
 
-
+//function called when previous button is clicked loads previous page of data
 function prevPage()
 {
     if (current_page > 1) {
@@ -12,6 +12,7 @@ function prevPage()
 
 }
 
+//function called when next button is clicked loads next page of data
 function nextPage()
 {
 
@@ -23,6 +24,7 @@ function nextPage()
 
 }
 
+//actual function to change 
 function changePage(page)
 {
     var btn_next = document.getElementById("btn_next");
@@ -59,6 +61,7 @@ function test()
     alert("test");
 }
 
+//rounds a  number to next whole number
 function numPages()
 {
     return Math.ceil(actualLocation.length / records_per_page);

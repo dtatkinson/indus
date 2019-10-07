@@ -16,8 +16,8 @@ if(!$conn){
 
 //echo "connected <br>";
 
-//Get user input from the search page
-//re-add range and medicare after client meeting
+//checks which data has been posted from the healthdometrial page
+//explode splits code from description 
 if(!empty($injurys = $_POST["injury_input"])){
 	$injurys = $_POST["injury_input"];
 	$pieces = explode(":",$injurys);
@@ -66,7 +66,6 @@ if(!empty($_POST["medicare_input"])){
 }
 
 //query stuff
-//hardcoded input, this will need to change so user inoput is taken
 $description = "other";
 //var storing the query
 $sql_code = "SELECT * FROM 2019indteam2db.codes_info WHERE description LIKE '%".$injury."%';";
@@ -194,7 +193,7 @@ mysqli_close($conn);
 	<div id="map"></div>
 
 	<script type="text/javascript">
-
+//sort the array 
 			function sortHospitals(){
 
 				var sortValue = document.getElementById("sort_select").value;
@@ -228,7 +227,7 @@ mysqli_close($conn);
 				clearHospitals();
 				display();
 			}
-
+//changes the number of cards and markers on a map at one time
 				function numOfEntries()
 					{
 					var entries = document.getElementById("num_of_entries").value;
@@ -236,11 +235,11 @@ mysqli_close($conn);
 					clearHospitals();
 					display();
 					}
-
+//wipe the div
 			function clearHospitals(){
 				document.getElementById("searchres").innerHTML = "";
 			}
-
+//create the basic map
 			function mapInit()
 			{
 					 map = new google.maps.Map(document.getElementById('map'),
@@ -250,6 +249,7 @@ mysqli_close($conn);
 						mapTypeId: google.maps.MapTypeId.ROADMAP
 					});
 			}
+			//create a circle for radius searching
 			function circleInit()
 			{
 				cityCircle = new google.maps.Circle({
@@ -264,6 +264,7 @@ mysqli_close($conn);
 					 });
 
 			}
+			//place markers on the map if inside the circle 
 			function assignLocations()
 			{
 
@@ -294,7 +295,7 @@ mysqli_close($conn);
 				actualLocation.sort(function(a,b){return(a["averageTotalPayments"]-b["averageTotalPayments"])});//Sorts ascending
 			}
 
-
+//function to create cards and display them in the div
 				function display()
 				{
 				searchres = document.getElementById("searchres");
@@ -347,14 +348,14 @@ mysqli_close($conn);
 						markers.push(marker);
 					}
 			}
-
+//open a info box when clicked 
   	function show(id)
 	  {
             google.maps.event.trigger(markers[id], 'click');
       }
 
 
-
+//loads the scripts 
 window.onload =function start()
 {
 	mapInit();

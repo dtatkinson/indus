@@ -1,6 +1,6 @@
 
 var ratingFields, tempActualLocation, totalWeights;
-
+//function that add our personal rating to the hospital array
 function addRatings(){
   if(choice == 0){
     ratingFields = [
@@ -21,7 +21,7 @@ function addRatings(){
      actualLocation[i]["rating"] = getOverallRating(actualLocation[i]);
    }
 }
-
+//calculates general rating 
 function getOverallRating(hospital){
    var overallRating = 0;
 
@@ -30,7 +30,7 @@ function getOverallRating(hospital){
    }
    return overallRating/totalWeights;
 }
-
+//calculates the rating of a single field
 function getSingleRating(hospital,ratingField){
    sort(ratingField["field"],ratingField["order"]);
 
@@ -40,14 +40,14 @@ function getSingleRating(hospital,ratingField){
    //alert(position/actualLocation.length);
    return singleRating;
 }
-
+//sorts the hospitals 
 function sort(field,order){
    if(order=="asc")
 tempActualLocation.sort(function(a,b){return(a[field]-b[field])});
    else
 tempActualLocation.sort(function(a,b){return(b[field]-a[field])});
 }
-
+//gets the position of the hospital in the array 
 function getPosition(tempActualLocation,hospital){
    var counter = 1;
    for(var i=0;i<tempActualLocation.length;i++){
@@ -59,7 +59,7 @@ if(tempActualLocation[i]["providerName"]==hospital["providerName"])
    //document.write(hospital["name"]+" position is "+counter+"<br>");
    return counter
 }
-
+//calculates the total weights 
 function getTotalWeights(){
    var tWeights = 0;
    for(var i=0;i<ratingFields.length;i++){

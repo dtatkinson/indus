@@ -1,12 +1,13 @@
 var projected, avg, projectedval, projectedvali;
 var pera, perb, perc, perd, pere, perf;
+//calculates the percent change in price between two years 
 function getPercent(yeara,yearb){
     var projected;
     projected = (yeara/yearb)*100;
     projected = 100-projected;
     return projected;
 }
-
+//creates projected price based off previous data for uninsured 
 function calculate(){
     
     //pera = getPercent(a,b);
@@ -23,6 +24,7 @@ function calculate(){
     projectedval = projectedval.toFixed(2);
 
 }
+//creates projected price based off previous data for insured 
 function calculatei(){
     
     //pera = getPercent(a,b);

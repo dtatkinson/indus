@@ -21,6 +21,7 @@
         });
     });
 
+	//html geolocation
 	function getLocation()
 	{
     if (navigator.geolocation) {
@@ -31,6 +32,7 @@
     	x.innerHTML = "Geolocation is not supported by this browser.";
   	}
 	}
+
 
 function findAddress(){
   //Clear the lat and long fields
@@ -56,6 +58,7 @@ function findAddress(){
   }
 }
 
+//put location into hidden boxes
 function showPosition(position)
 {
 	document.getElementById('lat').value=position.coords.latitude;
@@ -63,6 +66,7 @@ function showPosition(position)
   document.getElementById("address").value="My location";
 }
 
+//call the google api to find lat and long based on input
 function findLocation()
 {
   var address = document.getElementById('address').value;
@@ -178,6 +182,7 @@ function findLocation()
 
 						</div>
 									<script>
+									//determine if address or state search has been selected
 										function locationChange() {
 
 										var choice = document.getElementById("locselect").value;

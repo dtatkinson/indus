@@ -14,7 +14,7 @@ if(!$conn){
 //echo "connected <br>";
 $hospitalID = $_POST["hosIdInput"];
 $code = $_POST["codeInput"];
-//this query is ruining everything
+//query to return specific hospital with financial data 
 $sql_query = "SELECT hos.providerId,f2017.code,providername,providerStreetAddress,f2017.averageTotalPayments as '2017',f2016.averageTotalPayments as '2016',f2015.averageTotalPayments as '2015',f2014.averageTotalPayments as '2014',f2013.averageTotalPayments as '2013',f2012.averageTotalPayments as '2012',f2011.averageTotalPayments as '2011',f2017.averageTotalPayments-f2017.averageMedicarePayments as '2017IN',f2016.averageTotalPayments-f2016.averageMedicarePayments as '2016IN',f2015.averageTotalPayments-f2015.averageMedicarePayments as '2015IN',f2014.averageTotalPayments-f2014.averageMedicarePayments as '2014IN',f2013.averageTotalPayments-f2013.averageMedicarePayments as '2013IN',f2012.averageTotalPayments-f2012.averageMedicarePayments as '2012IN',f2011.averageTotalPayments-f2011.averageMedicarePayments as '2011IN'
 from 2019indteam2db.hosinfo hos
 left join 2019indteam2db.financial_info_2017 f2017
@@ -49,6 +49,7 @@ order by f2017.code desc
 limit 1
 ;";
 
+//run the query
 $result_Information = mysqli_query($conn,$sql_query);
 
 $results_Information = [];
@@ -96,7 +97,6 @@ mysqli_close($conn);
 
 <div class="container">
 
-  <!-- Portfolio Item Heading -->
   <h3 class="my-4">More Information<br>
     <small>
 	<script>document.write(financial_info[0]["providername"])</script>
@@ -119,7 +119,6 @@ mysqli_close($conn);
 </div>
 
 
-  <!-- Portfolio Item Row -->
   <div class="row">
 
     <div class="col-md-8">
@@ -137,7 +136,6 @@ mysqli_close($conn);
       <h3 class="my-3">
 	  <div class="pictureinfo">
 		<script type="text/javascript">
-		//document.write(financial_info[0]["providername"]+ "</h3>" + "<p>" + "Table of average prices over the last x years" + "</p>");
 
 
 		</script>
@@ -164,6 +162,7 @@ mysqli_close($conn);
 
 </div>
 <script type="text/javascript">
+//sets the insured and uninsured prices 
 	var a = parseFloat(financial_info[0]['2011']);
 	var b = parseFloat(financial_info[0]['2012']);
 	var c = parseFloat(financial_info[0]['2013']);
@@ -179,16 +178,17 @@ mysqli_close($conn);
 	var ei = parseFloat(financial_info[0]['2015IN']);
 	var fi = parseFloat(financial_info[0]['2016IN']);
 	var gi = parseFloat(financial_info[0]['2017IN']);
+	//calculate the projected values
 	calculate();
 	calculatei();
-	//alert(projectedval);
+	//creates the chart
 		var ctx = document.getElementById('myChart').getContext('2d');
 		var chart = new Chart(ctx,{
 			type: 'line',
 			data: {
 				labels: ['2011', '2012', '2013', '2014', '2015', '2016', '2017','2018 PROJECTED'],
 				datasets: [{
-					label: 'Average Price ($)',
+					label: 'Average Price - Uninsured ($)',
 					backgroundColor: 'rgb(255, 0, 0)',
 					borderColor: ['rgb(255, 0, 0)','rgb(255, 0, 0)','rgb(255, 0, 0)','rgb(255, 0, 0)','rgb(255, 0, 0)','rgb(255, 0, 0)','rgb(255, 0, 0)','rgb(0, 255, 0)',],
 					fill: false,
@@ -202,26 +202,26 @@ mysqli_close($conn);
 					data: [ai, bi, ci, di, ei, fi, gi,projectedvali]
 			}
 		]
-		},
+		},//allow for the graph to be resized 
 		options: {
 				maintainAspectRatio: true,
 				responsive:false,
 			}
 		});
-			// The type of chart we want to create
 
-			// The data for our dataset
 
 
 
 </script>
 <script type="text/javascript">
+//gets information from the google places api
 		getPlaceDetails(financial_info[0]["providername"]+" "+financial_info[0]["providerStreetAddress"]+" "+financial_info[0]["providerCity"]);
 		</script>
 
 
 
     <script type ="text/javascript">
+	//runs spinner before more information is loaded 
  window.onload = function(){
  document.getElementById("spinner").hidden = true;}
 </script>

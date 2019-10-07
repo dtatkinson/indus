@@ -2,6 +2,7 @@ var mapContainer = "map";
 var photoContainer = "carousel-inner";
 var map, service, placeId, placeRating,hospitalName;
 
+//main function to call places api 
 function getPlaceDetails(hospitalName){
   this.hospitalName = hospitalName;
   map = new google.maps.Map(
@@ -11,6 +12,7 @@ function getPlaceDetails(hospitalName){
   getPlaceId();
 }
 
+//gets the placeID
 function getPlaceId(){
   var request = {
     query: hospitalName
@@ -26,7 +28,7 @@ function getPlaceId(){
     }
   });
 }
-
+//Gets all information from google 
 function getPlaceData(){
 
   var request = {
